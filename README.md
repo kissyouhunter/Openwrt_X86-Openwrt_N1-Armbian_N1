@@ -17,6 +17,12 @@ adguardhome已内置好DNS和广告过滤，下载好核心后开启即可。
 
 adguardhome ID: root Password: password
 
+N1固件分为带docker和不带docker的版本，请根据需求食用。
+
+由于编译内核的不同，如升级emmc里的固件请用releases里的update-amlogic-openwrt.sh文件
+
+将update-amlogic-openwrt.sh和****.
+
 
 Armbian_N1:
 
