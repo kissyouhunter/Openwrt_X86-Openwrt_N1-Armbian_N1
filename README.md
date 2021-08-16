@@ -27,7 +27,11 @@ ssh连接n1或ttyd输入如下命令：
 
 cd /mnt/mmcblk2p4/ && chmod 755 update-amlogic-openwrt.sh
 
-./update-amlogic-openwrt.sh openwrt_**********.img  #img文字名请自行输入
+./update-amlogic-openwrt.sh 文件名.img  #img文字名请自行输入
+
+跑码过程中都有中文提示，请根据提示操作即可。
+
+系统重启后使用命令 rm -rf /mnt/mmcblk2p4/文件名img 删除  #img文字名请自行输入
 
 *注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件*
 
