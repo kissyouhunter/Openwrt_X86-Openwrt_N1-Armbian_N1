@@ -21,7 +21,8 @@ N1固件分为带docker和不带docker的版本，请根据需求食用。
 
 由于编译内核的不同，如升级emmc里的固件请用releases里的update-amlogic-openwrt.sh文件
 
-将update-amlogic-openwrt.sh和****.
+将update-amlogic-openwrt.sh和img文件上传至/mnt/mmcblk2p4分区
+ssh连接n1或ttyd输入一下命令
 
 
 Armbian_N1:
