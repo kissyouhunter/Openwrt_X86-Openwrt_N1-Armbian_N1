@@ -4,7 +4,7 @@
 
 # Openwrt_X86:
 
-·IP: 192.168.2.3 ID: root Password: password
+IP: 192.168.2.3 ID: root Password: password
 
 adguardhome已内置好DNS和广告过滤，下载好核心后开启即可。
 
