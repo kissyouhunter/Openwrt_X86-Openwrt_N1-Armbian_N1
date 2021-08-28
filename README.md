@@ -4,7 +4,7 @@
 
 ___
 
-# Openwrt_X86:
+## Openwrt_X86:
 
 * IP: 192.168.2.3 ID: root Password: password
 
@@ -18,7 +18,7 @@ ___
 
 ___
 
-# Openwrt_N1:
+## Openwrt_N1:
 
 * IP: 192.168.2.4 ID: root Password: password
 
@@ -46,7 +46,7 @@ ___
 
 ___
 
-# Armbian_N1:
+## Armbian_N1:
 
 * ID: root Password: 1234
 
