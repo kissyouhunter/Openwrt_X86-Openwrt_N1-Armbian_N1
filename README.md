@@ -1,6 +1,6 @@
 # Openwrt_X86-Openwrt_N1-Armbian_N1
 
-Openwrt_X86:
+# Openwrt_X86:
 
 IP: 192.168.2.3 ID: root Password: password
 
@@ -10,7 +10,9 @@ adguardhome ID: root Password: password
 
 x86固件分为带docker和不带docker的版本，请根据需求食用。
 
-Openwrt_N1:
+
+
+# Openwrt_N1:
 
 IP: 192.168.2.4 ID: root Password: password
 
@@ -36,7 +38,7 @@ cd /mnt/mmcblk2p4/ && chmod 755 update-amlogic-openwrt.sh
 
 *注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件*
 
-Armbian_N1:
+# Armbian_N1:
 
 ID: root Password: 1234
 
