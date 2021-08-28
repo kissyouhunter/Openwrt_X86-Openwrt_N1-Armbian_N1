@@ -8,6 +8,7 @@ adguardhome已内置好DNS和广告过滤，下载好核心后开启即可。
 
 adguardhome ID: root Password: password
 
+x86固件分为带docker和不带docker的版本，请根据需求食用。
 
 Openwrt_N1:
 
