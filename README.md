@@ -12,7 +12,7 @@ adguardhome ID: root Password: password
 
 x86固件分为带docker和不带docker的版本，请根据需求食用。
 
-*注：5.10内核的ip为192.168.2.5*
+***注：5.10内核的ip为192.168.2.5***
 
 # Openwrt_N1:
 
@@ -38,7 +38,7 @@ cd /mnt/mmcblk2p4/ && chmod 755 update-amlogic-openwrt.sh
 
 系统重启后使用命令 rm -rf /mnt/mmcblk2p4/文件名img 删除  #img文字名请自行输入
 
-*注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件*
+***注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件***
 
 # Armbian_N1:
 
