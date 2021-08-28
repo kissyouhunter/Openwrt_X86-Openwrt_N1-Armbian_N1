@@ -2,6 +2,8 @@
 
 * 所有固件都标注了核心版本
 
+___
+
 # Openwrt_X86:
 
 * IP: 192.168.2.3 ID: root Password: password
