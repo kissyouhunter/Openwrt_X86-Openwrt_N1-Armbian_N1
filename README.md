@@ -1,6 +1,6 @@
 # Openwrt_X86-Openwrt_N1-Armbian_N1
 
-所有固件都标注了核心版本
+* 所有固件都标注了核心版本
 
 # Openwrt_X86:
 
