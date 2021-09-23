@@ -44,7 +44,7 @@ TIME() {
         curl -LO $url/$Firmware
 		wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
-        gzip -d *.img.gz && rm -r *.img.gz
+        gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
         chmod 755 update-amlogic-openwrt.sh
         bash update-amlogic-openwrt.sh $img
@@ -62,7 +62,7 @@ TIME() {
         curl -LO $url/$Firmware
 		wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
-        gzip -d *.img.gz && rm -r *.img.gz
+        gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
         chmod 755 update-amlogic-openwrt.sh
         bash update-amlogic-openwrt.sh $img
@@ -80,7 +80,7 @@ TIME() {
         curl -LO $url/$Firmware
 		wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
-        gzip -d *.img.gz && rm -r *.img.gz
+        gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
         chmod 755 update-amlogic-openwrt.sh
         bash update-amlogic-openwrt.sh $img
@@ -98,7 +98,7 @@ TIME() {
         curl -LO $url/$Firmware
 		wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
-        gzip -d *.img.gz && rm -r *.img.gz
+        gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
         chmod 755 update-amlogic-openwrt.sh
         bash update-amlogic-openwrt.sh $img
