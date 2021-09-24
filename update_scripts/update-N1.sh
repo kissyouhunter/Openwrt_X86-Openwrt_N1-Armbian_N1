@@ -28,7 +28,7 @@ TIME() {
 	echo
 	TIME g "[4] 更新至 内核 5.4.148 版本"
 	echo
-	TIME g "[0] 不知道选啥就按0看看会有啥惊喜没"
+	TIME g "[0] 不知道选啥就按0看看会有啥惊喜没?"
 	TIME g "---------------------------------------------------"
 	read -p " 请输入您的选择 然后 敲回车确认： " CHOOSE
 	case $CHOOSE in
@@ -36,7 +36,7 @@ TIME() {
 	echo
 	TIME y "[1] 更新至 内核 5.14.7 版本"
         cd /mnt/mmcblk2p4
-        rm -rf update-*.sh Armbian_*
+        rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.148_5.10.68_5.14.7
         Firmware=openwrt_s905d_n1_R21.9.18_k5.14.7-kissyouhunter-docker.img.gz
         img=openwrt_s905d_n1_R21.9.18_k5.14.7-kissyouhunter-docker.img
@@ -54,7 +54,7 @@ TIME() {
 	echo
 	TIME y "[2] 更新至 内核 5.13.19 版本"
         cd /mnt/mmcblk2p4
-        rm -rf update-*.sh Armbian_*
+        rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.10.67_5.13.19_5.14.6
         Firmware=openwrt_s905d_n1_R21.9.18_k5.13.19-kissyouhunter-docker.img.gz
         img=openwrt_s905d_n1_R21.9.18_k5.13.19-kissyouhunter-docker.img
@@ -72,7 +72,7 @@ TIME() {
 	echo
 	TIME y "[3] 更新至 内核 5.10.68 版本"
         cd /mnt/mmcblk2p4
-        rm -rf update-*.sh Armbian_*
+        rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.148_5.10.68_5.14.7
         Firmware=openwrt_s905d_n1_R21.9.18_k5.10.68-kissyouhunter-docker.img.gz
         img=openwrt_s905d_n1_R21.9.18_k5.10.68-kissyouhunter-docker.img
@@ -90,7 +90,7 @@ TIME() {
 	echo
 	TIME y "[4] 更新至 内核 5.4.148 版本"
         cd /mnt/mmcblk2p4
-        rm -rf update-*.sh Armbian_*
+        rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.148_5.10.68_5.14.7
         Firmware=openwrt_s905d_n1_R21.9.18_k5.4.148-kissyouhunter-docker.img.gz
         img=openwrt_s905d_n1_R21.9.18_k5.4.148-kissyouhunter-docker.img
