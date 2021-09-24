@@ -26,7 +26,7 @@ ___
 
 * adguardhome ID: root Password: password wifi password: password
 
-* 一键升级命令 bash <curl -s -S -L https://git.io/update-N1) （测试中）
+* 一键升级命令 bash <(curl -s -S -L https://git.io/update-N1) （测试中）
 
 * N1固件分为带docker和不带docker的版本，请根据需求食用。
 
