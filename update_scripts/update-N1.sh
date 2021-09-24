@@ -1,5 +1,7 @@
 #/bin/bash
 
+
+#bash <(curl -s -S -L https://git.io/Phicomm-n1_update)
 TIME() {
 [[ -z "$1" ]] && {
 	echo -ne " "
