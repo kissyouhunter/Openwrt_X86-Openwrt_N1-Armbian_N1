@@ -2,6 +2,8 @@
 
 * 所有固件都标注了核心版本
 
+* 插件列表 https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/blob/main/lists.png
+
 ___
 
 ## Openwrt_X86:
