@@ -26,9 +26,15 @@ ___
 
 * adguardhome ID: root Password: password wifi password: password
 
-* 一键升级命令 bash <(curl -s -S -L https://git.io/update-N1) （测试中）
-
 * N1固件分为带docker和不带docker的版本，请根据需求食用。
+
+# 升级方式一：
+
+* 一键升级命令 bash <(curl -s -S -L https://git.io/update-N1) （带docker版本）
+
+* 根据命令操作就可以，强烈推荐，保证/mnt/mmcblk2p4/分区剩余空间1G以上。
+
+# 升级方式二：
 
 * 由译内核的不同，如升级emmc里的固件请用releases里的update-amlogic-openwrt.sh文件
 
