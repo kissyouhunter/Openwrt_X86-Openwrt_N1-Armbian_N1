@@ -36,7 +36,7 @@ TIME() {
 	case $CHOOSE in
 	1)
 	echo
-	TIME y "[1] 更新至 内核 5.14.8 版本"
+	TIME y "[1] 更新至 内核 5.14.9 版本"
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.150_5.10.70_5.14.9
@@ -72,7 +72,7 @@ TIME() {
 	;;
 	3)
 	echo
-	TIME y "[3] 更新至 内核 5.10.69 版本"
+	TIME y "[3] 更新至 内核 5.10.70 版本"
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.150_5.10.70_5.14.9
@@ -90,7 +90,7 @@ TIME() {
 	;;
 	4)
 	echo
-	TIME y "[4] 更新至 内核 5.4.148 版本"
+	TIME y "[4] 更新至 内核 5.4.150 版本"
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.150_5.10.70_5.14.9
