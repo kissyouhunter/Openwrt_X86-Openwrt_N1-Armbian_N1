@@ -40,8 +40,8 @@ TIME() {
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/2021.10.01
-        Firmware=openwrt_s905d_n1_R21.9.18_k5.14.9-kissyouhunter-docker.img.gz
-        img=openwrt_s905d_n1_R21.9.18_k5.14.9-kissyouhunter-docker.img
+        Firmware=openwrt_s905d_n1_R21.10.1_k5.14.9-kissyouhunter-docker.img.gz
+        img=openwrt_s905d_n1_R21.10.1_k5.14.9-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
 	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
@@ -76,8 +76,8 @@ TIME() {
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/2021.10.01
-        Firmware=openwrt_s905d_n1_R21.9.18_k5.10.70-kissyouhunter-docker.img.gz
-        img=openwrt_s905d_n1_R21.9.18_k5.10.70-kissyouhunter-docker.img
+        Firmware=openwrt_s905d_n1_R21.10.1_k5.10.70-kissyouhunter-docker.img.gz
+        img=openwrt_s905d_n1_R21.10.1_k5.10.70-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
 	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
@@ -94,8 +94,8 @@ TIME() {
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/2021.10.01
-        Firmware=openwrt_s905d_n1_R21.9.18_k5.4.150-kissyouhunter-docker.img.gz
-        img=openwrt_s905d_n1_R21.9.18_k5.4.150-kissyouhunter-docker.img
+        Firmware=openwrt_s905d_n1_R21.10.1_k5.4.150-kissyouhunter-docker.img.gz
+        img=openwrt_s905d_n1_R21.10.1_k5.4.150-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
 	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
