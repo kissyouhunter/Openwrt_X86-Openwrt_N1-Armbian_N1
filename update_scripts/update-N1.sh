@@ -22,13 +22,13 @@ TIME() {
 
 	while :; do
 	TIME g "---------------------------------------------------"
-	TIME g "[1] 更新至 内核 5.14.9 版本"
+	TIME g "[1] 更新至 内核 5.14.10 版本"
 	echo
 	TIME g "[2] 更新至 内核 5.13.19 版本"
 	echo
-	TIME g "[3] 更新至 内核 5.10.70 版本"
+	TIME g "[3] 更新至 内核 5.10.71 版本"
 	echo
-	TIME g "[4] 更新至 内核 5.4.150 版本"
+	TIME g "[4] 更新至 内核 5.4.151 版本"
 	echo
 	TIME g "[0] 不知道选啥就按0看看会有啥惊喜没?"
 	TIME g "---------------------------------------------------"
@@ -36,12 +36,12 @@ TIME() {
 	case $CHOOSE in
 	1)
 	echo
-	TIME y "[1] 更新至 内核 5.14.9 版本"
+	TIME y "[1] 更新至 内核 5.14.10 版本"
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
-        url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/2021.10.01
-        Firmware=openwrt_s905d_n1_R21.10.1_k5.14.9-kissyouhunter-docker.img.gz
-        img=openwrt_s905d_n1_R21.10.1_k5.14.9-kissyouhunter-docker.img
+        url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.151_5.10.71_5.14.10
+        Firmware=openwrt_s905d_n1_R21.10.1_k5.14.10-kissyouhunter-docker.img.gz
+        img=openwrt_s905d_n1_R21.10.1_k5.14.10-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
 	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
@@ -72,12 +72,12 @@ TIME() {
 	;;
 	3)
 	echo
-	TIME y "[3] 更新至 内核 5.10.70 版本"
+	TIME y "[3] 更新至 内核 5.10.71 版本"
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
-        url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/2021.10.01
-        Firmware=openwrt_s905d_n1_R21.10.1_k5.10.70-kissyouhunter-docker.img.gz
-        img=openwrt_s905d_n1_R21.10.1_k5.10.70-kissyouhunter-docker.img
+        url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.151_5.10.71_5.14.10
+        Firmware=openwrt_s905d_n1_R21.10.1_k5.10.71-kissyouhunter-docker.img.gz
+        img=openwrt_s905d_n1_R21.10.1_k5.10.71-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
 	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
@@ -90,12 +90,12 @@ TIME() {
 	;;
 	4)
 	echo
-	TIME y "[4] 更新至 内核 5.4.150 版本"
+	TIME y "[4] 更新至 内核 5.4.151 版本"
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
-        url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/2021.10.01
-        Firmware=openwrt_s905d_n1_R21.10.1_k5.4.150-kissyouhunter-docker.img.gz
-        img=openwrt_s905d_n1_R21.10.1_k5.4.150-kissyouhunter-docker.img
+        url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.151_5.10.71_5.14.10
+        Firmware=openwrt_s905d_n1_R21.10.1_k5.4.151-kissyouhunter-docker.img.gz
+        img=openwrt_s905d_n1_R21.10.1_k5.4.151-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
 	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
