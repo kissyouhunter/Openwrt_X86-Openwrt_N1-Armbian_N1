@@ -39,7 +39,7 @@ TIME() {
 	TIME y "[1] 更新至 内核 5.14.13 版本"
         cd /mnt/mmcblk2p4
         rm -rf update-*.sh openwrt_*
-        url=https://github.com/kissyouunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.154_5.10.74_5.14.13
+        url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.154_5.10.74_5.14.13
         Firmware=openwrt_s905d_n1_R21.10.1_k5.14.13-kissyouhunter-docker.img.gz
         img=openwrt_s905d_n1_R21.10.1_k5.14.13-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
