@@ -28,7 +28,7 @@ TIME() {
 	echo
 	TIME g "[3] 更新至 内核 5.4.155 版本"
 	echo
-	TIME g "[0] 不知道选啥就按0看看会有啥惊喜没?"
+	TIME g "[0] 更新后，设备会自动重启！"
 	TIME g "---------------------------------------------------"
 	read -p " 请输入您的选择 然后 敲回车确认： " CHOOSE
 	case $CHOOSE in
@@ -46,8 +46,8 @@ TIME() {
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-amlogic-openwrt.sh
-        bash update-amlogic-openwrt.sh $img
+        chmod 755 update-N1.sh
+        bash update-N1.sh $img
 	break
 	;;
 	2)
@@ -64,8 +64,8 @@ TIME() {
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-amlogic-openwrt.sh
-        bash update-amlogic-openwrt.sh $img
+        chmod 755 update-N1.sh
+        bash update-N1.sh $img
 	break
 	;;
 	3)
@@ -82,13 +82,13 @@ TIME() {
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-amlogic-openwrt.sh
-        bash update-amlogic-openwrt.sh $img
+        chmod 755 update-N1.sh
+        bash update-N1.sh $img
 	break
 	;;
 	0)
 	echo
-	TIME r "您选择了 [0] 想啥呢！！！好好工作！！!"
+	TIME r "您选择了 [0] 退出升级程序，请保存好重要文件后再执行命令。"
 	exit 0
 	break
     	;;
