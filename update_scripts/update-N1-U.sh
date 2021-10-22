@@ -42,12 +42,12 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.14.14-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-N1.sh
-        bash update-N1.sh $img
+        chmod 755 update-N1-openwrt.sh
+        bash update-N1-openwrt.sh $img
 	break
 	;;
 	2)
@@ -60,12 +60,12 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.10.75-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-N1.sh
-        bash update-N1.sh $img
+        chmod 755 update-N1-openwrt.sh
+        bash update-N1-openwrt.sh $img
 	break
 	;;
 	3)
@@ -78,12 +78,12 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.4.155-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-N1.sh
-        bash update-N1.sh $img
+        chmod 755 update-N1-openwrt.sh
+        bash update-N1-openwrt.sh $img
 	break
 	;;
 	0)
