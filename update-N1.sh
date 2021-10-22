@@ -701,6 +701,7 @@ sync
 wait
 
 echo "Successfully updated, automatic restarting..."
+echo "更新成功，自动重启中..."
 sleep 3
 reboot
 exit 0
