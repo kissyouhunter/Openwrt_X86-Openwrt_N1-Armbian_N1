@@ -28,7 +28,7 @@ TIME() {
 	echo
 	TIME g "[3] 更新至 内核 5.4.155 版本"
 	echo
-	TIME g "[0] 不知道选啥就按0看看会有啥惊喜没?"
+	TIME g "[0] 更新后，设备会自动重启！"
 	TIME g "---------------------------------------------------"
 	read -p " 请输入您的选择 然后 敲回车确认： " CHOOSE
 	case $CHOOSE in
@@ -42,12 +42,12 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.14.14-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-amlogic-openwrt.sh
-        bash update-amlogic-openwrt.sh $img
+        chmod 755 update-N1-openwrt.sh
+        bash update-N1-openwrt.sh $img
 	break
 	;;
 	2)
@@ -60,12 +60,12 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.10.75-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-amlogic-openwrt.sh
-        bash update-amlogic-openwrt.sh $img
+        chmod 755 update-N1-openwrt.sh
+        bash update-N1-openwrt.sh $img
 	break
 	;;
 	3)
@@ -78,17 +78,17 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.4.155-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
-        chmod 755 update-amlogic-openwrt.sh
-        bash update-amlogic-openwrt.sh $img
+        chmod 755 update-N1-openwrt.sh
+        bash update-N1-openwrt.sh $img
 	break
 	;;
 	0)
 	echo
-	TIME r "您选择了 [0] 想啥呢！！！好好工作！！!"
+	TIME r "您选择了 [0] 退出升级程序，请保存好重要文件后再执行命令。"
 	exit 0
 	break
     	;;
