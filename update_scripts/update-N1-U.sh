@@ -42,7 +42,7 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.14.14-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
@@ -60,7 +60,7 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.10.75-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
@@ -78,7 +78,7 @@ TIME() {
         img=openwrt_s905d_n1_R21.10.1_k5.4.155-kissyouhunter-docker.img
 	TIME g "=====================下载固件中(需科学上网,否则无法更新)======================"
         curl -LO $url/$Firmware
-	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-amlogic-openwrt.sh
+	wget https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1.sh
         TIME g "===============================下载完成,解压中==============================="
         gzip -d *.img.gz && rm -f *.img.gz
         TIME r "============================解压完成,开始升级固件============================"
