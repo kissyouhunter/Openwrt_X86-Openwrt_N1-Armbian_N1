@@ -35,7 +35,7 @@ TIME() {
 	1)
 	echo
 	TIME y "[1] 更新至 内核 5.14.14 版本"
-        cd /mnt/mmcblk2p4
+        cd /mnt/sda4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.155_5.10.75_5.14.14
         Firmware=openwrt_s905d_n1_R21.10.1_k5.14.14-kissyouhunter-docker.img.gz
@@ -53,7 +53,7 @@ TIME() {
 	2)
 	echo
 	TIME y "[3] 更新至 内核 5.10.75 版本"
-        cd /mnt/mmcblk2p4
+        cd /mnt/sda4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.155_5.10.75_5.14.14
         Firmware=openwrt_s905d_n1_R21.10.1_k5.10.75-kissyouhunter-docker.img.gz
@@ -71,7 +71,7 @@ TIME() {
 	3)
 	echo
 	TIME y "[4] 更新至 内核 5.4.155 版本"
-        cd /mnt/mmcblk2p4
+        cd /mnt/sda4
         rm -rf update-*.sh openwrt_*
         url=https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/5.4.155_5.10.75_5.14.14
         Firmware=openwrt_s905d_n1_R21.10.1_k5.4.155-kissyouhunter-docker.img.gz
