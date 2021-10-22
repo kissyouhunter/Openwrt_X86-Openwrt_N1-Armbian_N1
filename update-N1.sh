@@ -251,7 +251,7 @@ cp /boot/uEnv.txt /tmp/uEnv.txt && sync
 MODULES_OLD=$(ls /lib/modules/ 2>/dev/null)
 VERSION_OLD=$(echo ${MODULES_OLD} | grep -oE 'kissyouhunter' 2>/dev/null)
 MODULES_NOW=$(ls ${P2}/lib/modules/ 2>/dev/null)
-VERSION_NOW=$(echo ${MODULES_NOW} | grep -oE '^kissyouhunter' 2>/dev/null)
+VERSION_NOW=$(echo ${MODULES_NOW} | grep -oE 'kissyouhunter' 2>/dev/null)
 echo -e "Update from [ ${MODULES_OLD} ] to [ ${MODULES_NOW} ]"
 
 k510_ver=${VERSION_NOW%%.*}
