@@ -49,7 +49,6 @@ EOF
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
   sleep 5
-  done
   clear
   ;;
  2)  
