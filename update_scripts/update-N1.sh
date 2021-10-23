@@ -50,8 +50,9 @@ EOF
   echo "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  sleep 5
-  clear
+  echo "=============删除残留升级文件============="
+  rm -rf update-*.sh openwrt_*
+  exit 0
   ;;
  2)  
   echo -e " >>>>>>>>>>>更新至内核 5.10.75 版本 到EMMC开始"
@@ -68,8 +69,9 @@ EOF
   echo "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  sleep 5
-  clear
+  echo "=============删除残留升级文件============="
+  rm -rf update-*.sh openwrt_*
+  exit 0
   ;;
  3) 
   echo -e " >>>>>>>>>>>更新至内核 5.4.155 版本 到EMMC开始"
@@ -86,8 +88,9 @@ EOF
   echo "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  sleep 5
-  clear
+  echo "=============删除残留升级文件============="
+  rm -rf update-*.sh openwrt_*
+  exit 0
   ;;
  0) 
  clear 
@@ -138,8 +141,9 @@ EOF
   echo "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  sleep 5
-  clear
+  echo "=============删除残留升级文件============="
+  rm -rf update-*.sh openwrt_*
+  exit 0
   ;;
  2)
   echo -e " >>>>>>>>>>>更新至内核 5.10.75 版本 到U盘开始"
@@ -156,8 +160,9 @@ EOF
   echo "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  sleep 5
-  clear
+  echo "=============删除残留升级文件============="
+  rm -rf update-*.sh openwrt_*
+  exit 0
   ;;
  3) 
   echo -e " >>>>>>>>>>>更新至内核 5.4.155 版本 到U盘开始"
@@ -174,8 +179,9 @@ EOF
   echo "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  sleep 5
-  clear
+  echo "=============删除残留升级文件============="
+  rm -rf update-*.sh openwrt_*
+  exit 0
   ;;
  0) 
  clear 
