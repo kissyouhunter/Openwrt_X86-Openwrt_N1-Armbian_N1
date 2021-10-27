@@ -44,9 +44,9 @@ ___
 
 * ssh连接n1或ttyd输入如下命令：
 
-* cd /mnt/mmcblk2p4/ && chmod 755 update-amlogic-openwrt.sh
+* cd /mnt/mmcblk2p4/ && chmod 755 update-N1-openwrt.sh
 
-* ./update-amlogic-openwrt.sh 文件名.img  #img文字名请自行输入
+* ./update-N1-openwrt.sh 文件名.img  #img文字名请自行输入
 
 * 跑码过程中都有中文提示，请根据提示操作即可。
 
