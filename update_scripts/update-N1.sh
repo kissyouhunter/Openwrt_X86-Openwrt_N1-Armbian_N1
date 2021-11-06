@@ -204,7 +204,7 @@ EOF
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 3) 
+ 4) 
   echo -e " >>>>>>>>>>>更新至内核 5.15.0 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
