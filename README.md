@@ -62,6 +62,6 @@ ___
 
 * 第一次登陆强制修改密码
 
-* U盘使用请扩展roofts分区（工具https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/blob/main/DiskGenius/DiskGenius.5.1.1.x86.Pro.7z）
+* U盘使用请扩展roofts分区（工具https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/blob/main/DiskGenius/DiskGenius.5.1.1.x86.Pro.7z ）
 
 [注：只有5.4和5.10的内核写入emmc才可以启动，U盘支持所有内核。]
