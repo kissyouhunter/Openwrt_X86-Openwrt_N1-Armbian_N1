@@ -28,9 +28,9 @@ cat << EOF
 |****Please Enter Your Choice:[0-3]****|
 ----------------------------------------
 (1) 更新至内核 5.14.21 版本 到EMMC
-(2) 更新至内核 5.10.82 版本 到EMMC
-(3) 更新至内核 5.4.162 版本 到EMMC
-(4) 更新至内核 5.15.5  版本 到EMMC
+(2) 更新至内核 5.10.83 版本 到EMMC
+(3) 更新至内核 5.4.163 版本 到EMMC
+(4) 更新至内核 5.15.6  版本 到EMMC
 (0) 返回上级菜单
 EOF
  read -p "Please enter your choice[0-3]: " input1
@@ -55,12 +55,12 @@ EOF
   exit 0
   ;;
  2)  
-  echo -e " >>>>>>>>>>>更新至内核 5.10.82 版本 到EMMC开始"
+  echo -e " >>>>>>>>>>>更新至内核 5.10.83 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.11.11_k5.10.82-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.11.11_k5.10.82-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.11.11_k5.10.83-kissyouhunter-docker.img.gz
+  img=openwrt_s905d_n1_R21.11.11_k5.10.83-kissyouhunter-docker.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -74,12 +74,12 @@ EOF
   exit 0
   ;;
  3) 
-  echo -e " >>>>>>>>>>>更新至内核 5.4.162 版本 到EMMC开始"
+  echo -e " >>>>>>>>>>>更新至内核 5.4.163 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.11.11_k5.4.162-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.11.11_k5.4.162-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.11.11_k5.4.163-kissyouhunter-docker.img.gz
+  img=openwrt_s905d_n1_R21.11.11_k5.4.163-kissyouhunter-docker.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -93,12 +93,12 @@ EOF
   exit 0
   ;;
  4) 
-  echo -e " >>>>>>>>>>>更新至内核 5.15.5 版本 到EMMC开始"
+  echo -e " >>>>>>>>>>>更新至内核 5.15.6 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.11.11_k5.15.5-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.11.11_k5.15.5-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.11.11_k5.15.6-kissyouhunter-docker.img.gz
+  img=openwrt_s905d_n1_R21.11.11_k5.15.6-kissyouhunter-docker.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -139,9 +139,9 @@ cat << EOF
 |****Please Enter Your Choice:[0-3]****|
 ----------------------------------------
 (1) 更新至内核 5.14.21 版本 到U盘
-(2) 更新至内核 5.10.82 版本 到U盘
-(3) 更新至内核 5.4.162 版本 到U盘
-(4) 更新至内核 5.15.5  版本 到U盘
+(2) 更新至内核 5.10.83 版本 到U盘
+(3) 更新至内核 5.4.163 版本 到U盘
+(4) 更新至内核 5.15.6  版本 到U盘
 (0) 返回上级菜单
 EOF
  read -p "Please enter your Choice[0-3]: " input2
@@ -166,12 +166,12 @@ EOF
   exit 0
   ;;
  2)
-  echo -e " >>>>>>>>>>>更新至内核 5.10.82 版本 到U盘开始"
+  echo -e " >>>>>>>>>>>更新至内核 5.10.83 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.11.11_k5.10.82-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.11.11_k5.10.82-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.11.11_k5.10.83-kissyouhunter-docker.img.gz
+  img=openwrt_s905d_n1_R21.11.11_k5.10.83-kissyouhunter-docker.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -185,12 +185,12 @@ EOF
   exit 0
   ;;
  3) 
-  echo -e " >>>>>>>>>>>更新至内核 5.4.162 版本 到U盘开始"
+  echo -e " >>>>>>>>>>>更新至内核 5.4.163 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.11.11_k5.4.162-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.11.11_k5.4.162-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.11.11_k5.4.163-kissyouhunter-docker.img.gz
+  img=openwrt_s905d_n1_R21.11.11_k5.4.163-kissyouhunter-docker.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -204,12 +204,12 @@ EOF
   exit 0
   ;;
  4) 
-  echo -e " >>>>>>>>>>>更新至内核 5.15.5 版本 到U盘开始"
+  echo -e " >>>>>>>>>>>更新至内核 5.15.6 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.11.11_k5.15.5-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.11.11_k5.15.5-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.11.11_k5.15.6-kissyouhunter-docker.img.gz
+  img=openwrt_s905d_n1_R21.11.11_k5.15.6-kissyouhunter-docker.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
