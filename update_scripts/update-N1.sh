@@ -40,8 +40,8 @@ EOF
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.12.1_k5.14.21-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.12.1_k5.14.21-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.12.1_k5.14.21-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R21.12.1_k5.14.21-kissyouhunter.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -59,8 +59,8 @@ EOF
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.12.1_k5.10.87-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.12.1_k5.10.87-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.12.1_k5.10.87-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R21.12.1_k5.10.87-kissyouhunter.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -78,8 +78,8 @@ EOF
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.12.1_k5.4.167-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.12.1_k5.4.167-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.12.1_k5.4.167-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R21.12.1_k5.4.167-kissyouhunter.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -97,8 +97,8 @@ EOF
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.12.1_k5.15.10-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.12.1_k5.15.10-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.12.1_k5.15.10-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R21.12.1_k5.15.10-kissyouhunter.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -151,8 +151,8 @@ EOF
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.12.1_k5.14.21-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.12.1_k5.14.21-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.12.1_k5.14.21-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R21.12.1_k5.14.21-kissyouhunter.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -170,8 +170,8 @@ EOF
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.12.1_k5.10.87-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.12.1_k5.10.87-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.12.1_k5.10.87-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R21.12.1_k5.10.87-kissyouhunter.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -189,8 +189,8 @@ EOF
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.12.1_k5.4.167-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.12.1_k5.4.167-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.12.1_k5.4.167-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R21.12.1_k5.4.167-kissyouhunter.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
@@ -208,8 +208,8 @@ EOF
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R21.12.1_k5.15.10-kissyouhunter-docker.img.gz
-  img=openwrt_s905d_n1_R21.12.1_k5.15.10-kissyouhunter-docker.img
+  Firmware=openwrt_s905d_n1_R21.12.1_k5.15.10-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R21.12.1_k5.15.10-kissyouhunter.img
   echo "====下载固件中(需科学上网,否则无法更新)===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
