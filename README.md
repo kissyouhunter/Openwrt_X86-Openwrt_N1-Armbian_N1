@@ -16,7 +16,7 @@ ___
 
 * x86固件不带docker,请用一键脚本自行安装。
 
-*（一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
+* （一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 * N1固件不带docker,请用一键脚本自行安装。
 
-*（一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
+* （一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
 
 # 升级方式一：
 
