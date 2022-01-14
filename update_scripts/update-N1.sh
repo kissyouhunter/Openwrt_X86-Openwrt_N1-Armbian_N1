@@ -144,7 +144,7 @@ TIME l "(0) 返回上级菜单"
     TIME r "----------------------------------"
  for i in `seq -w 3 -1 1`
    do
-     echo -ne "$i";
+     TIME r "$i";
      sleep 1;
    done
  clear
@@ -258,7 +258,7 @@ TIME l "(0) 返回上级菜单"
     TIME r "----------------------------------"
  for i in `seq -w 3 -1 1`
    do
-     echo -ne "$i";
+     TIME r "$i";
      sleep 1;
    done
  clear
@@ -276,7 +276,7 @@ exit 0
  TIME r "----------------------------------"
  for i in `seq -w 3 -1 1`
    do
-     echo -ne "$i";
+     TIME r "$i";
      sleep 1;
    done
  clear
