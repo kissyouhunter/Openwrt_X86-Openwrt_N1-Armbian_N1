@@ -14,9 +14,9 @@ ___
 
 * adguardhome ID: root Password: password
 
-* x86固件分为带docker和不带docker的版本，请根据需求食用。
+* x86固件不带docker,请用一键脚本自行安装。
 
-[注：5.10内核的ip为192.168.2.5](#注：5.10内核的ip为192.168.2.5)
+*（一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
 
 ___
 
@@ -28,11 +28,13 @@ ___
 
 * adguardhome ID: root Password: password wifi password: password
 
-* N1固件分为带docker和不带docker的版本，请根据需求食用。
+* N1固件不带docker,请用一键脚本自行安装。
+
+*（一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
 
 # 升级方式一：
 
-* 一键升级命令 bash <(curl -s -S -L https://git.io/update-N1) （最新的固件U盘运行的openwrt已支持在线更新）
+* 一键升级命令 bash <(curl -s -S -L https://git.io/update-N1) （最新的固件已支持在U盘运行的openwrt）
 
 * 根据命令操作就可以，强烈推荐，保证/mnt/mmcblk2p4/或/mnt/sda4分区剩余空间1G以上，查看命令df -h。
 
@@ -64,4 +66,3 @@ ___
 
 * U盘使用请扩展roofts分区（工具https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/blob/main/DiskGenius/DiskGenius.5.1.1.x86.Pro.7z ）
 
-[注：只有5.4和5.10的内核写入emmc才可以启动，U盘支持所有内核。]
