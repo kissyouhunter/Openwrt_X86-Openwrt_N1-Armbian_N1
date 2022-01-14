@@ -5,19 +5,37 @@ declare flag=0
 clear
 while [ "$flag" -eq 0 ]
 do
-echo "============================================"
-echo "       欢迎使用N1——openwrt更新脚本"
-echo " 使用本脚本前，请确认当前设备已存在四个分区"
-echo "           查看命令为 lsblk "
-echo "          默认ip：192.168.2.4 "
-echo "    默认账号：root 默认密码：password "
-echo "============================================"
-cat << EOF
-----------------------------------------
-(1) 更新固件至EMMC!
-(2) 更新固件至U盘!
-(0) 怂了，不更新了！
-EOF
+
+TIME() {
+[[ -z "$1" ]] && {
+	echo -ne " "
+} || {
+     case $1 in
+	r) export Color="\e[31;1m";;
+	g) export Color="\e[32;1m";;
+	b) export Color="\e[34;1m";;
+	y) export Color="\e[33;1m";;
+	z) export Color="\e[35;1m";;
+	l) export Color="\e[36;1m";;
+      esac
+	[[ $# -lt 2 ]] && echo -e "\e[36m\e[0m ${1}" || {
+		echo -e "\e[36m\e[0m ${Color}${2}\e[0m"
+	 }
+      }
+}
+
+TIME g "============================================"
+TIME g "       欢迎使用N1——openwrt更新脚本"
+TIME g " 使用本脚本前，请确认当前设备已存在四个分区"
+TIME g "           查看命令为 lsblk "
+TIME g "          默认ip：192.168.2.4 "
+TIME g "    默认账号：root 默认密码：password "
+TIME g "============================================"
+
+TIME b "(1) 更新固件至EMMC!"
+TIME y "(2) 更新固件至U盘!"
+TIME l "(0) 怂了，不更新了！"
+
 read -p "Please enter your choice[0-2]: " input
 case $input in
 #更新固件至EMMC
@@ -25,90 +43,94 @@ case $input in
 clear
 while [ "$flag" -eq 0 ]
 do
-cat << EOF
-----------------------------------------
-|****Please Enter Your Choice:[0-3]****|
-----------------------------------------
-(1) 更新至内核 5.4.171 版本 到EMMC
-(2) 更新至内核 5.10.91 版本 到EMMC
-(3) 更新至内核 5.15.14 版本 到EMMC
-(0) 返回上级菜单
-EOF
+
+TIME g "----------------------------------------"
+TIME g "|****Please Enter Your Choice:[0-3]****|"
+TIME g "---------------------------------------"
+TIME b "(1) 更新至内核 5.4.171 版本 到EMMC"
+TIME y "(2) 更新至内核 5.10.91 版本 到EMMC"
+TIME z "(3) 更新至内核 5.15.14 版本 到EMMC"
+TIME l "(0) 返回上级菜单"
+
  read -p "Please enter your choice[0-3]: " input1
  case $input1 in 
  1)
-  echo -e " >>>>>>>>>>>更新至内核 5.4.171 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.4.171 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.4.171-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R2.1.1_k5.4.171-kissyouhunter.img
-  echo "====下载固件中(需科学上网,否则无法更新)===="
+  TIME g "==========下载固件中==========="
+  TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
-  echo "=============下载完成,解压中=============="
+  TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
-  echo "===========解压完成,开始升级固件==========="
+  TIME g "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  echo "=============删除残留升级文件============="
+  TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  2)  
-  echo -e " >>>>>>>>>>>更新至内核 5.10.91 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.10.91 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.10.91-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.1.1_k5.10.91-kissyouhunter.img
-  echo "====下载固件中(需科学上网,否则无法更新)===="
+  TIME g "==========下载固件中==========="
+  TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
-  echo "=============下载完成,解压中=============="
+  TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
-  echo "===========解压完成,开始升级固件==========="
+  TIME g "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  echo "=============删除残留升级文件============="
+  TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  3) 
-  echo -e " >>>>>>>>>>>更新至内核 5.15.14 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.15.14 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.15.14-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.1.1_k5.15.14-kissyouhunter.img
-  echo "====下载固件中(需科学上网,否则无法更新)===="
+  TIME g "==========下载固件中==========="
+  TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
-  echo "=============下载完成,解压中=============="
+  TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
-  echo "===========解压完成,开始升级固件==========="
+  TIME g "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  echo "=============删除残留升级文件============="
+  TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  49) 
-  echo -e " >>>>>>>>>>>更新至内核 5.15.14 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.15.14 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.15.14-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.1.1_k5.15.14-kissyouhunter.img
-  echo "====下载固件中(需科学上网,否则无法更新)===="
+  TIME g "==========下载固件中==========="
+  TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
-  echo "=============下载完成,解压中=============="
+  TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
-  echo "===========解压完成,开始升级固件==========="
+  TIME g "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  echo "=============删除残留升级文件============="
+  TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;  
@@ -116,10 +138,10 @@ EOF
  clear 
  break
  ;;
- *) echo "----------------------------------"
-    echo "|          Warning!!!            |"
-    echo "|       请输入正确的选项!         |"
-    echo "----------------------------------"
+ *) TIME r "----------------------------------"
+    TIME r "|          Warning!!!            |"
+    TIME r "|       请输入正确的选项!        |"
+    TIME r "----------------------------------"
  for i in `seq -w 3 -1 1`
    do
      echo -ne "$i";
@@ -135,90 +157,94 @@ EOF
 clear
 while [ "$flag" -eq 0 ]
 do
-cat << EOF
-----------------------------------------
-|****Please Enter Your Choice:[0-3]****|
-----------------------------------------
-(1) 更新至内核 5.4.171 版本 到U盘
-(2) 更新至内核 5.10.91 版本 到U盘
-(3) 更新至内核 5.15.14 版本 到U盘
-(0) 返回上级菜单
-EOF
+
+TIME g "----------------------------------------"
+TIME g "|****Please Enter Your Choice:[0-3]****|"
+TIME g "----------------------------------------"
+TIME b "(1) 更新至内核 5.4.171 版本 到U盘"
+TIME y "(2) 更新至内核 5.10.91 版本 到U盘"
+TIME z "(3) 更新至内核 5.15.14 版本 到U盘"
+TIME l "(0) 返回上级菜单"
+
  read -p "Please enter your Choice[0-3]: " input2
  case $input2 in 
  1)
-  echo -e " >>>>>>>>>>>更新至内核 5.4.171 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.4.171 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.4.171-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.1.1_k5.4.171-kissyouhunter.img
-  echo "====下载固件中(需科学上网,否则无法更新)===="
+  TIME g "==========下载固件中==========="
+  TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
-  echo "=============下载完成,解压中=============="
+  TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
-  echo "===========解压完成,开始升级固件==========="
+  TIME g "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  echo "=============删除残留升级文件============="
+  TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  2)
-  echo -e " >>>>>>>>>>>更新至内核 5.10.91 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.10.91 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.10.91-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.1.1_k5.10.91-kissyouhunter.img
-  echo "====下载固件中(需科学上网,否则无法更新)===="
+  TIME g "==========下载固件中==========="
+  TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
-  echo "=============下载完成,解压中=============="
+  TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
-  echo "===========解压完成,开始升级固件==========="
+  TIME g "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  echo "=============删除残留升级文件============="
+  TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  3) 
-  echo -e " >>>>>>>>>>>更新至内核 5.15.14 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.15.14 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.15.14-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.1.1_k5.15.14-kissyouhunter.img
-  echo "====下载固件中(需科学上网,否则无法更新)===="
+  TIME g "==========下载固件中==========="
+  TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
-  echo "=============下载完成,解压中=============="
+  TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
-  echo "===========解压完成,开始升级固件==========="
+  TIME g "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  echo "=============删除残留升级文件============="
+  TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  4596) 
-  echo -e " >>>>>>>>>>>更新至内核 5.15.14 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.15.14 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.15.14-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.1.1_k5.15.14-kissyouhunter.img
-  echo "====下载固件中(需科学上网,否则无法更新)===="
+  TIME g "==========下载固件中==========="
+  TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
   wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
-  echo "=============下载完成,解压中=============="
+  TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
-  echo "===========解压完成,开始升级固件==========="
+  TIME g "===========解压完成,开始升级固件==========="
   chmod 755 update-N1-openwrt.sh
   bash update-N1-openwrt.sh $img
-  echo "=============删除残留升级文件============="
+  TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
@@ -226,10 +252,10 @@ EOF
  clear 
  break
  ;;
- *) echo "----------------------------------"
-    echo "|          Warning!!!            |"
-    echo "|       请输入正确的选项!         |"
-    echo "----------------------------------"
+ *) TIME r "----------------------------------"
+    TIME r "|          Warning!!!            |"
+    TIME r "|       请输入正确的选项!        |"
+    TIME r "----------------------------------"
  for i in `seq -w 3 -1 1`
    do
      echo -ne "$i";
@@ -244,10 +270,10 @@ EOF
 clear
 exit 0
 ;;
-*)  echo "----------------------------------"
- echo "|          Warning!!!            |"
- echo "|       请输入正确的选项!         |"
- echo "----------------------------------"
+*)  TIME r "----------------------------------"
+ TIME r "|          Warning!!!            |"
+ TIME r "|       请输入正确的选项!        |"
+ TIME r "----------------------------------"
  for i in `seq -w 3 -1 1`
    do
      echo -ne "$i";
