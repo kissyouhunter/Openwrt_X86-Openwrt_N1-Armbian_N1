@@ -60,7 +60,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.1.1_k5.4.171-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R2.1.1_k5.4.171-kissyouhunter.img
+  img=openwrt_s905d_n1_R22.1.1_k5.4.171-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
