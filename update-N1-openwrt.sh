@@ -135,6 +135,7 @@ BOOT_PATH=$(echo $BOOT_PART_MSG | awk '{print $2}')
 BOOT_UUID=$(echo $BOOT_PART_MSG | awk '{print $4}')
 
 BR_FLAG=1
+echo -ne "是否保留配置并更新？"
 echo -ne "Whether to backup and restore the current config files? y/n [y]\b\b"
 if [[ ${BACKUP_RESTORE_CONFIG} == "restore" ]]; then
     yn="y"
