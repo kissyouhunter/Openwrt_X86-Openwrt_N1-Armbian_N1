@@ -48,21 +48,21 @@ do
 TIME g "----------------------------------------"
 TIME g "|****Please Enter Your Choice:[0-3]****|"
 TIME g "---------------------------------------"
-TIME b "(1) 更新至内核 5.4.184 版本 到EMMC"
-TIME y "(2) 更新至内核 5.10.105 版本 到EMMC"
-TIME z "(3) 更新至内核 5.15.28 版本 到EMMC"
-TIME w "(4) 更新至内核 5.16.14  版本 到EMMC"
+TIME b "(1) 更新至内核 5.4.185 版本 到EMMC"
+TIME y "(2) 更新至内核 5.10.106 版本 到EMMC"
+TIME z "(3) 更新至内核 5.15.29 版本 到EMMC"
+TIME w "(4) 更新至内核 5.16.15  版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your choice[0-4]: " input1
  case $input1 in 
  1)
-  TIME g " >>>>>>>>>>>更新至内核 5.4.184 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.4.185 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.2.2_k5.4.184-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.2.2_k5.4.184-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.3.13_k5.4.185-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.3.13_k5.4.185-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
@@ -77,12 +77,12 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  2)  
-  TIME g " >>>>>>>>>>>更新至内核 5.10.105 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.10.106 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.2.2_k5.10.105-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.2.2_k5.10.105-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.3.13_k5.10.106-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.3.13_k5.10.106-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
@@ -97,12 +97,12 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 5.15.28 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.15.29 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.2.2_k5.15.28-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.2.2_k5.15.28-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.3.13_k5.15.29-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.3.13_k5.15.29-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
@@ -117,12 +117,12 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  4) 
-  TIME g " >>>>>>>>>>>更新至内核 5.16.14 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.16.15 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.2.2_k5.16.14-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.2.2_k5.16.14-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.3.13_k5.16.15-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.3.13_k5.16.15-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
@@ -163,21 +163,21 @@ do
 TIME g "----------------------------------------"
 TIME g "|****Please Enter Your Choice:[0-3]****|"
 TIME g "----------------------------------------"
-TIME b "(1) 更新至内核 5.4.184 版本 到U盘"
-TIME y "(2) 更新至内核 5.10.105 版本 到U盘"
-TIME z "(3) 更新至内核 5.15.28 版本 到U盘"
-TIME w "(4) 更新至内核 5.16.14  版本 到U盘"
+TIME b "(1) 更新至内核 5.4.185 版本 到U盘"
+TIME y "(2) 更新至内核 5.10.106 版本 到U盘"
+TIME z "(3) 更新至内核 5.15.29 版本 到U盘"
+TIME w "(4) 更新至内核 5.16.15  版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your Choice[0-4]: " input2
  case $input2 in 
  1)
-  TIME g " >>>>>>>>>>>更新至内核 5.4.184 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.4.185 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.2.2_k5.4.184-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.2.2_k5.4.184-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.3.13_k5.4.185-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.3.13_k5.4.185-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
@@ -192,12 +192,12 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  2)
-  TIME g " >>>>>>>>>>>更新至内核 5.10.105 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.10.106 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.2.2_k5.10.105-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.2.2_k5.10.105-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.3.13_k5.10.106-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.3.13_k5.10.106-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
@@ -212,12 +212,12 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 5.15.28 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.15.29 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.2.2_k5.15.28-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.2.2_k5.15.28-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.3.13_k5.15.29-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.3.13_k5.15.29-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
@@ -232,12 +232,12 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  4) 
-  TIME g " >>>>>>>>>>>更新至内核 5.16.14 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.16.15 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.2.2_k5.16.14-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.2.2_k5.16.14-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.3.13_k5.16.15-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.3.13_k5.16.15-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO $url/$Firmware
