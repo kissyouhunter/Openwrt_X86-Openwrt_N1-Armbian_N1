@@ -144,9 +144,9 @@ TIME l "(0) 返回上级菜单"
     TIME r "|          Warning!!!            |"
     TIME r "|       请输入正确的选项!        |"
     TIME r "----------------------------------"
- for i in `seq -w 3 -1 1`
+ for i in $(seq -w 1 -1 1)
    do
-     TIME r "\b\b$i";
+     #TIME r "\b\b$i";
      sleep 1;
    done
  clear
@@ -259,9 +259,9 @@ TIME l "(0) 返回上级菜单"
     TIME r "|          Warning!!!            |"
     TIME r "|       请输入正确的选项!        |"
     TIME r "----------------------------------"
- for i in `seq -w 3 -1 1`
+ for i in $(seq -w 1 -1 1)
    do
-     TIME r "\b\b$i";
+     #TIME r "\b\b$i";
      sleep 1;
    done
  clear
@@ -277,9 +277,9 @@ exit 0
  TIME r "|          Warning!!!            |"
  TIME r "|       请输入正确的选项!        |"
  TIME r "----------------------------------"
- for i in `seq -w 3 -1 1`
+ for i in $(seq -w 1 -1 1)
    do
-     TIME r "\b\b$i";
+     #TIME r "\b\b$i";
      sleep 1;
    done
  clear
