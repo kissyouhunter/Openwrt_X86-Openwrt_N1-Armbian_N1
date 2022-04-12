@@ -39,7 +39,7 @@ ___
 
 * 如已刷入本固件，ssh连接n1或ttyd输入update即可。
 
-* 命令一：bash <(curl -s -S -L https://git.io/update-N1)
+* 命令一：bash <(curl -Lso- https://tt.kisssik.ga/d/aliyun/files/update-N1.sh))
 
 * 命令二：bash <(curl -s -S -L https://git.io/update-N1) 
 
