@@ -33,7 +33,7 @@ ___
 
 * （一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
 
-# 升级方式一：
+### 升级方式一：
 
 * 一键升级命令:（最新的固件已支持在U盘运行的openwrt）
 
@@ -45,7 +45,7 @@ ___
 
 * 根据命令操作就可以，强烈推荐，保证/mnt/mmcblk2p4/或/mnt/sda4分区剩余空间1G以上，查看命令df -h。
 
-# 升级方式二：
+### 升级方式二：
 
 * 由译内核的不同，如升级emmc里的固件请用releases里的update-amlogic-openwrt.sh文件
 
