@@ -35,7 +35,13 @@ ___
 
 # 升级方式一：
 
-* 一键升级命令 bash <(curl -s -S -L https://git.io/update-N1) （最新的固件已支持在U盘运行的openwrt）
+* 一键升级命令:（最新的固件已支持在U盘运行的openwrt）
+
+* 如已刷入本固件，ssh连接n1或ttyd输入update即可。
+
+* 命令一：bash <(curl -s -S -L https://git.io/update-N1)
+
+* 命令二：bash <(curl -s -S -L https://git.io/update-N1) 
 
 * 根据命令操作就可以，强烈推荐，保证/mnt/mmcblk2p4/或/mnt/sda4分区剩余空间1G以上，查看命令df -h。
 
@@ -56,7 +62,6 @@ ___
 * 系统重启后使用命令 rm -rf /mnt/mmcblk2p4/文件名img 删除  #img文字名请自行输入
 
 [注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件](#注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件)
-
 
 * 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/openwrt_n1) [国内](http://tt.kisssik.ga)
 ___
