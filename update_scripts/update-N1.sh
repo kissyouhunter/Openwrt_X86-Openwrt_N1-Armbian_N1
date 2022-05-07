@@ -117,7 +117,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 46574) 
+ 946574) 
   TIME g " >>>>>>>>>>>更新至内核 5.16.20 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
