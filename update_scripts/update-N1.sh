@@ -182,16 +182,15 @@ while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-5]****|"
+TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "----------------------------------------"
 TIME b "(1) 更新至内核 5.4.192  版本 到U盘"
 TIME y "(2) 更新至内核 5.10.114 版本 到U盘"
 TIME z "(3) 更新至内核 5.15.38  版本 到U盘"
-TIME w "(4) 更新至内核 5.16.20  版本 到U盘"
-TIME m "(5) 更新至内核 5.17.6   版本 到U盘"
+TIME w "(4) 更新至内核 5.17.6   版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your Choice[0-5]: " input2
+ read -p "Please enter your Choice[0-4]: " input2
  case $input2 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 5.4.192 版本 到U盘开始"
@@ -253,7 +252,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4) 
+ 98654) 
   TIME g " >>>>>>>>>>>更新至内核 5.16.20 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
@@ -273,7 +272,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 5) 
+ 4) 
   TIME g " >>>>>>>>>>>更新至内核 5.17.6 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
