@@ -14,9 +14,9 @@
 # E.g: openwrt-update-amlogic
 
 # Receive one-key command related parameters
-IMG_NAME=${1}
-AUTO_MAINLINE_UBOOT=${2}
-BACKUP_RESTORE_CONFIG=${3}
+IMG_NAME="${1}"
+AUTO_MAINLINE_UBOOT="${2}"
+BACKUP_RESTORE_CONFIG="${3}"
 
 # Current device model
 MYDEVICE_NAME=$(cat /proc/device-tree/model | tr -d '\000')
@@ -243,12 +243,68 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Mount [ ${LOOP_DEV}p2 ] -> [ ${P2} ] ... "
-mount -t btrfs -o ro,compress=zstd ${LOOP_DEV}p2 ${P2}
+ZSTD_LEVEL=6
+mount -t btrfs -o ro,compress=zstd:${ZSTD_LEVEL} ${LOOP_DEV}p2 ${P2}
 if [ $? -ne 0 ]; then
     echo "Mount p2 [ ${LOOP_DEV}p2 ] failed!"
     umount -f ${P1}
     losetup -D
     exit 1
+fi
+
+# Prepare the dockerman config file
+if [ -f ${P2}/etc/init.d/dockerman ] && [ -f ${P2}/etc/config/dockerd ]; then
+
+    flg=0
+    # get current docker data root
+    data_root=$(uci get dockerd.globals.data_root 2>/dev/null)
+    if [ "$data_root" == "" ]; then
+        flg=1
+        # get current config from /etc/docker/daemon.json
+        if [ -f "/etc/docker/daemon.json" ] && [ -x "/usr/bin/jq" ]; then
+            data_root=$(jq -r '."data-root"' /etc/docker/daemon.json)
+
+            bip=$(jq -r '."bip"' /etc/docker/daemon.json)
+            [ "$bip" == "null" ] && bip="172.31.0.1/24"
+
+            log_level=$(jq -r '."log-level"' /etc/docker/daemon.json)
+            [ "$log_level" == "null" ] && log_level="warn"
+
+            _iptables=$(jq -r '."iptables"' /etc/docker/daemon.json)
+            [ "$_iptables" == "null" ] && _iptables="true"
+
+            registry_mirrors=$(jq -r '."registry-mirrors"[]' /etc/docker/daemon.json 2>/dev/null)
+        fi
+    fi
+
+    if [ "$data_root" == "" ]; then
+        data_root="/opt/docker/" # the default data root
+    fi
+
+    if ! uci get dockerd.globals >/dev/null 2>&1; then
+        uci set dockerd.globals='globals'
+        uci commit
+    fi
+
+    # delete alter config , use inner config
+    if uci get dockerd.globals.alt_config_file >/dev/null 2>&1; then
+        uci delete dockerd.globals.alt_config_file
+        uci commit
+    fi
+
+    if [ $flg -eq 1 ]; then
+        uci set dockerd.globals.data_root=$data_root
+        [ "$bip" != "" ] && uci set dockerd.globals.bip=$bip
+        [ "$log_level" != "" ] && uci set dockerd.globals.log_level=$log_level
+        [ "$_iptables" != "" ] && uci set dockerd.globals.iptables=$_iptables
+        if [ "$registry_mirrors" != "" ]; then
+            for reg in $registry_mirrors; do
+                uci add_list dockerd.globals.registry_mirrors=$reg
+            done
+        fi
+        uci set dockerd.globals.auto_start='1'
+        uci commit
+    fi
 fi
 
 #update version prompt
@@ -257,25 +313,9 @@ CUR_FDTFILE=${FDT}
 echo -e "FDT Value [ ${CUR_FDTFILE} ]"
 cp /boot/uEnv.txt /tmp/uEnv.txt && sync
 
-MODULES_OLD=$(ls /lib/modules/ 2>/dev/null)
-VERSION_OLD=$(echo ${MODULES_OLD} | grep -oE '^[1-9].[0-9]{1,3}' 2>/dev/null)
-MODULES_NOW=$(ls ${P2}/lib/modules/ 2>/dev/null)
-VERSION_NOW=$(echo ${MODULES_NOW} | grep -oE '^[1-9].[0-9]{1,3}' 2>/dev/null)
-echo -e "Update from [ ${MODULES_OLD} ] to [ ${MODULES_NOW} ]"
-
-k510_ver=${VERSION_NOW%%.*}
-k510_maj=${VERSION_NOW##*.}
-if [ "${k510_ver}" -eq "5" ]; then
-    if [ "${k510_maj}" -ge "10" ]; then
-        K510="1"
-    else
-        K510="0"
-    fi
-elif [ "${k510_ver}" -gt "5" ]; then
-    K510="1"
-else
-    K510="0"
-fi
+K510="1"
+[[ "$(hexdump -n 15 -x "${P1}/zImage" 2>/dev/null | head -n 1 | awk '{print $7}')" == "0108" ]] && K510="0"
+echo -e "K510 [ ${K510} ]"
 
 # flippy-openwrt-release info
 UBOOT_OVERLOAD=""
@@ -303,20 +343,66 @@ if [ -n "${env_openwrt_file}" ]; then
     U_BOOT_EXT=${U_BOOT_EXT}
     KERNEL_VERSION=${KERNEL_VERSION}
     SOC=${SOC}
-
-    # With assigned parameters
-    #K510=${K510}
 fi
 
 #format NEW_ROOT
 echo "umount [ ${NEW_ROOT_MP} ]"
 umount -f "${NEW_ROOT_MP}"
 if [ $? -ne 0 ]; then
-    echo "Mount [ ${NEW_ROOT_MP} ] failed, Please restart and try again!"
+    echo "Umount [ ${NEW_ROOT_MP} ] failed, Please restart and try again!"
     umount -f ${P1}
     umount -f ${P2}
     losetup -D
     exit 1
+fi
+
+# check and fix partition
+function check_and_fix_partition() {
+    local target_dev_name=$1  # mmcblk2
+    local target_pt_name=$2   # p2
+    local target_pt_idx=$3    # 2
+    local safe_pt_begin_mb=$4 # 800
+    local safe_pt_begin_byte=$(($safe_pt_begin_mb * 1024 * 1024))
+
+    local cur_pt_begin_sector=$(fdisk -l /dev/${target_dev_name} | grep ${target_dev_name}${target_pt_name} | awk '{printf $2}')
+    local cur_pt_begin_mb=$(($cur_pt_begin_sector * 512 / 1024 / 1024))
+
+    if [ $cur_pt_begin_mb -ge $safe_pt_begin_mb ]; then
+        # check pass
+        return
+    fi
+
+    local cur_pt_end_sector=$(fdisk -l /dev/${target_dev_name} | grep ${target_dev_name}${target_pt_name} | awk '{printf $3}')
+    local cur_pt_end_byte=$((($cur_pt_end_sector + 1) * 512 - 1))
+
+    echo "Unsafe partition found, repairing ... "
+    parted /dev/${target_dev_name} rm ${target_pt_idx} ||
+        (
+            echo "rm partion ${target_pt_idx} failed"
+            exit 1
+        )
+    parted /dev/${target_dev_name} mkpart primary btrfs "${safe_pt_begin_byte}b" "${cur_pt_end_byte}b" ||
+        (
+            echo "create new partion ${target_pt_idx} failed"
+            exit 1
+        )
+    echo "Partition repaired"
+}
+
+# check if need fix partition
+if [ "${NEW_ROOT_NAME}" == "mmcblk2p2" ]; then
+    if [ "${MYDEVICE_NAME}" == "Phicomm N1" ] || [ "${MYDEVICE_NAME}" == "Octopus Planet" ]; then
+        # 最新研究结果:
+        #     Phicomm N1当采用官方 "天天链" 固件底包时，
+        #     796MB开始的 12 字节在每次重启后会被 bootloader 覆写,
+        #     因此把安全位置设定在800MB之后
+        # The latest research results:
+        #     When Phicomm N1 uses the official "tian tian lian" firmware bottom package,
+        #     the 12 bytes starting from 796MB will be overwritten by bootloader after each reboot,
+        #     so the safe location is set after 800MB
+        SAFE_PT_BEGIN_MB=800
+        check_and_fix_partition "${EMMC_NAME}" "p2" 2 $SAFE_PT_BEGIN_MB
+    fi
 fi
 
 echo "Format [ ${NEW_ROOT_PATH} ]"
@@ -331,7 +417,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Mount [ ${NEW_ROOT_PATH} ] -> [ ${NEW_ROOT_MP} ]"
-mount -t btrfs -o compress=zstd ${NEW_ROOT_PATH} ${NEW_ROOT_MP}
+mount -t btrfs -o compress=zstd:${ZSTD_LEVEL} ${NEW_ROOT_PATH} ${NEW_ROOT_MP}
 if [ $? -ne 0 ]; then
     echo "Mount [ ${NEW_ROOT_PATH} ] -> [ ${NEW_ROOT_MP} ] failed!"
     umount -f ${P1}
@@ -384,8 +470,7 @@ if [ "${BR_FLAG}" -eq 0 ]; then
      "max-file": "5"
    },
   "registry-mirrors": [
-     "https://docker.mirrors.ustc.edu.cn",
-     "https://registry.cn-shanghai.aliyuncs.com",
+     "https://mirror.baidubce.com/",
      "https://hub-mirror.c.163.com"
    ]
 }
@@ -393,7 +478,7 @@ EOF
 fi
 
 cat >./etc/fstab <<EOF
-UUID=${NEW_ROOT_UUID} / btrfs compress=zstd 0 1
+UUID=${NEW_ROOT_UUID} / btrfs compress=zstd:${ZSTD_LEVEL} 0 1
 LABEL=${LB_PRE}BOOT /boot vfat defaults 0 2
 #tmpfs /tmp tmpfs defaults,nosuid 0 0
 EOF
@@ -413,7 +498,7 @@ config  mount
         option enabled '1'
         option enabled_fsck '1'
         option fstype 'btrfs'
-        option options 'compress=zstd'
+        option options 'compress=zstd:${ZSTD_LEVEL}'
 
 config  mount
         option target '/boot'
@@ -476,6 +561,8 @@ if [[ "${BR_FLAG}" -eq "1" && -n "${BACKUP_LIST}" ]]; then
     cp -f .snapshots/etc-000/config/fstab ./etc/config/fstab
     # 还原 luci
     cp -f .snapshots/etc-000/config/luci ./etc/config/luci
+    # 还原/etc/config/rpcd
+    cp -f .snapshots/etc-000/config/rpcd ./etc/config/rpcd
 
     sync
     echo "Restore configuration information complete."
@@ -498,14 +585,14 @@ sed -e "s/:0:0:99999:7:::/:${ddd}:0:99999:7:::/" -i ./etc/shadow
 sed -e "/amule:x:/d" -i ./etc/shadow
 # Fix the problem of repeatedly adding sshd entries after each upgrade of dropbear
 sed -e "/sshd:x:/d" -i ./etc/shadow
-if ! grep "sshd:x:22:sshd" ./etc/group >/dev/null;then
-     echo "sshd:x:22:sshd" >> ./etc/group
+if ! grep "sshd:x:22:sshd" ./etc/group >/dev/null; then
+    echo "sshd:x:22:sshd" >>./etc/group
 fi
-if ! grep "sshd:x:22:22:sshd:" ./etc/passwd >/dev/null;then
-     echo "sshd:x:22:22:sshd:/var/run/sshd:/bin/false" >> ./etc/passwd
+if ! grep "sshd:x:22:22:sshd:" ./etc/passwd >/dev/null; then
+    echo "sshd:x:22:22:sshd:/var/run/sshd:/bin/false" >>./etc/passwd
 fi
-if ! grep "sshd:x:" ./etc/shadow >/dev/null;then
-     echo "sshd:x:${ddd}:0:99999:7:::" >> ./etc/shadow
+if ! grep "sshd:x:" ./etc/shadow >/dev/null; then
+    echo "sshd:x:${ddd}:0:99999:7:::" >>./etc/shadow
 fi
 
 if [ "${BR_FLAG}" -eq "1" ]; then
@@ -535,18 +622,22 @@ if [ -x ./usr/sbin/balethirq.pl ]; then
         sed -e "/exit/i\/usr/sbin/balethirq.pl" -i ./etc/rc.local
     fi
 fi
-mv ./etc/rc.local ./etc/rc.local.orig
 
-cat >./etc/rc.local <<EOF
-if [ ! -f /etc/rc.d/*dockerd ]; then
+mv ./etc/rc.local ./etc/rc.local.orig
+cat >"./etc/rc.local" <<EOF
+if ! ls /etc/rc.d/S??dockerd >/dev/null 2>&1;then
     /etc/init.d/dockerd enable
     /etc/init.d/dockerd start
 fi
+if ! ls /etc/rc.d/S??dockerman >/dev/null 2>&1 && [ -f /etc/init.d/dockerman ];then
+    /etc/init.d/dockerman enable
+    /etc/init.d/dockerman start
+fi
 mv /etc/rc.local.orig /etc/rc.local
+chmod 755 /etc/rc.local
 exec /etc/rc.local
 exit
 EOF
-
 chmod 755 ./etc/rc.local*
 
 #Mainline U-BOOT detection
@@ -688,7 +779,7 @@ if [ ${ROOT_DISK_TYPE} == "EMMC" ]; then
     mv -f boot-emmc.scr boot.scr
 fi
 
-if [ ${K510} -eq 1 ]; then
+if [ "${K510}" -eq "1" ]; then
     if [ -f "u-boot.ext" ]; then
         cp -vf u-boot.ext u-boot.emmc
     elif [ -f ${P1}/${UBOOT_OVERLOAD} ]; then
@@ -697,6 +788,9 @@ if [ ${K510} -eq 1 ]; then
         cp -vf ${P1}/${UBOOT_OVERLOAD} u-boot.emmc
         chmod +x u-boot*
     fi
+else
+    rm -f u-boot.ext 2>/dev/null
+    rm -f u-boot.emmc 2>/dev/null
 fi
 
 sync
@@ -707,14 +801,14 @@ if [ -f /tmp/uEnv.txt ]; then
     lines=$((lines - 1))
     head -n $lines /tmp/uEnv.txt >uEnv.txt
     cat >>uEnv.txt <<EOF
-APPEND=root=UUID=${NEW_ROOT_UUID} rootfstype=btrfs rootflags=compress=zstd console=ttyAML0,115200n8 console=tty0 no_console_suspend consoleblank=0 fsck.fix=yes fsck.repair=yes net.ifnames=0 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory swapaccount=1
+APPEND=root=UUID=${NEW_ROOT_UUID} rootfstype=btrfs rootflags=compress=zstd:${ZSTD_LEVEL} console=ttyAML0,115200n8 console=tty0 no_console_suspend consoleblank=0 fsck.fix=yes fsck.repair=yes net.ifnames=0 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory swapaccount=1
 EOF
 else
     cat >uEnv.txt <<EOF
 LINUX=/zImage
 INITRD=/uInitrd
 FDT=${CUR_FDTFILE}
-APPEND=root=UUID=${NEW_ROOT_UUID} rootfstype=btrfs rootflags=compress=zstd console=ttyAML0,115200n8 console=tty0 no_console_suspend consoleblank=0 fsck.fix=yes fsck.repair=yes net.ifnames=0 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory swapaccount=1
+APPEND=root=UUID=${NEW_ROOT_UUID} rootfstype=btrfs rootflags=compress=zstd:${ZSTD_LEVEL} console=ttyAML0,115200n8 console=tty0 no_console_suspend consoleblank=0 fsck.fix=yes fsck.repair=yes net.ifnames=0 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory swapaccount=1
 EOF
 fi
 sync
