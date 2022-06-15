@@ -119,7 +119,7 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  5) 
-  TIME g " >>>>>>>>>>>更新至内核 5.16.20 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.18.4 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
   url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
