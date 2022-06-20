@@ -171,6 +171,15 @@ update_release_file510() {
     TIME g "内核显示内容更新完毕。"
 }
 
+if [ -a "/etc/flippy-openwrt-release" ]; then
+  TIME g "flippy-openwrt-release文件存在"
+  sleep 2
+elif [ -a "/etc/openwrt-release" ]; then
+  cp /etc/openwrt-release /etc/flippy-openwrt-release -v
+  TIME g "flippy-openwrt-release生成成功"
+  sleep 2
+fi
+
 TIME g "============================================"
 TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g "============================================"

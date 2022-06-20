@@ -26,6 +26,15 @@ TIME() {
       }
 }
 
+if [ -a "/etc/flippy-openwrt-release" ]; then
+  TIME g "flippy-openwrt-release文件存在"
+  sleep 2
+elif [ -a "/etc/openwrt-release" ]; then
+  cp /etc/openwrt-release /etc/flippy-openwrt-release -v
+  TIME g "flippy-openwrt-release生成成功"
+  sleep 2
+fi
+
 TIME g "============================================"
 TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g " 使用本脚本前，请确认当前设备已存在四个分区"
