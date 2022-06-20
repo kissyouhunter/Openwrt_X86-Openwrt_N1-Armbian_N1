@@ -1,10 +1,5 @@
 #!/bin/bash
-#author kissyouhunter
-
-declare flag=0
-clear
-while [ "$flag" -eq 0 ]
-do
+# update kernel for N1
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -17,7 +12,6 @@ TIME() {
 	y) export Color="\e[33;1m";;
 	z) export Color="\e[35;1m";;
 	l) export Color="\e[36;1m";;
-  m) export Color="\e[37;1m";;
 	w) export Color="\e[29;1m";;
       esac
 	[[ $# -lt 2 ]] && echo -e "\e[36m\e[0m ${1}" || {
@@ -29,6 +23,11 @@ TIME() {
 download_path=/tmp/upload
 u_boot_url=https://tt.kisssik.ga/d/aliyun/kernel/files/u-boot.ext
 url=https://tt.kisssik.ga/d/aliyun/kernel
+kernel_number=5.4.198
+kernel_name=5.4.198-kissyouhunter
+boot_file=boot-5.4.198-kissyouhunter.tar.gz
+modules_file=modules-5.4.198-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.4.198-kissyouhunter.tar.gz
 
 download_n1_kernel() {
     TIME w "开始下载内核文件。"
@@ -121,7 +120,7 @@ update_modules() {
 }
 
 # 5.4内核
-update_uboot54() {
+update_uboot() {
     TIME w "开始更新uboot。"
     rm -f /boot/u-boot.ext
     if [ -f "/boot/u-boot.ext" ]; then
@@ -133,22 +132,22 @@ update_uboot54() {
 }
 
 # 5.10以上内核
-update_uboot510() {
-    TIME w "开始更新uboot"
-    cd ${download_path}
-    curl -LO ${u_boot_url}
-    rm -f /boot/u-boot.ext
-    cp -f ${download_path}/u-boot.ext /boot/u-boot.ext && sync
-    if [ -f "/boot/u-boot.ext" ]; then
-        TIME g "uboot OJBK。"
-    else
-        TIME r "uboot 不OJBK。"
-        exit 1
-    fi
-}
+#update_uboot() {
+#    TIME w "开始更新uboot"
+#    cd ${download_path}
+#    curl -LO ${u_boot_url}
+#    rm -f /boot/u-boot.ext
+#    cp -f ${download_path}/u-boot.ext /boot/u-boot.ext && sync
+#    if [ -f "/boot/u-boot.ext" ]; then
+#        TIME g "uboot OJBK。"
+#    else
+#        TIME r "uboot 不OJBK。"
+#        exit 1
+#    fi
+#}
 
 # 5.4内核
-update_release_file54() {
+update_release_file() {
     TIME w "开始更新内核显示内容。"
     sed -i '/KERNEL_VERSION/d' /etc/flippy-openwrt-release
     echo "KERNEL_VERSION='${kernel_name}'" >>/etc/flippy-openwrt-release
@@ -160,131 +159,26 @@ update_release_file54() {
 }
 
 # 5.10以上内核
-update_release_file510() {
-    TIME w "开始更新内核显示内容。"
-    sed -i '/KERNEL_VERSION/d' /etc/flippy-openwrt-release
-    echo "KERNEL_VERSION='${kernel_name}'" >>/etc/flippy-openwrt-release
-    sed -i '/K510/d' /etc/flippy-openwrt-release
-    echo "K510='1'" >>/etc/flippy-openwrt-release
-    sed -i "s/ Kernel.*/ Kernel: ${kernel_name}/g" /etc/banner
-    sync
-    TIME g "内核显示内容更新完毕。"
-}
+#update_release_file() {
+#    TIME w "开始更新内核显示内容。"
+#    sed -i '/KERNEL_VERSION/d' /etc/flippy-openwrt-release
+#    echo "KERNEL_VERSION='${kernel_name}'" >>/etc/flippy-openwrt-release
+#    sed -i '/K510/d' /etc/flippy-openwrt-release
+#    echo "K510='1'" >>/etc/flippy-openwrt-release
+#    sed -i "s/ Kernel.*/ Kernel: ${kernel_name}/g" /etc/banner
+#    sync
+#    TIME g "内核显示内容更新完毕。"
+#}
 
-TIME g "============================================"
-TIME g "       欢迎使用N1——openwrt更新脚本"
-TIME g "============================================"
-
-TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-4]****|"
-TIME g "---------------------------------------"
-TIME b "(1) 更新至内核 5.4.199  版本 到EMMC"
-TIME y "(2) 更新至内核 5.10.123 版本 到EMMC"
-TIME z "(3) 更新至内核 5.15.48  版本 到EMMC"
-TIME m "(4) 更新至内核 5.18.5   版本 到EMMC"
-TIME l "(0) 返回上级菜单"
-TIME l "(0) 怂了，不更新了！"
-
-read -p "Please enter your choice[0-4]: " input
-case $input in
-1)
-TIME g " >>>>>>>>>>>更新至内核 5.4.199"
-
-kernel_number=5.4.199
-kernel_name=5.4.199-kissyouhunter
-boot_file=boot-5.4.199-kissyouhunter.tar.gz
-modules_file=modules-5.4.199-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.4.199-kissyouhunter.tar.gz
-
+TIME y "开始更新内核。"
 download_n1_kernel
 check_kernel
 update_boot
 update_dtb
 update_modules
-update_uboot54
-update_release_file54
-TIME g ">>>>>>>>>>>内核更新完毕，备重启中。"
+update_uboot
+update_release_file
+TIME g "内核更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
-;;
-2)
-TIME g " >>>>>>>>>>>更新至内核 5.10.123"
-
-kernel_number=5.10.123
-kernel_name=5.10.123-kissyouhunter
-boot_file=boot-5.10.123-kissyouhunter.tar.gz
-modules_file=modules-5.10.123-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.10.123-kissyouhunter.tar.gz
-
-download_n1_kernel
-check_kernel
-update_boot
-update_dtb
-update_modules
-update_uboot510
-update_release_file510
-TIME g ">>>>>>>>>>>内核更新完毕，备重启中。"
-sleep 3
-reboot
-exit 0
-;;
-3)
-TIME g " >>>>>>>>>>>更新至内核 5.15.48"
-
-kernel_number=5.15.48
-kernel_name=5.15.48-kissyouhunter
-boot_file=boot-5.15.48-kissyouhunter.tar.gz
-modules_file=modules-5.15.48-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.15.48-kissyouhunter.tar.gz
-
-download_n1_kernel
-check_kernel
-update_boot
-update_dtb
-update_modules
-update_uboot510
-update_release_file510
-TIME g ">>>>>>>>>>>内核更新完毕，备重启中。"
-sleep 3
-reboot
-exit 0
-;;
-4)
-TIME g " >>>>>>>>>>>更新至内核 5.18.5"
-
-kernel_number=5.18.5
-kernel_name=5.18.5-kissyouhunter
-boot_file=boot-5.18.5-kissyouhunter.tar.gz
-modules_file=modules-5.18.5-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.18.5-kissyouhunter.tar.gz
-
-download_n1_kernel
-check_kernel
-update_boot
-update_dtb
-update_modules
-update_uboot510
-update_release_file510
-TIME g ">>>>>>>>>>>内核更新完毕，备重启中。"
-sleep 3
-reboot
-exit 0
-;;
-0)
-clear
-exit 0
-;;
-*)  TIME r "----------------------------------"
- TIME r "|          Warning!!!            |"
- TIME r "|       请输入正确的选项!        |"
- TIME r "----------------------------------"
- for i in $(seq -w 1 -1 1)
-   do
-     #TIME r "\b\b$i";
-     sleep 1;
-   done
- clear
-;;
-esac
-done
