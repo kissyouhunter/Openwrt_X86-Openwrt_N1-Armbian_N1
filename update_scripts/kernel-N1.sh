@@ -211,7 +211,7 @@ update_dtb
 update_modules
 update_uboot54
 update_release_file54
-TIME g ">>>>>>>>>>>内核更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 5.4.199 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
@@ -232,7 +232,7 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 5.10.123 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
@@ -253,7 +253,7 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 5.15.48 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
@@ -274,7 +274,7 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 5.18.5 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
