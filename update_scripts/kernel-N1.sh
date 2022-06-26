@@ -187,22 +187,22 @@ TIME g "============================================"
 TIME g "----------------------------------------"
 TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "---------------------------------------"
-TIME b "(1) 更新至内核 5.4.200"
-TIME y "(2) 更新至内核 5.10.124"
-TIME z "(3) 更新至内核 5.15.49"
-TIME m "(4) 更新至内核 5.18.6"
+TIME b "(1) 更新至内核 5.4.201"
+TIME y "(2) 更新至内核 5.10.125"
+TIME z "(3) 更新至内核 5.15.50"
+TIME m "(4) 更新至内核 5.18.7"
 TIME l "(0) 怂了，不更新了！"
 
 read -p "Please enter your choice[0-4]: " input
 case $input in
 1)
-TIME g " >>>>>>>>>>>更新至内核 5.4.200"
+TIME g " >>>>>>>>>>>更新至内核 5.4.201"
 
-kernel_number=5.4.200
-kernel_name=5.4.200-kissyouhunter
-boot_file=boot-5.4.200-kissyouhunter.tar.gz
-modules_file=modules-5.4.200-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.4.200-kissyouhunter.tar.gz
+kernel_number=5.4.201
+kernel_name=5.4.201-kissyouhunter
+boot_file=boot-5.4.201-kissyouhunter.tar.gz
+modules_file=modules-5.4.201-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.4.201-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -211,19 +211,19 @@ update_dtb
 update_modules
 update_uboot54
 update_release_file54
-TIME g ">>>>>>>>>>>内核 5.4.200 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 5.4.201 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
 ;;
 2)
-TIME g " >>>>>>>>>>>更新至内核 5.10.124"
+TIME g " >>>>>>>>>>>更新至内核 5.10.125"
 
-kernel_number=5.10.124
-kernel_name=5.10.124-kissyouhunter
-boot_file=boot-5.10.124-kissyouhunter.tar.gz
-modules_file=modules-5.10.124-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.10.124-kissyouhunter.tar.gz
+kernel_number=5.10.125
+kernel_name=5.10.125-kissyouhunter
+boot_file=boot-5.10.125-kissyouhunter.tar.gz
+modules_file=modules-5.10.125-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.10.125-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -232,19 +232,19 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 5.10.124 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 5.10.125 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
 ;;
 3)
-TIME g " >>>>>>>>>>>更新至内核 5.15.49"
+TIME g " >>>>>>>>>>>更新至内核 5.15.50"
 
-kernel_number=5.15.49
-kernel_name=5.15.49-kissyouhunter
-boot_file=boot-5.15.49-kissyouhunter.tar.gz
-modules_file=modules-5.15.49-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.15.49-kissyouhunter.tar.gz
+kernel_number=5.15.50
+kernel_name=5.15.50-kissyouhunter
+boot_file=boot-5.15.50-kissyouhunter.tar.gz
+modules_file=modules-5.15.50-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.15.50-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -253,19 +253,19 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 5.15.49 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 5.15.50 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
 ;;
 4)
-TIME g " >>>>>>>>>>>更新至内核 5.18.6"
+TIME g " >>>>>>>>>>>更新至内核 5.18.7"
 
-kernel_number=5.18.6
-kernel_name=5.18.6-kissyouhunter
-boot_file=boot-5.18.6-kissyouhunter.tar.gz
-modules_file=modules-5.18.6-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.18.6-kissyouhunter.tar.gz
+kernel_number=5.18.7
+kernel_name=5.18.7-kissyouhunter
+boot_file=boot-5.18.7-kissyouhunter.tar.gz
+modules_file=modules-5.18.7-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.18.7-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -274,7 +274,7 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 5.18.6 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 5.18.7 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
