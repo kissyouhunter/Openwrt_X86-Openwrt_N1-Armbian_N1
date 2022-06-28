@@ -1,10 +1,10 @@
 #!/bin/bash
 #author kissyouhunter
 
-declare flag=0
-clear
-while [ "$flag" -eq 0 ]
-do
+url_kernel="https://cloud.kisslove.eu.org//d/aliyun/kernel"
+url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
+url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
+update_file="update-N1-openwrt.sh"
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -35,6 +35,12 @@ elif [ -a "/etc/openwrt-release" ]; then
   sleep 2
 fi
 
+openwrt() {
+declare flag=0
+clear
+while [ "$flag" -eq 0 ]
+do
+
 TIME g "============================================"
 TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g " 使用本脚本前，请确认当前设备已存在四个分区"
@@ -58,90 +64,86 @@ do
 TIME g "----------------------------------------"
 TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "---------------------------------------"
-TIME b "(1) 更新至内核 5.4.199  版本 到EMMC"
-TIME y "(2) 更新至内核 5.10.123 版本 到EMMC"
-TIME z "(3) 更新至内核 5.15.48  版本 到EMMC"
-TIME m "(4) 更新至内核 5.18.5   版本 到EMMC"
+TIME b "(1) 更新至内核 5.4.201  版本 到EMMC"
+TIME y "(2) 更新至内核 5.10.126 版本 到EMMC"
+TIME z "(3) 更新至内核 5.15.50  版本 到EMMC"
+TIME m "(4) 更新至内核 5.18.7   版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your choice[0-4]: " input1
  case $input1 in 
  1)
-  TIME g " >>>>>>>>>>>更新至内核 5.4.199 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.4.201 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.4.199-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.4.199-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.6.16_k5.4.201-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.6.16_k5.4.201-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  2)  
-  TIME g " >>>>>>>>>>>更新至内核 5.10.123 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.10.126 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.10.123-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.10.123-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.6.16_k5.10.126-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.6.16_k5.10.126-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 5.15.48 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.15.50 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.15.48-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.15.48-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.6.16_k5.15.50-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.6.16_k5.15.50-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  4) 
-  TIME g " >>>>>>>>>>>更新至内核 5.18.5 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.18.7 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.18.5-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.18.5-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.6.16_k5.18.7-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.6.16_k5.18.7-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
@@ -150,18 +152,17 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.17.15 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.6.16_k5.17.15-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.6.16_k5.17.15-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
@@ -193,90 +194,86 @@ do
 TIME g "----------------------------------------"
 TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "----------------------------------------"
-TIME b "(1) 更新至内核 5.4.199  版本 到U盘"
-TIME y "(2) 更新至内核 5.10.123 版本 到U盘"
-TIME z "(3) 更新至内核 5.15.48  版本 到U盘"
-TIME m "(4) 更新至内核 5.18.5   版本 到U盘"
+TIME b "(1) 更新至内核 5.4.201  版本 到U盘"
+TIME y "(2) 更新至内核 5.10.126 版本 到U盘"
+TIME z "(3) 更新至内核 5.15.50  版本 到U盘"
+TIME m "(4) 更新至内核 5.18.7   版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your Choice[0-4]: " input2
  case $input2 in 
  1)
-  TIME g " >>>>>>>>>>>更新至内核 5.4.199 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.4.201 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.4.199-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.4.199-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.6.16_k5.4.201-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.6.16_k5.4.201-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  2)
-  TIME g " >>>>>>>>>>>更新至内核 5.10.123 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.10.126 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.10.123-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.10.123-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.6.16_k5.10.126-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.6.16_k5.10.126-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 5.15.48 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.15.50 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.15.48-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.15.48-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.6.16_k5.15.50-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.6.16_k5.15.50-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
  4) 
-  TIME g " >>>>>>>>>>>更新至内核 5.18.5 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 5.18.7 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.18.5-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.18.5-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_R22.6.16_k5.18.7-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_R22.6.16_k5.18.7-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
@@ -285,18 +282,17 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.17.15 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  url=https://mirror.ghproxy.com/https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/openwrt_n1
   Firmware=openwrt_s905d_n1_R22.6.16_k5.17.15-kissyouhunter.img.gz
   img=openwrt_s905d_n1_R22.6.16_k5.17.15-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO $url/$Firmware
-  wget https://mirror.ghproxy.com/https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/main/update-N1-openwrt.sh
+  curl -LO ${url_op}/$Firmware
+  wget ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
-  chmod 755 update-N1-openwrt.sh
-  bash update-N1-openwrt.sh $img
+  chmod 755 ${update_file}
+  bash ${update_file} $img
   TIME g "=============删除残留升级文件============="
   rm -rf update-*.sh openwrt_*
   exit 0
@@ -336,3 +332,305 @@ exit 0
 ;;
 esac
 done
+}
+
+kernel() {
+declare flag=0
+clear
+while [ "$flag" -eq 0 ]
+do
+
+download_path=/tmp/upload
+u_boot_url=https://cloud.kisslove.eu.org//d/aliyun/kernel/files/u-boot.ext
+
+download_n1_kernel() {
+    TIME w "开始下载内核文件。"
+    mkdir -p ${download_path}
+    #cd ${download_path}
+    curl -Lo ${download_path}/${boot_file} ${url_kernel}/${kernel_number}/${boot_file}
+    curl -Lo ${download_path}/${modules_file} ${url_kernel}/${kernel_number}/${modules_file}
+    curl -Lo ${download_path}/${dtb_file} ${url_kernel}/${kernel_number}/${dtb_file}
+    sync
+    TIME g "内核文件下载完毕。"
+}
+
+check_kernel() {
+    TIME w "开始检查文件。"
+    cd ${download_path}
+
+    # Determine custom kernel filename
+    kernel_boot="$(ls boot-*.tar.gz | head -n 1)"
+    kernel_name="${kernel_boot/boot-/}" && kernel_name="${kernel_name/.tar.gz/}"
+    KERNEL_VERSION="$(echo ${kernel_name} | grep -oE '^[1-9].[0-9]{1,3}.[0-9]+')"
+
+    # Check the sha256sums file
+    sha256sums_file="sha256sums"
+    sha256sums_check="1"
+    [[ -s "${sha256sums_file}" && -n "$(cat ${sha256sums_file})" ]] || sha256sums_check="0"
+    [[ -n "$(which sha256sum)" ]] || sha256sums_check="0"
+    [[ "${sha256sums_check}" -eq "1" ]]
+
+    # Loop check file
+    i="1"
+    kernel_list=("boot" "dtb-amlogic" "modules")
+    for kernel_file in ${kernel_list[*]}; do
+        # Set check filename
+        tmp_file="${kernel_file}-${kernel_name}.tar.gz"
+        # Check if file exists
+        [[ -s "${tmp_file}" ]] || TIME r "文件[ ${kernel_file} ]不完整。"
+        # Check if the file sha256sum is correct
+        if [[ "${sha256sums_check}" -eq "1" ]]; then
+            tmp_sha256sum="$(sha256sum "${tmp_file}" | awk '{print $1}')"
+            tmp_checkcode="$(cat ${sha256sums_file} | grep ${tmp_file} | awk '{print $1}')"
+            [[ "${tmp_sha256sum}" == "${tmp_checkcode}" ]] || TIME r "${tmp_file}: sha256sum 不 OJBK"
+            TIME r "(${i}/3) [ ${tmp_file} ] 文件 sha256sum OJBK."
+        fi
+        let i++
+    done
+    TIME g "下载的文件都OJBK"
+    sync && echo ""
+}
+
+update_boot() {
+    TIME w "开始更新boot。"
+    rm -f /boot/config-* /boot/initrd.img-* /boot/System.map-* /boot/uInitrd-* /boot/vmlinuz-* && sync
+    rm -f /boot/uInitrd /boot/zImage && sync
+    tar -xf ${download_path}/${boot_file} -C /boot && sync
+    cd /boot && cp -f uInitrd-${kernel_name} uInitrd && cp -f vmlinuz-${kernel_name} zImage && sync
+    if [ -f "/boot/config-${kernel_name}" ] && [ -f "/boot/System.map-${kernel_name}" ] && [ -f "/boot/uInitrd-${kernel_name}" ] && [ -f "/boot/vmlinuz-${kernel_name}" ] && [ -f "/boot/uInitrd" ] && [ -f "/boot/zImage" ]; then
+        TIME g "boot OJBK。"
+    else
+        TIME r "boot 不OJBK。"
+        exit 1
+    fi
+}
+
+update_dtb() {
+    TIME w "开始更新dtb。"
+    cd /boot/dtb/amlogic/ && rm -f * && sync
+    tar -xf ${download_path}/${dtb_file} -C /boot/dtb/amlogic/ && sync
+    if [ -f "/boot/dtb/amlogic/meson-gxl-s905d-phicomm-n1.dtb" ]; then
+        TIME g "dtb OJBK。"
+    else
+        TIME r "dtb 不OJBK。"
+        exit 1
+    fi
+}
+
+update_modules() {
+    TIME w "开始更新modules。"
+    rm -rf /lib/modules/* && sync
+    tar -xf ${download_path}/${modules_file} -C /lib/modules/ && sync
+    cd /lib/modules/${kernel_name}
+    rm -f *.ko
+    find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
+    sync && sleep 3
+    x=$(ls *.ko -l | grep "^l" | wc -l)
+    if [ "${x}" -eq "0" ]; then
+        TIME r "*.ko 文件错误。"
+        exit 1
+    fi
+    TIME g "modules OJBK。"
+}
+
+# 5.4内核
+update_uboot54() {
+    TIME w "开始更新uboot。"
+    rm -f /boot/u-boot.ext
+    if [ -f "/boot/u-boot.ext" ]; then
+        TIME r "uboot 不OJBK。"
+        exit 1
+    else
+        TIME g "uboot OJBK。"
+    fi
+}
+
+# 5.10以上内核
+update_uboot510() {
+    TIME w "开始更新uboot"
+    cd ${download_path}
+    curl -LO ${u_boot_url}
+    rm -f /boot/u-boot.ext
+    cp -f ${download_path}/u-boot.ext /boot/u-boot.ext && sync
+    if [ -f "/boot/u-boot.ext" ]; then
+        TIME g "uboot OJBK。"
+    else
+        TIME r "uboot 不OJBK。"
+        exit 1
+    fi
+}
+
+# 5.4内核
+update_release_file54() {
+    TIME w "开始更新内核显示内容。"
+    sed -i '/KERNEL_VERSION/d' /etc/flippy-openwrt-release
+    echo "KERNEL_VERSION='${kernel_name}'" >>/etc/flippy-openwrt-release
+    sed -i '/K510/d' /etc/flippy-openwrt-release
+    echo "K510='0'" >>/etc/flippy-openwrt-release
+    sed -i "s/ Kernel.*/ Kernel: ${kernel_name}/g" /etc/banner
+    sync
+    TIME g "内核显示内容更新完毕。"
+}
+
+# 5.10以上内核
+update_release_file510() {
+    TIME w "开始更新内核显示内容。"
+    sed -i '/KERNEL_VERSION/d' /etc/flippy-openwrt-release
+    echo "KERNEL_VERSION='${kernel_name}'" >>/etc/flippy-openwrt-release
+    sed -i '/K510/d' /etc/flippy-openwrt-release
+    echo "K510='1'" >>/etc/flippy-openwrt-release
+    sed -i "s/ Kernel.*/ Kernel: ${kernel_name}/g" /etc/banner
+    sync
+    TIME g "内核显示内容更新完毕。"
+}
+
+TIME g "============================================"
+TIME g "       欢迎使用N1——openwrt更新脚本"
+TIME g "============================================"
+
+TIME g "----------------------------------------"
+TIME g "|****Please Enter Your Choice:[0-4]****|"
+TIME g "---------------------------------------"
+TIME b "(1) 更新至内核 5.4.201"
+TIME y "(2) 更新至内核 5.10.126"
+TIME z "(3) 更新至内核 5.15.50"
+TIME m "(4) 更新至内核 5.18.7"
+TIME l "(0) 怂了，不更新了！"
+
+read -p "Please enter your choice[0-4]: " input
+case $input in
+1)
+TIME g " >>>>>>>>>>>更新至内核 5.4.201"
+
+kernel_number=5.4.201
+kernel_name=5.4.201-kissyouhunter
+boot_file=boot-5.4.201-kissyouhunter.tar.gz
+modules_file=modules-5.4.201-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.4.201-kissyouhunter.tar.gz
+
+download_n1_kernel
+check_kernel
+update_boot
+update_dtb
+update_modules
+update_uboot54
+update_release_file54
+TIME g ">>>>>>>>>>>内核 5.4.201 更新完毕，备重启中。"
+sleep 3
+reboot
+exit 0
+;;
+2)
+TIME g " >>>>>>>>>>>更新至内核 5.10.126"
+
+kernel_number=5.10.126
+kernel_name=5.10.126-kissyouhunter
+boot_file=boot-5.10.126-kissyouhunter.tar.gz
+modules_file=modules-5.10.126-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.10.126-kissyouhunter.tar.gz
+
+download_n1_kernel
+check_kernel
+update_boot
+update_dtb
+update_modules
+update_uboot510
+update_release_file510
+TIME g ">>>>>>>>>>>内核 5.10.126 更新完毕，备重启中。"
+sleep 3
+reboot
+exit 0
+;;
+3)
+TIME g " >>>>>>>>>>>更新至内核 5.15.50"
+
+kernel_number=5.15.50
+kernel_name=5.15.50-kissyouhunter
+boot_file=boot-5.15.50-kissyouhunter.tar.gz
+modules_file=modules-5.15.50-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.15.50-kissyouhunter.tar.gz
+
+download_n1_kernel
+check_kernel
+update_boot
+update_dtb
+update_modules
+update_uboot510
+update_release_file510
+TIME g ">>>>>>>>>>>内核 5.15.50 更新完毕，备重启中。"
+sleep 3
+reboot
+exit 0
+;;
+4)
+TIME g " >>>>>>>>>>>更新至内核 5.18.7"
+
+kernel_number=5.18.7
+kernel_name=5.18.7-kissyouhunter
+boot_file=boot-5.18.7-kissyouhunter.tar.gz
+modules_file=modules-5.18.7-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-5.18.7-kissyouhunter.tar.gz
+
+download_n1_kernel
+check_kernel
+update_boot
+update_dtb
+update_modules
+update_uboot510
+update_release_file510
+TIME g ">>>>>>>>>>>内核 5.18.7 更新完毕，备重启中。"
+sleep 3
+reboot
+exit 0
+;;
+0)
+clear
+exit 0
+;;
+*)  TIME r "----------------------------------"
+ TIME r "|          Warning!!!            |"
+ TIME r "|       请输入正确的选项!        |"
+ TIME r "----------------------------------"
+ for i in $(seq -w 1 -1 1)
+   do
+     #TIME r "\b\b$i";
+     sleep 1;
+   done
+ clear
+;;
+esac
+done
+}
+
+menu(){
+while :; do
+echo
+TIME g "---- N1固件 在线更新菜单 ----"
+echo
+TIME g "[1] 更新 N1固件"
+echo
+TIME g "[2] 更新 N1内核"
+echo
+TIME g "[0] 退出更新!"
+TIME g "-------------------------------"
+read -p " 请输入 序号 敲回车确认： " CHOOSE
+case $CHOOSE in
+1)
+  clear
+  openwrt
+  ;;
+2)
+  clear
+  kernel
+  ;;
+0)
+exit 0
+break
+;;
+*)
+echo
+TIME r "请输入正确的序号!"
+;;
+esac
+done
+}
