@@ -634,3 +634,4 @@ TIME r "请输入正确的序号!"
 esac
 done
 }
+menu
