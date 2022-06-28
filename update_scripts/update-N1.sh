@@ -5,6 +5,7 @@ url_kernel="https://cloud.kisslove.eu.org//d/aliyun/kernel"
 url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
 url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
+op_version="R22.6.16"
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -76,8 +77,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.4.201 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.4.201-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.4.201-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.4.201-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.4.201-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -95,8 +96,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.10.126 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.10.126-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.10.126-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.10.126-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.10.126-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -114,8 +115,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.15.50 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.15.50-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.15.50-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.15.50-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.15.50-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -133,8 +134,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.18.7 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.18.7-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.18.7-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.18.7-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.18.7-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -152,8 +153,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.17.15 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.17.15-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.17.15-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -206,8 +207,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.4.201 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.4.201-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.4.201-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.4.201-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.4.201-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -225,8 +226,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.10.126 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.10.126-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.10.126-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.10.126-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.10.126-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -244,8 +245,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.15.50 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.15.50-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.15.50-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.15.50-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.15.50-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -263,8 +264,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.18.7 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.18.7-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.18.7-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.18.7-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.18.7-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -282,8 +283,8 @@ TIME l "(0) 返回上级菜单"
   TIME g " >>>>>>>>>>>更新至内核 5.17.15 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_R22.6.16_k5.17.15-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_R22.6.16_k5.17.15-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
