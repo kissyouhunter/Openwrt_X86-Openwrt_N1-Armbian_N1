@@ -7,6 +7,18 @@ url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
 op_version="R22.6.16"
 
+## openwrt版本
+op_version_54="5.4.201"
+op_version_510="5.10.126"
+op_version_515="5.15.50"
+op_version_518="5.18.7"
+
+## kernel版本
+kervel_version_54="5.4.202"
+kervel_version_510="5.10.127"
+kervel_version_515="5.15.51"
+kervel_version_518="5.18.8"
+
 TIME() {
 [[ -z "$1" ]] && {
 	echo -ne " "
@@ -50,9 +62,9 @@ TIME g "          默认ip：192.168.2.4 "
 TIME g "    默认账号：root 默认密码：password "
 TIME g "============================================"
 
-TIME b "(1) 更新固件至EMMC!"
-TIME y "(2) 更新固件至U盘!"
-TIME l "(0) 怂了，不更新了！"
+TIME b "(1) 更新固件至EMMC"
+TIME y "(2) 更新固件至U盘"
+TIME l "(0) 返回上级菜单"
 
 read -p "Please enter your choice[0-2]: " input
 case $input in
@@ -65,20 +77,20 @@ do
 TIME g "----------------------------------------"
 TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "---------------------------------------"
-TIME b "(1) 更新至内核 5.4.201  版本 到EMMC"
-TIME y "(2) 更新至内核 5.10.126 版本 到EMMC"
-TIME z "(3) 更新至内核 5.15.50  版本 到EMMC"
-TIME m "(4) 更新至内核 5.18.7   版本 到EMMC"
+TIME b "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
+TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
+TIME z "(3) 更新至内核 ${op_version_515}  版本 到EMMC"
+TIME m "(4) 更新至内核 ${op_version_518}   版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your choice[0-4]: " input1
  case $input1 in 
  1)
-  TIME g " >>>>>>>>>>>更新至内核 5.4.201 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.4.201-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.4.201-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_54}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_54}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -93,11 +105,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  2)  
-  TIME g " >>>>>>>>>>>更新至内核 5.10.126 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_510} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.10.126-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.10.126-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -112,11 +124,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 5.15.50 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_510} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.15.50-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.15.50-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -131,11 +143,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  4) 
-  TIME g " >>>>>>>>>>>更新至内核 5.18.7 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_518} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.18.7-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.18.7-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -195,20 +207,20 @@ do
 TIME g "----------------------------------------"
 TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "----------------------------------------"
-TIME b "(1) 更新至内核 5.4.201  版本 到U盘"
-TIME y "(2) 更新至内核 5.10.126 版本 到U盘"
-TIME z "(3) 更新至内核 5.15.50  版本 到U盘"
-TIME m "(4) 更新至内核 5.18.7   版本 到U盘"
+TIME b "(1) 更新至内核 ${op_version_54}  版本 到U盘"
+TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
+TIME z "(3) 更新至内核 ${op_version_515}  版本 到U盘"
+TIME m "(4) 更新至内核 ${op_version_518}   版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your Choice[0-4]: " input2
  case $input2 in 
  1)
-  TIME g " >>>>>>>>>>>更新至内核 5.4.201 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.4.201-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.4.201-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_54}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_54}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -223,11 +235,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  2)
-  TIME g " >>>>>>>>>>>更新至内核 5.10.126 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_510} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.10.126-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.10.126-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -242,11 +254,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 5.15.50 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_515} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.15.50-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.15.50-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -261,11 +273,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  4) 
-  TIME g " >>>>>>>>>>>更新至内核 5.18.7 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_518} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.18.7-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.18.7-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   curl -LO ${url_op}/$Firmware
@@ -318,7 +330,7 @@ TIME l "(0) 返回上级菜单"
 ;;
 0)
 clear
-exit 0
+break
 ;;
 *)  TIME r "----------------------------------"
  TIME r "|          Warning!!!            |"
@@ -492,22 +504,22 @@ TIME g "============================================"
 TIME g "----------------------------------------"
 TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "---------------------------------------"
-TIME b "(1) 更新至内核 5.4.201"
-TIME y "(2) 更新至内核 5.10.126"
-TIME z "(3) 更新至内核 5.15.50"
-TIME m "(4) 更新至内核 5.18.7"
-TIME l "(0) 怂了，不更新了！"
+TIME b "(1) 更新至内核 ${kervel_version_54}"
+TIME y "(2) 更新至内核 ${kervel_version_510}"
+TIME z "(3) 更新至内核 ${kervel_version_515}"
+TIME m "(4) 更新至内核 ${kervel_version_518}"
+TIME l "(0) 返回上级菜单"
 
 read -p "Please enter your choice[0-4]: " input
 case $input in
 1)
-TIME g " >>>>>>>>>>>更新至内核 5.4.201"
+TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_54}"
 
-kernel_number=5.4.201
-kernel_name=5.4.201-kissyouhunter
-boot_file=boot-5.4.201-kissyouhunter.tar.gz
-modules_file=modules-5.4.201-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.4.201-kissyouhunter.tar.gz
+kernel_number=${kervel_version_54}
+kernel_name=${kervel_version_54}-kissyouhunter
+boot_file=boot-${kervel_version_54}-kissyouhunter.tar.gz
+modules_file=modules-${kervel_version_54}-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-${kervel_version_54}-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -516,19 +528,19 @@ update_dtb
 update_modules
 update_uboot54
 update_release_file54
-TIME g ">>>>>>>>>>>内核 5.4.201 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 ${kervel_version_54} 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
 ;;
 2)
-TIME g " >>>>>>>>>>>更新至内核 5.10.126"
+TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_510}"
 
-kernel_number=5.10.126
-kernel_name=5.10.126-kissyouhunter
-boot_file=boot-5.10.126-kissyouhunter.tar.gz
-modules_file=modules-5.10.126-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.10.126-kissyouhunter.tar.gz
+kernel_number=${kervel_version_510}
+kernel_name=${kervel_version_510}-kissyouhunter
+boot_file=boot-${kervel_version_510}-kissyouhunter.tar.gz
+modules_file=modules-${kervel_version_510}-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-${kervel_version_510}-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -537,19 +549,19 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 5.10.126 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 ${kervel_version_510} 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
 ;;
 3)
-TIME g " >>>>>>>>>>>更新至内核 5.15.50"
+TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_515}"
 
-kernel_number=5.15.50
-kernel_name=5.15.50-kissyouhunter
-boot_file=boot-5.15.50-kissyouhunter.tar.gz
-modules_file=modules-5.15.50-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.15.50-kissyouhunter.tar.gz
+kernel_number=${kervel_version_515}
+kernel_name=${kervel_version_515}-kissyouhunter
+boot_file=boot-${kervel_version_515}-kissyouhunter.tar.gz
+modules_file=modules-${kervel_version_515}-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-${kervel_version_515}-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -558,19 +570,19 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 5.15.50 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 ${kervel_version_515} 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
 ;;
 4)
-TIME g " >>>>>>>>>>>更新至内核 5.18.7"
+TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_518}"
 
-kernel_number=5.18.7
-kernel_name=5.18.7-kissyouhunter
-boot_file=boot-5.18.7-kissyouhunter.tar.gz
-modules_file=modules-5.18.7-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-5.18.7-kissyouhunter.tar.gz
+kernel_number=${kervel_version_518}
+kernel_name=${kervel_version_518}-kissyouhunter
+boot_file=boot-${kervel_version_518}-kissyouhunter.tar.gz
+modules_file=modules-${kervel_version_518}-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-${kervel_version_518}-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -579,14 +591,14 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 5.18.7 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 ${kervel_version_518} 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
 ;;
 0)
 clear
-exit 0
+break
 ;;
 *)  TIME r "----------------------------------"
  TIME r "|          Warning!!!            |"
