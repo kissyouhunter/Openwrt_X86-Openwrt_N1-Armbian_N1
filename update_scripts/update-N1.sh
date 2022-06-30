@@ -1,7 +1,7 @@
 #!/bin/bash
 #author kissyouhunter
 
-url_kernel="https://cloud.kisslove.eu.org//d/aliyun/kernel"
+url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
 url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
 url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
@@ -354,7 +354,7 @@ while [ "$flag" -eq 0 ]
 do
 
 download_path=/tmp/upload
-u_boot_url=https://cloud.kisslove.eu.org//d/aliyun/kernel/files/u-boot.ext
+u_boot_url=https://cloud.kisslove.eu.org/d/aliyun/kernel/files/u-boot.ext
 
 download_n1_kernel() {
     TIME w "开始下载内核文件。"
