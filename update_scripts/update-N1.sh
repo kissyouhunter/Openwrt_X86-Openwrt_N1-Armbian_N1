@@ -5,19 +5,19 @@ url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
 url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
 url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
-op_version="R22.6.16"
+op_version="R22.7.7"
 
 ## openwrt版本
-op_version_54="5.4.201"
-op_version_510="5.10.126"
-op_version_515="5.15.50"
-op_version_518="5.18.7"
+op_version_54="5.4.204"
+op_version_510="5.10.129"
+op_version_515="5.15.53"
+op_version_518="5.18.10"
 
 ## kernel版本
-kervel_version_54="5.4.203"
-kervel_version_510="5.10.128"
-kervel_version_515="5.15.52"
-kervel_version_518="5.18.9"
+kervel_version_54="5.4.204"
+kervel_version_510="5.10.129"
+kervel_version_515="5.15.53"
+kervel_version_518="5.18.10"
 
 TIME() {
 [[ -z "$1" ]] && {
