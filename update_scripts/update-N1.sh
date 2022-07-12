@@ -14,10 +14,10 @@ op_version_515="5.15.53"
 op_version_518="5.18.10"
 
 ## kernel版本
-kervel_version_54="5.4.204"
-kervel_version_510="5.10.129"
-kervel_version_515="5.15.53"
-kervel_version_518="5.18.10"
+kervel_version_54="5.4.205"
+kervel_version_510="5.10.130"
+kervel_version_515="5.15.54"
+kervel_version_518="5.18.11"
 
 TIME() {
 [[ -z "$1" ]] && {
