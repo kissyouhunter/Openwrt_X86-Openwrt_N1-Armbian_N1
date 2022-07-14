@@ -14,6 +14,7 @@ op_version_515="5.15.54"
 op_version_518="5.18.11"
 
 ## kernel版本
+kervel_version_419="4.19.252"
 kervel_version_54="5.4.205"
 kervel_version_510="5.10.130"
 kervel_version_515="5.15.54"
@@ -502,15 +503,16 @@ TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g "============================================"
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-4]****|"
+TIME g "|****Please Enter Your Choice:[0-5]****|"
 TIME g "---------------------------------------"
 TIME b "(1) 更新至内核 ${kervel_version_54}"
 TIME y "(2) 更新至内核 ${kervel_version_510}"
 TIME z "(3) 更新至内核 ${kervel_version_515}"
 TIME m "(4) 更新至内核 ${kervel_version_518}"
+TIME w "(5) 更新至内核 ${kervel_version_419}"
 TIME l "(0) 返回上级菜单"
 
-read -p "Please enter your choice[0-4]: " input
+read -p "Please enter your choice[0-5]: " input
 case $input in
 1)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_54}"
@@ -592,6 +594,27 @@ update_modules
 update_uboot510
 update_release_file510
 TIME g ">>>>>>>>>>>内核 ${kervel_version_518} 更新完毕，备重启中。"
+sleep 3
+reboot
+exit 0
+;;
+5)
+TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_419}"
+
+kernel_number=${kervel_version_419}
+kernel_name=${kervel_version_419}-kissyouhunter
+boot_file=boot-${kervel_version_419}-kissyouhunter.tar.gz
+modules_file=modules-${kervel_version_419}-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-${kervel_version_419}-kissyouhunter.tar.gz
+
+download_n1_kernel
+check_kernel
+update_boot
+update_dtb
+update_modules
+update_uboot510
+update_release_file510
+TIME g ">>>>>>>>>>>内核 ${kervel_version_419} 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
