@@ -93,8 +93,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k${op_version_54}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -112,8 +112,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -131,8 +131,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -150,8 +150,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -169,8 +169,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -223,8 +223,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k${op_version_54}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -242,8 +242,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -261,8 +261,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -280,8 +280,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -299,8 +299,8 @@ TIME l "(0) 返回上级菜单"
   img=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
-  curl -LO ${url_op}/$Firmware
-  wget ${url_file}/${update_file}
+  wget -N ${url_op}/$Firmware
+  wget -N ${url_file}/${update_file}
   TIME g "=============下载完成,解压中=============="
   gzip -d *.img.gz && rm -f *.img.gz
   TIME g "===========解压完成,开始升级固件==========="
@@ -360,9 +360,9 @@ download_n1_kernel() {
     TIME w "开始下载内核文件。"
     mkdir -p ${download_path}
     #cd ${download_path}
-    curl -Lo ${download_path}/${boot_file} ${url_kernel}/${kernel_number}/${boot_file}
-    curl -Lo ${download_path}/${modules_file} ${url_kernel}/${kernel_number}/${modules_file}
-    curl -Lo ${download_path}/${dtb_file} ${url_kernel}/${kernel_number}/${dtb_file}
+    wget -N -O ${download_path}/${boot_file} ${url_kernel}/${kernel_number}/${boot_file}
+    wget -N -O ${download_path}/${modules_file} ${url_kernel}/${kernel_number}/${modules_file}
+    wget -N -O ${download_path}/${dtb_file} ${url_kernel}/${kernel_number}/${dtb_file}
     sync
     TIME g "内核文件下载完毕。"
 }
@@ -462,7 +462,7 @@ update_uboot54() {
 update_uboot510() {
     TIME w "开始更新uboot"
     cd ${download_path}
-    curl -LO ${u_boot_url}
+    wget -N ${u_boot_url}
     rm -f /boot/u-boot.ext
     cp -f ${download_path}/u-boot.ext /boot/u-boot.ext && sync
     if [ -f "/boot/u-boot.ext" ]; then
