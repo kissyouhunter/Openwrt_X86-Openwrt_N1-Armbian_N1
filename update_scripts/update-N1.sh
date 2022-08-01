@@ -8,10 +8,10 @@ update_file="update-N1-openwrt.sh"
 op_version="R22.7.7"
 
 ## openwrt版本
-op_version_54="5.4.205"
-op_version_510="5.10.130"
-op_version_515="5.15.54"
-op_version_518="5.18.11"
+op_version_54="5.4.208"
+op_version_510="5.10.134"
+op_version_515="5.15.58"
+op_version_518="5.18.15"
 
 ## kernel版本
 kervel_version_54="5.4.208"
