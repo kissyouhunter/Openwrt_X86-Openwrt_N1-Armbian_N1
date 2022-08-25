@@ -8,10 +8,10 @@ update_file="update-N1-openwrt.sh"
 op_version="R22.8.2"
 
 ## openwrt版本
-op_version_54="5.4.209"
-op_version_510="5.10.135"
-op_version_515="5.15.59"
-op_version_518="5.18.16"
+op_version_54="5.4.211"
+op_version_510="5.10.138"
+op_version_515="5.15.63"
+op_version_519="5.19.4"
 
 ## kernel版本
 kervel_version_54="5.4.211"
@@ -81,7 +81,7 @@ TIME g "---------------------------------------"
 TIME b "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
 TIME z "(3) 更新至内核 ${op_version_515}  版本 到EMMC"
-TIME m "(4) 更新至内核 ${op_version_518}   版本 到EMMC"
+TIME m "(4) 更新至内核 ${op_version_519}  版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your choice[0-4]: " input1
@@ -144,11 +144,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  4) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_518} 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_519} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_519}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_519}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
