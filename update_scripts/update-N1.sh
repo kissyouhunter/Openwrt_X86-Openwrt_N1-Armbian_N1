@@ -5,7 +5,7 @@ url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
 url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
 url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
-op_version="R22.8.2"
+op_version="R22.9.1"
 
 ## openwrt版本
 op_version_54="5.4.212"
