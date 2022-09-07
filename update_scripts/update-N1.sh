@@ -8,17 +8,17 @@ update_file="update-N1-openwrt.sh"
 op_version="R22.8.2"
 
 ## openwrt版本
-op_version_54="5.4.211"
-op_version_510="5.10.138"
-op_version_515="5.15.63"
-op_version_519="5.19.4"
+op_version_54="5.4.212"
+op_version_510="5.10.141"
+op_version_515="5.15.65"
+op_version_519="5.19.7"
 
 ## kernel版本
-kervel_version_54="5.4.211"
-kervel_version_510="5.10.138"
-kervel_version_515="5.15.63"
+kervel_version_54="5.4.212"
+kervel_version_510="5.10.141"
+kervel_version_515="5.15.65"
 kervel_version_518="5.18.17"
-kervel_version_519="5.19.4"
+kervel_version_519="5.19.7"
 
 TIME() {
 [[ -z "$1" ]] && {
