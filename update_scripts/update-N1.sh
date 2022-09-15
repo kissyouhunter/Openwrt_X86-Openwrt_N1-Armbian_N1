@@ -1,9 +1,9 @@
 #!/bin/bash
 #author kissyouhunter
 
-url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
-url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
-url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
+url_kernel="https://drive.kissyouhunter.com/d/aliyun/kernel"
+url_op="https://drive.kissyouhunter.com/d/aliyun/N1"
+url_file="https://drive.kissyouhunter.com/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
 op_version="R22.9.1"
 
