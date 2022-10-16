@@ -1,24 +1,25 @@
 #!/bin/bash
 #author kissyouhunter
 
-url_kernel="https://drive.kissyouhunter.com/d/aliyun/kernel"
-url_op="https://drive.kissyouhunter.com/d/aliyun/N1"
-url_file="https://drive.kissyouhunter.com/d/aliyun/files"
+url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
+url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
+url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
-op_version="R22.9.1"
+op_version="R22.10.10"
 
 ## openwrt版本
-op_version_54="5.4.212"
-op_version_510="5.10.141"
-op_version_515="5.15.65"
-op_version_519="5.19.7"
+op_version_54="5.4.218"
+op_version_510="5.10.148"
+op_version_515="5.15.74"
+op_version_519="5.19.16"
+op_version_60="6.0.2"
 
 ## kernel版本
-kervel_version_54="5.4.212"
-kervel_version_510="5.10.141"
-kervel_version_515="5.15.65"
-kervel_version_518="5.18.17"
-kervel_version_519="5.19.7"
+kervel_version_54="5.4.218"
+kervel_version_510="5.10.148"
+kervel_version_515="5.15.74"
+kervel_version_519="5.19.16"
+kervel_version_60="6.0.2"
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -76,15 +77,16 @@ while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-4]****|"
+TIME g "|****Please Enter Your Choice:[0-5]****|"
 TIME g "---------------------------------------"
 TIME b "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
 TIME z "(3) 更新至内核 ${op_version_515}  版本 到EMMC"
 TIME m "(4) 更新至内核 ${op_version_519}  版本 到EMMC"
+TIME w "(5) 更新至内核 ${op_version_60}  版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your choice[0-4]: " input1
+ read -p "Please enter your choice[0-5]: " input1
  case $input1 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到EMMC开始"
@@ -162,12 +164,12 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 49895) 
-  TIME g " >>>>>>>>>>>更新至内核 5.17.15 版本 到EMMC开始"
+ 5) 
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_60} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_60}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_60}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -206,15 +208,16 @@ while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-4]****|"
+TIME g "|****Please Enter Your Choice:[0-5]****|"
 TIME g "----------------------------------------"
 TIME b "(1) 更新至内核 ${op_version_54}  版本 到U盘"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
 TIME z "(3) 更新至内核 ${op_version_515}  版本 到U盘"
-TIME m "(4) 更新至内核 ${op_version_518}   版本 到U盘"
+TIME m "(4) 更新至内核 ${op_version_519}  版本 到U盘"
+TIME w "(5) 更新至内核 ${op_version_60}  版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your Choice[0-4]: " input2
+ read -p "Please enter your Choice[0-5]: " input2
  case $input2 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到U盘开始"
@@ -274,11 +277,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  4) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_518} 版本 到U盘开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_519} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_518}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_519}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_519}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -292,12 +295,12 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4695656) 
-  TIME g " >>>>>>>>>>>更新至内核 5.17.15 版本 到U盘开始"
+ 5) 
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_60} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k5.17.15-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_60}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_60}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -503,15 +506,16 @@ TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g "============================================"
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-4]****|"
+TIME g "|****Please Enter Your Choice:[0-5]****|"
 TIME g "---------------------------------------"
 TIME b "(1) 更新至内核 ${kervel_version_54}"
 TIME y "(2) 更新至内核 ${kervel_version_510}"
 TIME z "(3) 更新至内核 ${kervel_version_515}"
 TIME m "(4) 更新至内核 ${kervel_version_519}"
+TIME w "(4) 更新至内核 ${kervel_version_60}"
 TIME l "(0) 返回上级菜单"
 
-read -p "Please enter your choice[0-4]: " input
+read -p "Please enter your choice[0-5]: " input
 case $input in
 1)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_54}"
@@ -576,14 +580,14 @@ sleep 3
 reboot
 exit 0
 ;;
-42321553)
-TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_518}"
+5)
+TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_60}"
 
-kernel_number=${kervel_version_518}
-kernel_name=${kervel_version_518}-kissyouhunter
-boot_file=boot-${kervel_version_518}-kissyouhunter.tar.gz
-modules_file=modules-${kervel_version_518}-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-${kervel_version_518}-kissyouhunter.tar.gz
+kernel_number=${kervel_version_60}
+kernel_name=${kervel_version_60}-kissyouhunter
+boot_file=boot-${kervel_version_60}-kissyouhunter.tar.gz
+modules_file=modules-${kervel_version_60}-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-${kervel_version_60}-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
