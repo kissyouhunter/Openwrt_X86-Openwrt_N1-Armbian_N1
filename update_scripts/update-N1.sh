@@ -8,18 +8,18 @@ update_file="update-N1-openwrt.sh"
 op_version="R22.10.10"
 
 ## openwrt版本
-op_version_54="5.4.218"
-op_version_510="5.10.148"
-op_version_515="5.15.74"
+op_version_54="5.4.220"
+op_version_510="5.10.150"
+op_version_515="5.15.75"
 op_version_519="5.19.16"
-op_version_60="6.0.2"
+op_version_60="6.0.5"
 
 ## kernel版本
-kervel_version_54="5.4.218"
-kervel_version_510="5.10.148"
-kervel_version_515="5.15.74"
+kervel_version_54="5.4.220"
+kervel_version_510="5.10.150"
+kervel_version_515="5.15.75"
 kervel_version_519="5.19.16"
-kervel_version_60="6.0.2"
+kervel_version_60="6.0.5"
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -77,16 +77,15 @@ while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-5]****|"
+TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "---------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
 TIME w "(3) 更新至内核 ${op_version_515}  版本 到EMMC"
-TIME y "(4) 更新至内核 ${op_version_519}  版本 到EMMC"
-TIME w "(5) 更新至内核 ${op_version_60}  版本 到EMMC"
+TIME y "(4) 更新至内核 ${op_version_60}  版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your choice[0-5]: " input1
+ read -p "Please enter your choice[0-4]: " input1
  case $input1 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到EMMC开始"
@@ -145,7 +144,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4) 
+ 45456654) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_519} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
@@ -164,7 +163,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 5) 
+ 4) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_60} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
@@ -208,16 +207,15 @@ while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-5]****|"
+TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "----------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到U盘"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
 TIME w "(3) 更新至内核 ${op_version_515}  版本 到U盘"
-TIME y "(4) 更新至内核 ${op_version_519}  版本 到U盘"
-TIME w "(5) 更新至内核 ${op_version_60}  版本 到U盘"
+TIME w "(4) 更新至内核 ${op_version_60}  版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your Choice[0-5]: " input2
+ read -p "Please enter your Choice[0-4]: " input2
  case $input2 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到U盘开始"
@@ -276,7 +274,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4) 
+ 4656564) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_519} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
@@ -295,7 +293,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 5) 
+ 4) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_60} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
