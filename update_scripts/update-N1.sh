@@ -504,16 +504,15 @@ TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g "============================================"
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-5]****|"
+TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "---------------------------------------"
 TIME w "(1) 更新至内核 ${kervel_version_54}"
 TIME y "(2) 更新至内核 ${kervel_version_510}"
 TIME w "(3) 更新至内核 ${kervel_version_515}"
-TIME y "(4) 更新至内核 ${kervel_version_519}"
-TIME w "(4) 更新至内核 ${kervel_version_60}"
+TIME y "(4) 更新至内核 ${kervel_version_60}"
 TIME l "(0) 返回上级菜单"
 
-read -p "Please enter your choice[0-5]: " input
+read -p "Please enter your choice[0-4]: " input
 case $input in
 1)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_54}"
@@ -578,7 +577,7 @@ sleep 3
 reboot
 exit 0
 ;;
-5)
+4)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_60}"
 
 kernel_number=${kervel_version_60}
@@ -599,7 +598,7 @@ sleep 3
 reboot
 exit 0
 ;;
-4)
+44555554)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_519}"
 
 kernel_number=${kervel_version_519}
