@@ -5,21 +5,21 @@ url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
 url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
 url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
-op_version="R22.10.10"
+op_version="R22.11.11"
 
 ## openwrt版本
-op_version_54="5.4.220"
-op_version_510="5.10.150"
-op_version_515="5.15.75"
+op_version_54="5.4.223"
+op_version_510="5.10.153"
+op_version_515="5.15.77"
 op_version_519="5.19.16"
-op_version_60="6.0.5"
+op_version_60="6.0.7"
 
 ## kernel版本
-kervel_version_54="5.4.220"
-kervel_version_510="5.10.150"
-kervel_version_515="5.15.75"
+kervel_version_54="5.4.223"
+kervel_version_510="5.10.153"
+kervel_version_515="5.15.77"
 kervel_version_519="5.19.16"
-kervel_version_60="6.0.5"
+kervel_version_60="6.0.7"
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -126,11 +126,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_510} 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_515} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
