@@ -23,23 +23,31 @@ kervel_version_60="6.0.13"
 
 TIME() {
 [[ -z "$1" ]] && {
-	echo -ne " "
+    echo -ne " "
 } || {
      case $1 in
-	r) export Color="\e[31;1m";;
-	g) export Color="\e[32;1m";;
-	b) export Color="\e[34;1m";;
-	y) export Color="\e[33;1m";;
-	z) export Color="\e[35;1m";;
-	l) export Color="\e[36;1m";;
+    r) export Color="\e[31;1m";;
+    g) export Color="\e[32;1m";;
+    b) export Color="\e[34;1m";;
+    y) export Color="\e[33;1m";;
+    z) export Color="\e[35;1m";;
+    l) export Color="\e[36;1m";;
   m) export Color="\e[37;1m";;
-	w) export Color="\e[29;1m";;
+    w) export Color="\e[29;1m";;
       esac
-	[[ $# -lt 2 ]] && echo -e "\e[36m\e[0m ${1}" || {
-		echo -e "\e[36m\e[0m ${Color}${2}\e[0m"
-	 }
+    [[ $# -lt 2 ]] && echo -e "\e[36m\e[0m ${1}" || {
+        echo -e "\e[36m\e[0m ${Color}${2}\e[0m"
+     }
       }
 }
+
+volume=$(df -m | grep /dev/mmcblk2p4 | grep -v docker | awk '{print $4}')
+if [ $volume -ge 1024 ]; then
+  echo
+else
+  TIME r "p4分区为${volume}m，小于1G。删除垃圾文件后再运行更新命令"
+  exit 0
+fi
 
 if [ -a "/etc/flippy-openwrt-release" ]; then
   TIME g "flippy-openwrt-release文件存在"
@@ -82,7 +90,7 @@ TIME g "---------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
 TIME w "(3) 更新至内核 ${op_version_515}  版本 到EMMC"
-TIME y "(4) 更新至内核 ${op_version_60}  版本 到EMMC"
+TIME y "(4) 更新至内核 ${op_version_60}   版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your choice[0-4]: " input1
@@ -126,11 +134,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_515} 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_510} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -144,7 +152,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 45456654) 
+ 45655654) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_519} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
@@ -212,7 +220,7 @@ TIME g "----------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到U盘"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
 TIME w "(3) 更新至内核 ${op_version_515}  版本 到U盘"
-TIME w "(4) 更新至内核 ${op_version_60}  版本 到U盘"
+TIME y "(4) 更新至内核 ${op_version_60}   版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your Choice[0-4]: " input2
@@ -274,7 +282,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4656564) 
+ 412323t) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_519} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
@@ -598,7 +606,7 @@ sleep 3
 reboot
 exit 0
 ;;
-44555554)
+412341234)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_519}"
 
 kernel_number=${kervel_version_519}
