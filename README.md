@@ -19,7 +19,7 @@ ___
 
 * （一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
 
-* 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/openwrt_x86)
+* 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/openwrt_x86) [国内](https://cloud.kisslove.eu.org)
 ___
 
 ## Openwrt_N1:
@@ -40,7 +40,7 @@ ___
 
 * 如已刷入本固件，ssh连接n1或ttyd输入update即可。
 
-* 命令一：bash <(curl -Lso- https://tt.kisssik.ga/d/aliyun/files/update-N1.sh))
+* 命令一：bbash <(curl -Lso- nb0.cc/k)
 
 * 命令二：bash <(curl -s -S -L https://git.io/update-N1) 
 
@@ -64,7 +64,7 @@ ___
 
 [注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件](#注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件)
 
-* 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/openwrt_n1) [国内](http://tt.kisssik.ga)
+* 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/n1_openwrt) [国内](https://cloud.kisslove.eu.org)
 ___
 
 ## Armbian_N1:
@@ -77,4 +77,4 @@ ___
 
 * 常用命令armbian-config（配置ip、cpu等配置）; armbian-install（安装到emmc）; armbian-docker （一键安装docker）；armbian-update（更新内核）；armbian-container（一键安装常用docker容器）。
 
-* 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/Armbian) [国内](http://tt.kisssik.ga)
+* 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/Armbian) [国内](https://cloud.kisslove.eu.org)
