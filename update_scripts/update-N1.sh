@@ -1,25 +1,26 @@
 #!/bin/bash
 #author kissyouhunter
 
-url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
+url_kernel="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel"
+#url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
 url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
 url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
 update_file="update-N1-openwrt.sh"
-op_version="R22.12.1"
+op_version="R23.1.1"
 
 ## openwrt版本
-op_version_54="5.4.227"
-op_version_510="5.10.159"
-op_version_515="5.15.83"
-op_version_519="5.19.16"
-op_version_60="6.0.13"
+op_version_54="5.4.228"
+op_version_510="5.10.162"
+op_version_515="5.15.86"
+op_version_61="6.1.3"
+op_version_60="6.0.17"
 
 ## kernel版本
-kervel_version_54="5.4.227"
-kervel_version_510="5.10.159"
-kervel_version_515="5.15.83"
-kervel_version_519="5.19.16"
-kervel_version_60="6.0.13"
+kervel_version_54="5.4.228"
+kervel_version_510="5.10.162"
+kervel_version_515="5.15.86"
+kervel_version_61="6.1.3"
+kervel_version_60="6.0.17"
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -32,7 +33,7 @@ TIME() {
     y) export Color="\e[33;1m";;
     z) export Color="\e[35;1m";;
     l) export Color="\e[36;1m";;
-  m) export Color="\e[37;1m";;
+    m) export Color="\e[37;1m";;
     w) export Color="\e[29;1m";;
       esac
     [[ $# -lt 2 ]] && echo -e "\e[36m\e[0m ${1}" || {
@@ -40,15 +41,15 @@ TIME() {
      }
       }
 }
-
-volume=$(df -m | grep /dev/mmcblk2p4 | grep -v docker | awk '{print $4}')
-if [ $volume -ge 1024 ]; then
-  echo
-else
-  TIME r "p4分区为${volume}m，小于1G。删除垃圾文件后再运行更新命令"
-  exit 0
-fi
-
+volume_check() {
+    volume=$(df -m | grep /dev/mmcblk2p4 | grep -v docker | awk '{print $4}')
+    if [[ $volume -ge 1024 ]]; then
+    echo
+    else
+    TIME r "p4分区为${volume}m，小于1G。删除垃圾文件后再运行更新命令"
+    exit 0
+    fi
+}
 if [ -a "/etc/flippy-openwrt-release" ]; then
   TIME g "flippy-openwrt-release文件存在"
   sleep 2
@@ -80,20 +81,22 @@ read -p "Please enter your choice[0-2]: " input
 case $input in
 #更新固件至EMMC
 1)
+volume_check
 clear
 while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-4]****|"
+TIME g "|****Please Enter Your Choice:[0-5]****|"
 TIME g "---------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
 TIME w "(3) 更新至内核 ${op_version_515}  版本 到EMMC"
 TIME y "(4) 更新至内核 ${op_version_60}   版本 到EMMC"
+TIME w "(5) 更新至内核 ${op_version_61}    版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your choice[0-4]: " input1
+ read -p "Please enter your choice[0-5]: " input1
  case $input1 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到EMMC开始"
@@ -152,12 +155,12 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 45655654) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_519} 版本 到EMMC开始"
+ 5) 
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_61} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_519}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_519}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_61}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_61}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -215,15 +218,16 @@ while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-4]****|"
+TIME g "|****Please Enter Your Choice:[0-5]****|"
 TIME g "----------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到U盘"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
 TIME w "(3) 更新至内核 ${op_version_515}  版本 到U盘"
 TIME y "(4) 更新至内核 ${op_version_60}   版本 到U盘"
+TIME w "(4) 更新至内核 ${op_version_61}    版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your Choice[0-4]: " input2
+ read -p "Please enter your Choice[0-5]: " input2
  case $input2 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到U盘开始"
@@ -282,12 +286,12 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 412323t) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_519} 版本 到U盘开始"
+ 5) 
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_61} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_519}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_519}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_61}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_61}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -364,7 +368,8 @@ while [ "$flag" -eq 0 ]
 do
 
 download_path=/tmp/upload
-u_boot_url=https://cloud.kisslove.eu.org/d/aliyun/kernel/files/u-boot.ext
+#u_boot_url="https://cloud.kisslove.eu.org/d/aliyun/kernel/files/u-boot.ext"
+u_boot_url="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel/u-boot.ext"
 
 download_n1_kernel() {
     TIME w "开始下载内核文件。"
@@ -512,15 +517,16 @@ TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g "============================================"
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-4]****|"
+TIME g "|****Please Enter Your Choice:[0-5]****|"
 TIME g "---------------------------------------"
 TIME w "(1) 更新至内核 ${kervel_version_54}"
 TIME y "(2) 更新至内核 ${kervel_version_510}"
 TIME w "(3) 更新至内核 ${kervel_version_515}"
 TIME y "(4) 更新至内核 ${kervel_version_60}"
+TIME w "(5) 更新至内核 ${kervel_version_61}"
 TIME l "(0) 返回上级菜单"
 
-read -p "Please enter your choice[0-4]: " input
+read -p "Please enter your choice[0-5]: " input
 case $input in
 1)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_54}"
@@ -601,19 +607,19 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 ${kervel_version_518} 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 ${kervel_version_60} 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
 ;;
-412341234)
-TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_519}"
+5)
+TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_61}"
 
-kernel_number=${kervel_version_519}
-kernel_name=${kervel_version_519}-kissyouhunter
-boot_file=boot-${kervel_version_519}-kissyouhunter.tar.gz
-modules_file=modules-${kervel_version_519}-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-${kervel_version_519}-kissyouhunter.tar.gz
+kernel_number=${kervel_version_61}
+kernel_name=${kervel_version_61}-kissyouhunter
+boot_file=boot-${kervel_version_61}-kissyouhunter.tar.gz
+modules_file=modules-${kervel_version_61}-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-${kervel_version_61}-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -679,3 +685,4 @@ esac
 done
 }
 menu
+
