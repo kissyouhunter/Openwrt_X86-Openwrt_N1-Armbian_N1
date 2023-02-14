@@ -2,24 +2,23 @@
 #author kissyouhunter
 
 url_kernel="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel"
-#url_kernel="https://cloud.kisslove.eu.org/d/aliyun/kernel"
-url_op="https://cloud.kisslove.eu.org/d/aliyun/N1"
-url_file="https://cloud.kisslove.eu.org/d/aliyun/files"
+url_op="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP"
+url_file="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/files"
 update_file="update-N1-openwrt.sh"
-op_version="R23.1.1"
+op_version="R23.2.14"
 
 ## openwrt版本
-op_version_54="5.4.228"
-op_version_510="5.10.162"
-op_version_515="5.15.86"
-op_version_61="6.1.3"
+op_version_54="5.4.231"
+op_version_510="5.10.1167"
+op_version_515="5.15.93"
+op_version_61="6.1.11"
 op_version_60="6.0.17"
 
 ## kernel版本
-kervel_version_54="5.4.228"
-kervel_version_510="5.10.162"
-kervel_version_515="5.15.86"
-kervel_version_61="6.1.3"
+kervel_version_54="5.4.231"
+kervel_version_510="5.10.167"
+kervel_version_515="5.15.93"
+kervel_version_61="6.1.11"
 kervel_version_60="6.0.17"
 
 TIME() {
@@ -58,7 +57,7 @@ elif [ -a "/etc/openwrt-release" ]; then
   TIME g "flippy-openwrt-release生成成功"
   sleep 2
 fi
-
+#volume_check
 openwrt() {
 declare flag=0
 clear
@@ -81,7 +80,7 @@ read -p "Please enter your choice[0-2]: " input
 case $input in
 #更新固件至EMMC
 1)
-volume_check
+
 clear
 while [ "$flag" -eq 0 ]
 do
@@ -368,7 +367,7 @@ while [ "$flag" -eq 0 ]
 do
 
 download_path=/tmp/upload
-#u_boot_url="https://cloud.kisslove.eu.org/d/aliyun/kernel/files/u-boot.ext"
+
 u_boot_url="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel/u-boot.ext"
 
 download_n1_kernel() {
@@ -386,41 +385,36 @@ check_kernel() {
     TIME w "开始检查文件。"
     cd ${download_path}
 
-    # check boot file
-    local_boot_file_size=$(wc -c < "${boot_file}")
-    #echo ${local_boot_file_size}
-    online_boot_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${boot_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
-    #echo ${online_boot_file_size}
-    if [ "${local_boot_file_size}" == "${online_boot_file_size}" ]; then
-        TIME g "文件${boot_file}完整"
-    else
-        TIME r "文件${boot_file}不完整"
-        exit 1
-    fi
+    # Determine custom kernel filename
+    kernel_boot="$(ls boot-*.tar.gz | head -n 1)"
+    kernel_name="${kernel_boot/boot-/}" && kernel_name="${kernel_name/.tar.gz/}"
+    KERNEL_VERSION="$(echo ${kernel_name} | grep -oE '^[1-9].[0-9]{1,3}.[0-9]+')"
 
-    # check modules file
-    local_modules_file_size=$(wc -c < "${modules_file}")
-    #echo ${local_modules_file_size}
-    online_modules_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${modules_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
-    #echo ${online_modules_file_size}
-    if [ "${local_modules_file_size}" == "${online_modules_file_size}" ]; then
-        TIME g "文件${modules_file}完整"
-    else
-        TIME r "文件${modules_file}不完整"
-        exit 1
-    fi
+    # Check the sha256sums file
+    sha256sums_file="sha256sums"
+    sha256sums_check="1"
+    [[ -s "${sha256sums_file}" && -n "$(cat ${sha256sums_file})" ]] || sha256sums_check="0"
+    [[ -n "$(which sha256sum)" ]] || sha256sums_check="0"
+    [[ "${sha256sums_check}" -eq "1" ]]
 
-    # check boot file
-    local_dtb_file_size=$(wc -c < "${dtb_file}")
-    #echo ${local_dtb_file_size}
-    online_dtb_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${dtb_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
-    #echo ${online_dtb_file_size}
-    if [ "${local_dtb_file_size}" == "${online_dtb_file_size}" ]; then
-        TIME g "文件${dtb_file}完整"
-    else
-        TIME r "文件${dtb_file}不完整"
-        exit 1
-    fi
+    # Loop check file
+    i="1"
+    kernel_list=("boot" "dtb-amlogic" "modules")
+    for kernel_file in ${kernel_list[*]}; do
+        # Set check filename
+        tmp_file="${kernel_file}-${kernel_name}.tar.gz"
+        # Check if file exists
+        [[ -s "${tmp_file}" ]] || TIME r "文件[ ${kernel_file} ]不完整。"
+        # Check if the file sha256sum is correct
+        if [[ "${sha256sums_check}" -eq "1" ]]; then
+            tmp_sha256sum="$(sha256sum "${tmp_file}" | awk '{print $1}')"
+            tmp_checkcode="$(cat ${sha256sums_file} | grep ${tmp_file} | awk '{print $1}')"
+            [[ "${tmp_sha256sum}" == "${tmp_checkcode}" ]] || TIME r "${tmp_file}: sha256sum 不 OJBK"
+            TIME r "(${i}/3) [ ${tmp_file} ] 文件 sha256sum OJBK."
+        fi
+        let i++
+    done
+    TIME g "下载的文件都OJBK"
     sync && echo ""
 }
 
