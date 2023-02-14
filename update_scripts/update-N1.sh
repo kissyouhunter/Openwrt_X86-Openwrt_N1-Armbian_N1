@@ -385,36 +385,41 @@ check_kernel() {
     TIME w "开始检查文件。"
     cd ${download_path}
 
-    # Determine custom kernel filename
-    kernel_boot="$(ls boot-*.tar.gz | head -n 1)"
-    kernel_name="${kernel_boot/boot-/}" && kernel_name="${kernel_name/.tar.gz/}"
-    KERNEL_VERSION="$(echo ${kernel_name} | grep -oE '^[1-9].[0-9]{1,3}.[0-9]+')"
+    # check boot file
+    local_boot_file_size=$(wc -c < "${boot_file}")
+    #echo ${local_boot_file_size}
+    online_boot_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${boot_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
+    #echo ${online_boot_file_size}
+    if [ "${local_boot_file_size}" == "${online_boot_file_size}" ]; then
+        TIME g "文件${boot_file}完整"
+    else
+        TIME r "文件${boot_file}不完整"
+        exit 1
+    fi
 
-    # Check the sha256sums file
-    sha256sums_file="sha256sums"
-    sha256sums_check="1"
-    [[ -s "${sha256sums_file}" && -n "$(cat ${sha256sums_file})" ]] || sha256sums_check="0"
-    [[ -n "$(which sha256sum)" ]] || sha256sums_check="0"
-    [[ "${sha256sums_check}" -eq "1" ]]
+    # check modules file
+    local_modules_file_size=$(wc -c < "${modules_file}")
+    #echo ${local_modules_file_size}
+    online_modules_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${modules_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
+    #echo ${online_modules_file_size}
+    if [ "${local_modules_file_size}" == "${online_modules_file_size}" ]; then
+        TIME g "文件${modules_file}完整"
+    else
+        TIME r "文件${modules_file}不完整"
+        exit 1
+    fi
 
-    # Loop check file
-    i="1"
-    kernel_list=("boot" "dtb-amlogic" "modules")
-    for kernel_file in ${kernel_list[*]}; do
-        # Set check filename
-        tmp_file="${kernel_file}-${kernel_name}.tar.gz"
-        # Check if file exists
-        [[ -s "${tmp_file}" ]] || TIME r "文件[ ${kernel_file} ]不完整。"
-        # Check if the file sha256sum is correct
-        if [[ "${sha256sums_check}" -eq "1" ]]; then
-            tmp_sha256sum="$(sha256sum "${tmp_file}" | awk '{print $1}')"
-            tmp_checkcode="$(cat ${sha256sums_file} | grep ${tmp_file} | awk '{print $1}')"
-            [[ "${tmp_sha256sum}" == "${tmp_checkcode}" ]] || TIME r "${tmp_file}: sha256sum 不 OJBK"
-            TIME r "(${i}/3) [ ${tmp_file} ] 文件 sha256sum OJBK."
-        fi
-        let i++
-    done
-    TIME g "下载的文件都OJBK"
+    # check boot file
+    local_dtb_file_size=$(wc -c < "${dtb_file}")
+    #echo ${local_dtb_file_size}
+    online_dtb_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${dtb_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
+    #echo ${online_dtb_file_size}
+    if [ "${local_dtb_file_size}" == "${online_dtb_file_size}" ]; then
+        TIME g "文件${dtb_file}完整"
+    else
+        TIME r "文件${dtb_file}不完整"
+        exit 1
+    fi
     sync && echo ""
 }
 
