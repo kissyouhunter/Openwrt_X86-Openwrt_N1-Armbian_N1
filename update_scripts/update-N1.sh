@@ -5,20 +5,20 @@ url_kernel="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel"
 url_op="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP"
 url_file="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/files"
 update_file="update-N1-openwrt.sh"
-op_version="R23.2.14"
+op_version="R23.8.23"
 
 ## openwrt版本
-op_version_54="5.4.231"
-op_version_510="5.10.1167"
-op_version_515="5.15.93"
-op_version_61="6.1.11"
+op_version_54="5.4.254"
+op_version_510="5.10.191"
+op_version_515="5.15.127"
+op_version_61="6.1.47"
 op_version_60="6.0.17"
 
 ## kernel版本
-kervel_version_54="5.4.231"
-kervel_version_510="5.10.167"
-kervel_version_515="5.15.93"
-kervel_version_61="6.1.11"
+kervel_version_54="5.4.254"
+kervel_version_510="5.10.191"
+kervel_version_515="5.15.127"
+kervel_version_61="6.1.47"
 kervel_version_60="6.0.17"
 
 TIME() {
@@ -86,16 +86,15 @@ while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-5]****|"
+TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "---------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
-TIME w "(3) 更新至内核 ${op_version_515}  版本 到EMMC"
-TIME y "(4) 更新至内核 ${op_version_60}   版本 到EMMC"
-TIME w "(5) 更新至内核 ${op_version_61}    版本 到EMMC"
+TIME w "(3) 更新至内核 ${op_version_515} 版本 到EMMC"
+TIME y "(4) 更新至内核 ${op_version_61}   版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your choice[0-5]: " input1
+ read -p "Please enter your choice[0-4]: " input1
  case $input1 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到EMMC开始"
@@ -136,11 +135,11 @@ TIME l "(0) 返回上级菜单"
   exit 0
   ;;
  3) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_510} 版本 到EMMC开始"
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_515} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_510}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_515}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -154,7 +153,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 5) 
+ 4) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_61} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
@@ -173,7 +172,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4) 
+ 4656565) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_60} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
@@ -217,16 +216,15 @@ while [ "$flag" -eq 0 ]
 do
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-5]****|"
+TIME g "|****Please Enter Your Choice:[0-4]****|"
 TIME g "----------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到U盘"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
-TIME w "(3) 更新至内核 ${op_version_515}  版本 到U盘"
-TIME y "(4) 更新至内核 ${op_version_60}   版本 到U盘"
-TIME w "(4) 更新至内核 ${op_version_61}    版本 到U盘"
+TIME w "(3) 更新至内核 ${op_version_515} 版本 到U盘"
+TIME y "(4) 更新至内核 ${op_version_61}   版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
- read -p "Please enter your Choice[0-5]: " input2
+ read -p "Please enter your Choice[0-4]: " input2
  case $input2 in 
  1)
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_54} 版本 到U盘开始"
@@ -285,7 +283,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 5) 
+ 4) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_61} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
@@ -304,7 +302,7 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4) 
+ 4656562626) 
   TIME g " >>>>>>>>>>>更新至内核 ${op_version_60} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
@@ -526,8 +524,7 @@ TIME g "---------------------------------------"
 TIME w "(1) 更新至内核 ${kervel_version_54}"
 TIME y "(2) 更新至内核 ${kervel_version_510}"
 TIME w "(3) 更新至内核 ${kervel_version_515}"
-TIME y "(4) 更新至内核 ${kervel_version_60}"
-TIME w "(5) 更新至内核 ${kervel_version_61}"
+TIME y "(4) 更新至内核 ${kervel_version_61}"
 TIME l "(0) 返回上级菜单"
 
 read -p "Please enter your choice[0-5]: " input
@@ -595,7 +592,7 @@ sleep 3
 reboot
 exit 0
 ;;
-4)
+46565656)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_60}"
 
 kernel_number=${kervel_version_60}
@@ -616,7 +613,7 @@ sleep 3
 reboot
 exit 0
 ;;
-5)
+4)
 TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_61}"
 
 kernel_number=${kervel_version_61}
@@ -689,4 +686,3 @@ esac
 done
 }
 menu
-
