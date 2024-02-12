@@ -5,20 +5,20 @@ url_kernel="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel"
 url_op="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP"
 url_file="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/files"
 update_file="update-N1-openwrt.sh"
-op_version="R23.8.23"
+op_version="R24.2.2"
 
 ## openwrt版本
-op_version_54="5.4.254"
-op_version_510="5.10.191"
-op_version_515="5.15.127"
-op_version_61="6.1.47"
+op_version_54="5.4.268"
+op_version_510="5.10.209"
+op_version_515="5.15.148"
+op_version_61="6.1.77"
 op_version_60="6.0.17"
 
 ## kernel版本
-kervel_version_54="5.4.254"
-kervel_version_510="5.10.191"
-kervel_version_515="5.15.127"
-kervel_version_61="6.1.47"
+kervel_version_54="5.4.268"
+kervel_version_510="5.10.209"
+kervel_version_515="5.15.148"
+kervel_version_61="6.1.77"
 kervel_version_60="6.0.17"
 
 TIME() {
