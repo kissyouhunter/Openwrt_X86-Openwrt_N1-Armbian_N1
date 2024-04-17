@@ -92,7 +92,7 @@ TIME w "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
 TIME w "(3) 更新至内核 ${op_version_515} 版本 到EMMC"
 TIME y "(4) 更新至内核 ${op_version_61}   版本 到EMMC"
-TIME w "(4) 更新至内核 ${op_version_66}   版本 到EMMC"
+TIME w "(5) 更新至内核 ${op_version_66}   版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your choice[0-4]: " input1
@@ -223,7 +223,7 @@ TIME w "(1) 更新至内核 ${op_version_54}  版本 到U盘"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
 TIME w "(3) 更新至内核 ${op_version_515} 版本 到U盘"
 TIME y "(4) 更新至内核 ${op_version_61}   版本 到U盘"
-TIME w "(4) 更新至内核 ${op_version_66}   版本 到U盘"
+TIME w "(5) 更新至内核 ${op_version_66}   版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your Choice[0-4]: " input2
