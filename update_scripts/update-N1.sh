@@ -5,21 +5,21 @@ url_kernel="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel"
 url_op="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP"
 url_file="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/files"
 update_file="update-N1-openwrt.sh"
-op_version="R24.2.2"
+op_version="R24.4.4"
 
 ## openwrt版本
-op_version_54="5.4.268"
-op_version_510="5.10.209"
-op_version_515="5.15.148"
-op_version_61="6.1.77"
-op_version_60="6.0.17"
+op_version_54="5.4.274"
+op_version_510="5.10.215"
+op_version_515="5.15.155"
+op_version_61="6.1.87"
+op_version_66="6.6.27"
 
 ## kernel版本
-kervel_version_54="5.4.268"
-kervel_version_510="5.10.209"
-kervel_version_515="5.15.148"
-kervel_version_61="6.1.77"
-kervel_version_60="6.0.17"
+kervel_version_54="5.4.274"
+kervel_version_510="5.10.215"
+kervel_version_515="5.15.155"
+kervel_version_61="6.1.87"
+kervel_version_66="6.6.27"
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -92,6 +92,7 @@ TIME w "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
 TIME w "(3) 更新至内核 ${op_version_515} 版本 到EMMC"
 TIME y "(4) 更新至内核 ${op_version_61}   版本 到EMMC"
+TIME w "(4) 更新至内核 ${op_version_66}   版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your choice[0-4]: " input1
@@ -172,12 +173,12 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4656565) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_60} 版本 到EMMC开始"
+ 5) 
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_66} 版本 到EMMC开始"
   cd /mnt/mmcblk2p4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_60}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_60}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_66}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_66}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -222,6 +223,7 @@ TIME w "(1) 更新至内核 ${op_version_54}  版本 到U盘"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
 TIME w "(3) 更新至内核 ${op_version_515} 版本 到U盘"
 TIME y "(4) 更新至内核 ${op_version_61}   版本 到U盘"
+TIME w "(4) 更新至内核 ${op_version_66}   版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
  read -p "Please enter your Choice[0-4]: " input2
@@ -302,12 +304,12 @@ TIME l "(0) 返回上级菜单"
   rm -rf update-*.sh openwrt_*
   exit 0
   ;;
- 4656562626) 
-  TIME g " >>>>>>>>>>>更新至内核 ${op_version_60} 版本 到U盘开始"
+ 5) 
+  TIME g " >>>>>>>>>>>更新至内核 ${op_version_66} 版本 到U盘开始"
   cd /mnt/sda4
   rm -rf update-*.sh openwrt_*
-  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_60}-kissyouhunter.img.gz
-  img=openwrt_s905d_n1_${op_version}_k${op_version_60}-kissyouhunter.img
+  Firmware=openwrt_s905d_n1_${op_version}_k${op_version_66}-kissyouhunter.img.gz
+  img=openwrt_s905d_n1_${op_version}_k${op_version_66}-kissyouhunter.img
   TIME g "==========下载固件中==========="
   TIME r "====需科学上网,否则无法更新===="
   wget -N ${url_op}/$Firmware
@@ -525,6 +527,7 @@ TIME w "(1) 更新至内核 ${kervel_version_54}"
 TIME y "(2) 更新至内核 ${kervel_version_510}"
 TIME w "(3) 更新至内核 ${kervel_version_515}"
 TIME y "(4) 更新至内核 ${kervel_version_61}"
+TIME y "(5) 更新至内核 ${kervel_version_66}"
 TIME l "(0) 返回上级菜单"
 
 read -p "Please enter your choice[0-5]: " input
@@ -592,14 +595,14 @@ sleep 3
 reboot
 exit 0
 ;;
-46565656)
-TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_60}"
+5)
+TIME g " >>>>>>>>>>>更新至内核 ${kervel_version_66}"
 
-kernel_number=${kervel_version_60}
-kernel_name=${kervel_version_60}-kissyouhunter
-boot_file=boot-${kervel_version_60}-kissyouhunter.tar.gz
-modules_file=modules-${kervel_version_60}-kissyouhunter.tar.gz
-dtb_file=dtb-amlogic-${kervel_version_60}-kissyouhunter.tar.gz
+kernel_number=${kervel_version_66}
+kernel_name=${kervel_version_66}-kissyouhunter
+boot_file=boot-${kervel_version_66}-kissyouhunter.tar.gz
+modules_file=modules-${kervel_version_66}-kissyouhunter.tar.gz
+dtb_file=dtb-amlogic-${kervel_version_66}-kissyouhunter.tar.gz
 
 download_n1_kernel
 check_kernel
@@ -608,7 +611,7 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 ${kervel_version_60} 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 ${kervel_version_66} 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
@@ -629,7 +632,7 @@ update_dtb
 update_modules
 update_uboot510
 update_release_file510
-TIME g ">>>>>>>>>>>内核 ${kervel_version_519} 更新完毕，备重启中。"
+TIME g ">>>>>>>>>>>内核 ${kervel_version_61} 更新完毕，备重启中。"
 sleep 3
 reboot
 exit 0
