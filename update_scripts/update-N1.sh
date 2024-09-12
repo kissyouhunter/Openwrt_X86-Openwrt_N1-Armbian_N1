@@ -5,7 +5,7 @@ url_kernel="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel"
 url_op="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP"
 url_file="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/files"
 update_file="update-N1-openwrt.sh"
-op_version="R24.4.4"
+op_version="R24.9.9"
 
 ## openwrt版本
 op_version_54="5.4.283"
