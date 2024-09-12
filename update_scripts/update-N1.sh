@@ -8,18 +8,18 @@ update_file="update-N1-openwrt.sh"
 op_version="R24.4.4"
 
 ## openwrt版本
-op_version_54="5.4.274"
-op_version_510="5.10.215"
-op_version_515="5.15.155"
-op_version_61="6.1.87"
-op_version_66="6.6.27"
+op_version_54="5.4.283"
+op_version_510="5.10.225"
+op_version_515="5.15.166"
+op_version_61="6.1.109"
+op_version_66="6.6.50"
 
 ## kernel版本
-kervel_version_54="5.4.274"
-kervel_version_510="5.10.215"
-kervel_version_515="5.15.155"
-kervel_version_61="6.1.87"
-kervel_version_66="6.6.27"
+kervel_version_54="5.4.283"
+kervel_version_510="5.10.225"
+kervel_version_515="5.15.166"
+kervel_version_61="6.1.109"
+kervel_version_66="6.6.50"
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -91,7 +91,7 @@ TIME g "---------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到EMMC"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到EMMC"
 TIME w "(3) 更新至内核 ${op_version_515} 版本 到EMMC"
-TIME y "(4) 更新至内核 ${op_version_61}   版本 到EMMC"
+TIME y "(4) 更新至内核 ${op_version_61}  版本 到EMMC"
 TIME w "(5) 更新至内核 ${op_version_66}   版本 到EMMC"
 TIME l "(0) 返回上级菜单"
 
@@ -222,7 +222,7 @@ TIME g "----------------------------------------"
 TIME w "(1) 更新至内核 ${op_version_54}  版本 到U盘"
 TIME y "(2) 更新至内核 ${op_version_510} 版本 到U盘"
 TIME w "(3) 更新至内核 ${op_version_515} 版本 到U盘"
-TIME y "(4) 更新至内核 ${op_version_61}   版本 到U盘"
+TIME y "(4) 更新至内核 ${op_version_61}  版本 到U盘"
 TIME w "(5) 更新至内核 ${op_version_66}   版本 到U盘"
 TIME l "(0) 返回上级菜单"
 
