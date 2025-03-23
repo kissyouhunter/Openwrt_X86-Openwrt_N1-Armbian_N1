@@ -4,7 +4,7 @@
 # Copyright (C) 2020-- https://github.com/unifreq/openwrt_packit
 # Copyright (C) 2021-- https://github.com/ophub/luci-app-amlogic
 #======================================================================================
-
+#
 # The script supports directly setting parameters for update, skipping interactive selection
 # openwrt-update-amlogic ${OPENWRT_FILE} ${AUTO_MAINLINE_UBOOT} ${RESTORE_CONFIG}
 # E.g: openwrt-update-amlogic openwrt_s905d.img.gz yes restore
@@ -12,6 +12,42 @@
 
 # You can also execute the script directly, and interactively select related functions
 # E.g: openwrt-update-amlogic
+#
+#======================================================================================
+
+# Encountered a serious error, abort the script execution
+error_msg() {
+    echo -e "[ERROR] ${1}"
+    exit 1
+}
+
+# Get the partition name of the root file system
+get_root_partition_name() {
+    local paths=("/" "/overlay" "/rom")
+    local partition_name
+
+    for path in "${paths[@]}"; do
+        partition_name=$(df "${path}" | awk 'NR==2 {print $1}' | awk -F '/' '{print $3}')
+        [[ -n "${partition_name}" ]] && break
+    done
+
+    [[ -z "${partition_name}" ]] && error_msg "Cannot find the root partition!"
+    echo "${partition_name}"
+}
+
+# Get the partition message of the root file system
+get_root_partition_msg() {
+    local paths=("/" "/overlay" "/rom")
+    local partition_name
+
+    for path in "${paths[@]}"; do
+        partition_msg=$(lsblk -l -o NAME,PATH,TYPE,UUID,MOUNTPOINT | awk '$3~/^part$/ && $5 ~ "^" "'"${path}"'" "$" {print $0}')
+        [[ -n "${partition_msg}" ]] && break
+    done
+
+    [[ -z "${partition_msg}" ]] && error_msg "Cannot find the root partition message!"
+    echo "${partition_msg}"
+}
 
 # Receive one-key command related parameters
 IMG_NAME="${1}"
@@ -21,22 +57,16 @@ BACKUP_RESTORE_CONFIG="${3}"
 # Current device model
 MYDEVICE_NAME=$(cat /proc/device-tree/model | tr -d '\000')
 if [[ -z "${MYDEVICE_NAME}" ]]; then
-    echo "The device name is empty and cannot be recognized."
-    exit 1
+    error_msg "The device name is empty and cannot be recognized."
 elif [[ ! -f "/etc/flippy-openwrt-release" ]]; then
-    echo "The [ /etc/flippy-openwrt-release ] file is missing."
-    exit 1
+    error_msg "The [ /etc/flippy-openwrt-release ] file is missing."
 else
     echo -e "Current device: ${MYDEVICE_NAME} [ amlogic ]"
     sleep 3
 fi
 
 # Find the partition where root is located
-ROOT_PTNAME=$(df / | tail -n1 | awk '{print $1}' | awk -F '/' '{print $3}')
-if [ "${ROOT_PTNAME}" == "" ]; then
-    echo "Cannot find the partition corresponding to the root file system!"
-    exit 1
-fi
+ROOT_PTNAME="$(get_root_partition_name)"
 
 # Find the disk where the partition is located, only supports mmcblk?p? sd?? hd?? vd?? and other formats
 case ${ROOT_PTNAME} in
@@ -57,8 +87,7 @@ mmcblk?p[1-4])
     LB_PRE="${ROOT_DISK_TYPE}_"
     ;;
 *)
-    echo "Unable to recognize the disk type of ${ROOT_PTNAME}!"
-    exit 1
+    error_msg "Unable to recognize the disk type of ${ROOT_PTNAME}!"
     ;;
 esac
 
@@ -104,8 +133,7 @@ sync
 
 # check file
 if [ ! -f "${IMG_NAME}" ]; then
-    echo "No update file found."
-    exit 1
+    error_msg "No update file found."
 else
     echo "Start update from [ ${IMG_NAME} ]"
 fi
@@ -114,10 +142,9 @@ fi
 DEPENDS="lsblk uuidgen grep awk btrfs mkfs.fat mkfs.btrfs md5sum fatlabel"
 echo "Check the necessary dependencies..."
 for dep in ${DEPENDS}; do
-    WITCH=$(which ${dep})
+    WITCH=$(busybox which ${dep})
     if [ "${WITCH}" == "" ]; then
-        echo "Dependent command: ${dep} does not exist, upgrade cannot be performed, only flash through U disk/TF card!"
-        exit 1
+        error_msg "Dependent command: ${dep} does not exist, upgrade cannot be performed, only flash through U disk/TF card!"
     else
         echo "${dep} path: ${WITCH}"
     fi
@@ -127,15 +154,13 @@ echo "Check passed"
 # find boot partition
 BOOT_PART_MSG=$(lsblk -l -o NAME,PATH,TYPE,UUID,MOUNTPOINT | awk '$3~/^part$/ && $5 ~ /^\/boot$/ {print $0}')
 if [ "${BOOT_PART_MSG}" == "" ]; then
-    echo "Boot The partition does not exist, so the update cannot be continued!"
-    exit 1
+    error_msg "Boot The partition does not exist, so the update cannot be continued!"
 fi
-BOOT_NAME=$(echo $BOOT_PART_MSG | awk '{print $1}')
-BOOT_PATH=$(echo $BOOT_PART_MSG | awk '{print $2}')
-BOOT_UUID=$(echo $BOOT_PART_MSG | awk '{print $4}')
+BOOT_NAME=$(echo ${BOOT_PART_MSG} | awk '{print $1}')
+BOOT_PATH=$(echo ${BOOT_PART_MSG} | awk '{print $2}')
+BOOT_UUID=$(echo ${BOOT_PART_MSG} | awk '{print $4}')
 
 BR_FLAG=1
-echo -ne "是否保留配置并更新？"
 echo -ne "Whether to backup and restore the current config files? y/n [y]\b\b"
 if [[ ${BACKUP_RESTORE_CONFIG} == "restore" ]]; then
     yn="y"
@@ -151,12 +176,12 @@ n* | N*)
 esac
 
 # find root partition
-ROOT_PART_MSG=$(lsblk -l -o NAME,PATH,TYPE,UUID,MOUNTPOINT | awk '$3~/^part$/ && $5 ~ /^\/$/ {print $0}')
-ROOT_NAME=$(echo $ROOT_PART_MSG | awk '{print $1}')
-ROOT_PATH=$(echo $ROOT_PART_MSG | awk '{print $2}')
-ROOT_UUID=$(echo $ROOT_PART_MSG | awk '{print $4}')
+ROOT_PART_MSG="$(get_root_partition_msg)"
+ROOT_NAME=$(echo ${ROOT_PART_MSG} | awk '{print $1}')
+ROOT_PATH=$(echo ${ROOT_PART_MSG} | awk '{print $2}')
+ROOT_UUID=$(echo ${ROOT_PART_MSG} | awk '{print $4}')
 
-case $ROOT_NAME in
+case ${ROOT_NAME} in
 ${EMMC_NAME}${PARTITION_NAME}2)
     NEW_ROOT_NAME="${EMMC_NAME}${PARTITION_NAME}3"
     NEW_ROOT_LABEL="${LB_PRE}ROOTFS2"
@@ -166,8 +191,7 @@ ${EMMC_NAME}${PARTITION_NAME}3)
     NEW_ROOT_LABEL="${LB_PRE}ROOTFS1"
     ;;
 *)
-    echo "ROOTFS The partition location is incorrect, so the update cannot continue!"
-    exit 1
+    error_msg "ROOTFS The partition location is incorrect, so the update cannot continue!"
     ;;
 esac
 echo "NEW_ROOT_NAME: [ ${NEW_ROOT_NAME} ]"
@@ -175,13 +199,12 @@ echo "NEW_ROOT_NAME: [ ${NEW_ROOT_NAME} ]"
 # find new root partition
 NEW_ROOT_PART_MSG=$(lsblk -l -o NAME,PATH,TYPE,UUID,MOUNTPOINT | grep "${NEW_ROOT_NAME}" | awk '$3 ~ /^part$/ && $5 !~ /^\/$/ && $5 !~ /^\/boot$/ {print $0}')
 if [ "${NEW_ROOT_PART_MSG}" == "" ]; then
-    echo "The new ROOTFS partition does not exist, so the update cannot continue!"
-    exit 1
+    error_msg "The new ROOTFS partition does not exist, so the update cannot continue!"
 fi
-NEW_ROOT_NAME=$(echo $NEW_ROOT_PART_MSG | awk '{print $1}')
-NEW_ROOT_PATH=$(echo $NEW_ROOT_PART_MSG | awk '{print $2}')
-NEW_ROOT_UUID=$(echo $NEW_ROOT_PART_MSG | awk '{print $4}')
-NEW_ROOT_MP=$(echo $NEW_ROOT_PART_MSG | awk '{print $5}')
+NEW_ROOT_NAME=$(echo ${NEW_ROOT_PART_MSG} | awk '{print $1}')
+NEW_ROOT_PATH=$(echo ${NEW_ROOT_PART_MSG} | awk '{print $2}')
+NEW_ROOT_UUID=$(echo ${NEW_ROOT_PART_MSG} | awk '{print $4}')
+NEW_ROOT_MP=$(echo ${NEW_ROOT_PART_MSG} | awk '{print $5}')
 echo "NEW_ROOT_MP: [ ${NEW_ROOT_MP} ]"
 
 # backup old bootloader
@@ -193,29 +216,27 @@ if [ ! -f /root/BackupOldBootloader.img ]; then
 fi
 
 # losetup
-losetup -f -P $IMG_NAME
-if [ $? -eq 0 ]; then
-    LOOP_DEV=$(losetup | grep "$IMG_NAME" | awk '{print $1}')
-    if [ "$LOOP_DEV" == "" ]; then
-        echo "loop device not found!"
-        exit 1
+losetup -f -P ${IMG_NAME}
+if [ ${?} -eq 0 ]; then
+    LOOP_DEV=$(losetup | grep "${IMG_NAME}" | awk '{print $1}')
+    if [ "${LOOP_DEV}" == "" ]; then
+        error_msg "loop device not found!"
     fi
 else
-    echo "losetup [ $IMG_FILE ] failed!"
-    exit 1
+    error_msg "losetup [ ${IMG_FILE} ] failed!"
 fi
 
 # fix loopdev issue in kernel 5.19
 function fix_loopdev() {
     local parentdev=${1##*/}
-    if [ ! -d /sys/block/${parentdev} ];then
+    if [ ! -d /sys/block/${parentdev} ]; then
         return
     fi
     subdevs=$(lsblk -l -o NAME | grep -E "^${parentdev}.+\$")
-    for subdev in $subdevs; do
-        if [ ! -d /sys/block/${parentdev}/${subdev} ];then
+    for subdev in ${subdevs}; do
+        if [ ! -d /sys/block/${parentdev}/${subdev} ]; then
             return
-        elif [ -b /dev/${sub_dev} ];then
+        elif [ -b /dev/${sub_dev} ]; then
             continue
         fi
         source /sys/block/${parentdev}/${subdev}/uevent
@@ -227,20 +248,20 @@ fix_loopdev ${LOOP_DEV}
 
 WAIT=3
 echo "The loopdev is [ $LOOP_DEV ], wait [ ${WAIT} ] seconds. "
-while [ $WAIT -ge 1 ]; do
+while [[ "${WAIT}" -ge "1" ]]; do
     sleep 1
     WAIT=$((WAIT - 1))
 done
 
 # umount loop devices (openwrt will auto mount some partition)
-MOUNTED_DEVS=$(lsblk -l -o NAME,PATH,MOUNTPOINT | grep "$LOOP_DEV" | awk '$3 !~ /^$/ {print $2}')
-for dev in $MOUNTED_DEVS; do
+MOUNTED_DEVS=$(lsblk -l -o NAME,PATH,MOUNTPOINT | grep "${LOOP_DEV}" | awk '$3 !~ /^$/ {print $2}')
+for dev in ${MOUNTED_DEVS}; do
     while :; do
-        echo "umount [ $dev ] ... "
-        umount -f $dev
+        echo "umount [ ${dev} ] ... "
+        umount -f ${dev}
         sleep 1
-        mnt=$(lsblk -l -o NAME,PATH,MOUNTPOINT | grep "$dev" | awk '$3 !~ /^$/ {print $2}')
-        if [ "$mnt" == "" ]; then
+        mnt=$(lsblk -l -o NAME,PATH,MOUNTPOINT | grep "${dev}" | awk '$3 !~ /^$/ {print $2}')
+        if [ "${mnt}" == "" ]; then
             break
         else
             echo "Retry ..."
@@ -249,7 +270,7 @@ for dev in $MOUNTED_DEVS; do
 done
 
 # mount src part
-WORK_DIR=$PWD
+WORK_DIR=${PWD}
 P1=${WORK_DIR}/boot
 P2=${WORK_DIR}/root
 mkdir -p $P1 $P2
@@ -278,26 +299,26 @@ if [ -f ${P2}/etc/init.d/dockerman ] && [ -f ${P2}/etc/config/dockerd ]; then
     flg=0
     # get current docker data root
     data_root=$(uci get dockerd.globals.data_root 2>/dev/null)
-    if [ "$data_root" == "" ]; then
+    if [ "${data_root}" == "" ]; then
         flg=1
         # get current config from /etc/docker/daemon.json
         if [ -f "/etc/docker/daemon.json" ] && [ -x "/usr/bin/jq" ]; then
             data_root=$(jq -r '."data-root"' /etc/docker/daemon.json)
 
             bip=$(jq -r '."bip"' /etc/docker/daemon.json)
-            [ "$bip" == "null" ] && bip="172.31.0.1/24"
+            [ "${bip}" == "null" ] && bip="172.31.0.1/24"
 
             log_level=$(jq -r '."log-level"' /etc/docker/daemon.json)
-            [ "$log_level" == "null" ] && log_level="warn"
+            [ "${log_level}" == "null" ] && log_level="warn"
 
             _iptables=$(jq -r '."iptables"' /etc/docker/daemon.json)
-            [ "$_iptables" == "null" ] && _iptables="true"
+            [ "${_iptables}" == "null" ] && _iptables="true"
 
             registry_mirrors=$(jq -r '."registry-mirrors"[]' /etc/docker/daemon.json 2>/dev/null)
         fi
     fi
 
-    if [ "$data_root" == "" ]; then
+    if [ "${data_root}" == "" ]; then
         data_root="/opt/docker/" # the default data root
     fi
 
@@ -312,14 +333,14 @@ if [ -f ${P2}/etc/init.d/dockerman ] && [ -f ${P2}/etc/config/dockerd ]; then
         uci commit
     fi
 
-    if [ $flg -eq 1 ]; then
-        uci set dockerd.globals.data_root=$data_root
-        [ "$bip" != "" ] && uci set dockerd.globals.bip=$bip
-        [ "$log_level" != "" ] && uci set dockerd.globals.log_level=$log_level
-        [ "$_iptables" != "" ] && uci set dockerd.globals.iptables=$_iptables
-        if [ "$registry_mirrors" != "" ]; then
-            for reg in $registry_mirrors; do
-                uci add_list dockerd.globals.registry_mirrors=$reg
+    if [ ${flg} -eq 1 ]; then
+        uci set dockerd.globals.data_root=${data_root}
+        [ "${bip}" != "" ] && uci set dockerd.globals.bip=${bip}
+        [ "${log_level}" != "" ] && uci set dockerd.globals.log_level=${log_level}
+        [ "${_iptables}" != "" ] && uci set dockerd.globals.iptables=${_iptables}
+        if [ "${registry_mirrors}" != "" ]; then
+            for reg in ${registry_mirrors}; do
+                uci add_list dockerd.globals.registry_mirrors=${reg}
             done
         fi
         uci set dockerd.globals.auto_start='1'
@@ -368,7 +389,7 @@ fi
 #format NEW_ROOT
 echo "umount [ ${NEW_ROOT_MP} ]"
 umount -f "${NEW_ROOT_MP}"
-if [ $? -ne 0 ]; then
+if [[ "${?}" -ne "0" ]]; then
     echo "Umount [ ${NEW_ROOT_MP} ] failed, Please restart and try again!"
     umount -f ${P1}
     umount -f ${P2}
@@ -378,33 +399,31 @@ fi
 
 # check and fix partition
 function check_and_fix_partition() {
-    local target_dev_name=$1  # mmcblk2
-    local target_pt_name=$2   # p2
-    local target_pt_idx=$3    # 2
-    local safe_pt_begin_mb=$4 # 800
-    local safe_pt_begin_byte=$(($safe_pt_begin_mb * 1024 * 1024))
+    local target_dev_name=${1}  # mmcblk2
+    local target_pt_name=${2}   # p2
+    local target_pt_idx=${3}    # 2
+    local safe_pt_begin_mb=${4} # 800
+    local safe_pt_begin_byte=$((${safe_pt_begin_mb} * 1024 * 1024))
 
     local cur_pt_begin_sector=$(fdisk -l /dev/${target_dev_name} | grep ${target_dev_name}${target_pt_name} | awk '{printf $2}')
-    local cur_pt_begin_mb=$(($cur_pt_begin_sector * 512 / 1024 / 1024))
+    local cur_pt_begin_mb=$((${cur_pt_begin_sector} * 512 / 1024 / 1024))
 
-    if [ $cur_pt_begin_mb -ge $safe_pt_begin_mb ]; then
+    if [ ${cur_pt_begin_mb} -ge ${safe_pt_begin_mb} ]; then
         # check pass
         return
     fi
 
     local cur_pt_end_sector=$(fdisk -l /dev/${target_dev_name} | grep ${target_dev_name}${target_pt_name} | awk '{printf $3}')
-    local cur_pt_end_byte=$((($cur_pt_end_sector + 1) * 512 - 1))
+    local cur_pt_end_byte=$(((${cur_pt_end_sector} + 1) * 512 - 1))
 
     echo "Unsafe partition found, repairing ... "
     parted /dev/${target_dev_name} rm ${target_pt_idx} ||
         (
-            echo "rm partion ${target_pt_idx} failed"
-            exit 1
+            error_msg "rm partion ${target_pt_idx} failed"
         )
     parted /dev/${target_dev_name} mkpart primary btrfs "${safe_pt_begin_byte}b" "${cur_pt_end_byte}b" ||
         (
-            echo "create new partion ${target_pt_idx} failed"
-            exit 1
+            error_msg "create new partion ${target_pt_idx} failed"
         )
     echo "Partition repaired"
 }
@@ -421,7 +440,7 @@ if [ "${NEW_ROOT_NAME}" == "mmcblk2p2" ]; then
         #     the 12 bytes starting from 796MB will be overwritten by bootloader after each reboot,
         #     so the safe location is set after 800MB
         SAFE_PT_BEGIN_MB=800
-        check_and_fix_partition "${EMMC_NAME}" "p2" 2 $SAFE_PT_BEGIN_MB
+        check_and_fix_partition "${EMMC_NAME}" "p2" 2 ${SAFE_PT_BEGIN_MB}
     fi
 fi
 
@@ -450,15 +469,14 @@ fi
 cd ${NEW_ROOT_MP}
 echo "Start copying data， From [ ${P2} ] TO [ ${NEW_ROOT_MP} ] ..."
 ENTRYS=$(ls)
-for entry in $ENTRYS; do
-    if [ "$entry" == "lost+found" ]; then
+for entry in ${ENTRYS}; do
+    if [[ "${entry}" == "lost+found" ]]; then
         continue
     fi
-    echo "Remove old [ $entry ] ... "
-    rm -rf $entry
-    if [ $? -ne 0 ]; then
-        echo "failed."
-        exit 1
+    echo "Remove old [ ${entry} ] ... "
+    rm -rf ${entry}
+    if [[ "${?}" -ne "0" ]]; then
+        error_msg "failed."
     fi
 done
 
@@ -471,9 +489,9 @@ sync
 
 COPY_SRC="root etc bin sbin lib opt usr www"
 echo "Copy data begin ... "
-for src in $COPY_SRC; do
-    echo "Copy [ $src ] ... "
-    (cd ${P2} && tar cf - $src) | tar xf -
+for src in ${COPY_SRC}; do
+    echo "Copy [ ${src} ] ... "
+    (cd ${P2} && tar cf - ${src}) | tar xf -
     sync
 done
 
@@ -513,7 +531,7 @@ config  global
         option check_fs '0'
 
 config  mount
-        option target '/overlay'
+        option target '/rom'
         option uuid '${NEW_ROOT_UUID}'
         option enabled '1'
         option enabled_fsck '1'
@@ -564,6 +582,7 @@ sync
 echo "Copy data complete ..."
 
 BACKUP_LIST=$(${P2}/usr/sbin/openwrt-backup -p)
+BACKUP_LIST="${BACKUP_LIST} /etc/nikki"
 if [[ "${BR_FLAG}" -eq "1" && -n "${BACKUP_LIST}" ]]; then
     echo -n "Start restoring configuration files ... "
     (
@@ -681,7 +700,7 @@ EOF
             read -p "Please choose whether to write the mainline bootloader to EMMC?  y/n " yn
         fi
 
-        case $yn in
+        case ${yn} in
         y | Y)
             FLASH_MAINLINE_UBOOT=1
             break
@@ -714,32 +733,6 @@ btrfs subvolume snapshot -r etc .snapshots/etc-001
 
 cd ${WORK_DIR}
 
-#echo -n "umount /boot ... "
-#umount -f /boot
-#if [ $? -ne 0 ];then
-#    echo "failed! "
-#    umount ${P1}
-#    umount ${P2}
-#    losetup -D
-#    exit 1
-#else
-#    echo "ok"
-#fi
-#
-#echo "reformat ${BOOT_PATH} ..."
-#if mkfs.fat -n "${LB_PRE}BOOT" -F 32 ${BOOT_PATH} 2>/dev/null;then
-#    echo -n "mount /boot ..."
-#    mount -t vfat -o "errors=remount-ro" ${BOOT_PATH} /boot
-#    if [ $? -eq 0 ];then
-#        echo "ok"
-#    else
-#        echo "mount failed! The system has been destroyed and must be refreshed!"
-#	exit 1
-#    fi
-#else
-#    echo "format failed! The system has been destroyed and must be refreshed!"
-#    exit 1
-#fi
 echo "Change the label of ${BOOT_PATH} ... "
 fatlabel ${BOOT_PATH} "${LB_PRE}BOOT"
 echo "Start copying data， from [ ${P1} ] to [ /boot ] ..."
@@ -766,7 +759,7 @@ if [ -f ${P1}/uInitrd ]; then
             continue
         fi
     done
-    [ "${i}" -eq "10" ] && echo "uInitrd file copy failed." && exit 1
+    [ "${i}" -eq "10" ] && error_msg "uInitrd file copy failed."
 else
     echo "uInitrd file is missing."
 fi
@@ -786,10 +779,9 @@ if [ -f ${P1}/zImage ]; then
             continue
         fi
     done
-    [ "${i}" -eq "10" ] && echo "zImage file copy failed." && exit 1
+    [ "${i}" -eq "10" ] && error_msg "zImage file copy failed."
 else
-    echo "zImage file is missing."
-    exit 1
+    error_msg "zImage file is missing."
 fi
 
 if [ ${ROOT_DISK_TYPE} == "EMMC" ]; then
@@ -838,11 +830,11 @@ umount -f ${P1} ${P2} 2>/dev/null
 losetup -D 2>/dev/null
 rm -rf ${P1} ${P2} 2>/dev/null
 rm -f ${IMG_NAME} 2>/dev/null
+rm -f sha256sums 2>/dev/null
 sync
 wait
 
 echo "Successfully updated, automatic restarting..."
-echo "更新成功，设备重启中，请稍后，不要慌..."
 sleep 3
 reboot
 exit 0
