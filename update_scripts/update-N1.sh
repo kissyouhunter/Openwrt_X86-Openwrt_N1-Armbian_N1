@@ -1,9 +1,9 @@
 #!/bin/bash
 #author kissyouhunter
 
-url_kernel="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel"
-url_op="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP"
-url_file="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/files"
+url_kernel="https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/kernel_stable"
+url_op="https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/n1_openwrt"
+url_file="https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/refs/heads/main"
 update_file="update-N1-openwrt.sh"
 op_version="R25.06.22"
 
