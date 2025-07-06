@@ -68,12 +68,10 @@ select_docker_version() {
     case $docker_choice in
     1)
         selected_url=$url_op
-        docker_suffix=""
         TIME g "已选择：标准版（无Docker）"
         ;;
     2)
         selected_url=$url_op_docker
-        docker_suffix="_with_docker"
         TIME g "已选择：Docker版（包含Docker）"
         ;;
     0)
@@ -107,8 +105,8 @@ update_firmware() {
     fi
     
     rm -rf update-*.sh openwrt_*
-    Firmware=openwrt_s905d_n1_${op_version}_k${version}-kissyouhunter${docker_suffix}.img.gz
-    img=openwrt_s905d_n1_${op_version}_k${version}-kissyouhunter${docker_suffix}.img
+    Firmware=openwrt_s905d_n1_${op_version}_k${version}-kissyouhunter.img.gz
+    img=openwrt_s905d_n1_${op_version}_k${version}-kissyouhunter.img
     
     TIME g "==========下载固件中==========="
     TIME r "====需科学上网,否则无法更新===="
