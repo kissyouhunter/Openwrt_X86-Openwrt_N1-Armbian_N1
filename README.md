@@ -29,9 +29,7 @@ ___
 
 * adguardhome ID: root Password: password wifi password: password
 
-* N1固件不带docker,请用一键脚本自行安装。
-
-* （一键脚本： bash <(curl -s -S -L https://git.io/JMl6C) 或者 curl -Lo ./kiss.sh https://git.io/JMl6C && bash kiss.sh）
+* N1固件有带docker和不带docker的两个版本.
 
 ### 升级方式一：
 
