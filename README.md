@@ -25,7 +25,7 @@ ___
 
 * IP: 192.168.2.4 ID: root Password: password
 
-* adguardhome已内置好DNS和广告过滤，下载好核心后开启即可。
+* 刷入emmc命令： install
 
 * adguardhome ID: root Password: password wifi password: password
 
@@ -35,7 +35,7 @@ ___
 
 * 一键升级命令:（最新的固件已支持在U盘运行的openwrt）
 
-* 如已刷入本固件，ssh连接n1或ttyd输入update即可。
+* 如已刷入本固件，ssh连接n1或ttyd输入update即可(2025.07以后的固件)。
 
 * 命令一：bbash <(curl -Lso- sg00.cc/k)
 
@@ -45,9 +45,9 @@ ___
 
 ### 升级方式二：
 
-* 由译内核的不同，如升级emmc里的固件请用releases里的update-amlogic-openwrt.sh文件
+* 由译内核的不同，如升级emmc里的固件请用[update-N1-openwrt.sh](https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/refs/heads/main/update-N1-openwrt.sh)
 
-* 将update-amlogic-openwrt.sh和img文件上传至/mnt/mmcblk2p4分区
+* 将update-N1-openwrt.sh和img文件上传至/mnt/mmcblk2p4分区
 
 * ssh连接n1或ttyd输入如下命令：
 
@@ -57,7 +57,7 @@ ___
 
 * 跑码过程中都有中文提示，请根据提示操作即可。
 
-* 系统重启后使用命令 rm -rf /mnt/mmcblk2p4/文件名img 删除  #img文字名请自行输入
+* 系统重启后使用命令删除 rm -rf /mnt/mmcblk2p4/文件名.img
 
 [注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件](#注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件)
 
