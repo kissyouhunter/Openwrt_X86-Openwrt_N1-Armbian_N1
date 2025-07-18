@@ -61,7 +61,7 @@ ___
 
 [注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件](#注：三分区版本的N1只能重新写入固件到emmc，无法直接升级固件)
 
-* 下载跳转[无docker](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/n1_openwrt) [有docker]((https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/n1_openwrt_with_docker))
+* 下载跳转[无docker](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/n1_openwrt) [有docker]((https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/n1_openwrt_with_docker)
 ___
 
 ## Armbian_N1:
