@@ -9,11 +9,11 @@ update_file="update-N1-openwrt.sh"
 op_version="R25.06.22"
 
 ## 版本定义（固件和内核使用相同版本）
-version_54="5.4.295"
-version_510="5.10.239"
-version_515="5.15.186"
-version_61="6.1.142"
-version_66="6.6.95"
+version_54="5.4.296"
+version_510="5.10.240"
+version_515="5.15.189"
+version_61="6.1.146"
+version_66="6.6.99"
 
 TIME() {
 [[ -z "$1" ]] && {
