@@ -37,7 +37,7 @@ ___
 
 * 如已刷入本固件，ssh连接n1或ttyd输入update即可。
 
-* 命令一：bbash <(curl -Lso- nb0.cc/k)
+* 命令一：bbash <(curl -Lso- sg00.cc/k)
 
 * 命令二：bash <(curl -s -S -L https://git.io/update-N1) 
 
