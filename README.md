@@ -74,4 +74,4 @@ ___
 
 * 常用命令armbian-config（配置ip、cpu等配置）; armbian-install（安装到emmc）; armbian-docker （一键安装docker）；armbian-update（更新内核）；armbian-container（一键安装常用docker容器）。
 
-* 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/Armbian) [国内](https://cloud.kisslove.eu.org)
+* 下载跳转[github](https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/tag/Armbian)
