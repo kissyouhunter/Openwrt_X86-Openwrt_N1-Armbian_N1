@@ -215,7 +215,7 @@ while [ "$flag" -eq 0 ]
 do
 
 download_path=/tmp/upload
-u_boot_url="https://cloud.kisslove.eu.org/d/onedrive/OPENWRT/N1_OP/kernel/u-boot.ext"
+u_boot_url="https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/releases/download/kernel_stable/u-boot.ext"
 
 download_n1_kernel() {
     TIME w "开始下载内核文件。"
