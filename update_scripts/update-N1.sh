@@ -9,10 +9,7 @@ update_file="update-N1-openwrt.sh"
 op_version="R25.06.22"
 
 ## 版本定义（固件和内核使用相同版本）
-version_54="5.4.296"
-version_510="5.10.240"
-version_515="5.15.189"
-version_61="6.1.146"
+version_61="6.1.142"
 version_66="6.6.99"
 
 TIME() {
@@ -37,11 +34,9 @@ TIME() {
 
 volume_check() {
     volume=$(df -m | grep /dev/mmcblk2p4 | grep -v docker | awk '{print $4}')
-    if [[ $volume -ge 1024 ]]; then
-    echo
-    else
-    TIME r "p4分区为${volume}m，小于1G。删除垃圾文件后再运行更新命令"
-    exit 0
+    if [[ $volume -lt 1024 ]]; then
+        TIME r "p4分区为${volume}m，小于1G。删除垃圾文件后再运行更新命令"
+        exit 0
     fi
 }
 
@@ -148,22 +143,16 @@ case $input in
     while [ "$flag" -eq 0 ]
     do
         TIME g "----------------------------------------"
-        TIME g "|****Please Enter Your Choice:[0-5]****|"
+        TIME g "|****Please Enter Your Choice:[0-2]****|"
         TIME g "---------------------------------------"
-        TIME w "(1) 更新至内核 ${version_54}  版本 到EMMC"
-        TIME y "(2) 更新至内核 ${version_510} 版本 到EMMC"
-        TIME w "(3) 更新至内核 ${version_515} 版本 到EMMC"
-        TIME y "(4) 更新至内核 ${version_61}  版本 到EMMC"
-        TIME w "(5) 更新至内核 ${version_66}   版本 到EMMC"
+        TIME w "(1) 更新至内核 ${version_61}  版本 到EMMC"
+        TIME y "(2) 更新至内核 ${version_66}  版本 到EMMC"
         TIME l "(0) 返回上级菜单"
 
-        read -p "Please enter your choice[0-5]: " input1
+        read -p "Please enter your choice[0-2]: " input1
         case $input1 in 
-        1) update_firmware "EMMC" $version_54 "5.4内核" ;;
-        2) update_firmware "EMMC" $version_510 "5.10内核" ;;
-        3) update_firmware "EMMC" $version_515 "5.15内核" ;;
-        4) update_firmware "EMMC" $version_61 "6.1内核" ;;
-        5) update_firmware "EMMC" $version_66 "6.6内核" ;;
+        1) update_firmware "EMMC" $version_61 "6.1内核" ;;
+        2) update_firmware "EMMC" $version_66 "6.6内核" ;;
         0) clear; break ;;
         *) 
             TIME r "----------------------------------"
@@ -181,22 +170,16 @@ case $input in
     while [ "$flag" -eq 0 ]
     do
         TIME g "----------------------------------------"
-        TIME g "|****Please Enter Your Choice:[0-5]****|"
+        TIME g "|****Please Enter Your Choice:[0-2]****|"
         TIME g "----------------------------------------"
-        TIME w "(1) 更新至内核 ${version_54}  版本 到U盘"
-        TIME y "(2) 更新至内核 ${version_510} 版本 到U盘"
-        TIME w "(3) 更新至内核 ${version_515} 版本 到U盘"
-        TIME y "(4) 更新至内核 ${version_61}  版本 到U盘"
-        TIME w "(5) 更新至内核 ${version_66}   版本 到U盘"
+        TIME w "(1) 更新至内核 ${version_61}  版本 到U盘"
+        TIME y "(2) 更新至内核 ${version_66}  版本 到U盘"
         TIME l "(0) 返回上级菜单"
 
-        read -p "Please enter your Choice[0-5]: " input2
+        read -p "Please enter your Choice[0-2]: " input2
         case $input2 in 
-        1) update_firmware "U盘" $version_54 "5.4内核" ;;
-        2) update_firmware "U盘" $version_510 "5.10内核" ;;
-        3) update_firmware "U盘" $version_515 "5.15内核" ;;
-        4) update_firmware "U盘" $version_61 "6.1内核" ;;
-        5) update_firmware "U盘" $version_66 "6.6内核" ;;
+        1) update_firmware "U盘" $version_61 "6.1内核" ;;
+        2) update_firmware "U盘" $version_66 "6.6内核" ;;
         0) clear; break ;;
         *) 
             TIME r "----------------------------------"
@@ -411,22 +394,16 @@ TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g "============================================"
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-5]****|"
+TIME g "|****Please Enter Your Choice:[0-2]****|"
 TIME g "---------------------------------------"
-TIME w "(1) 更新至内核 ${version_54}"
-TIME y "(2) 更新至内核 ${version_510}"
-TIME w "(3) 更新至内核 ${version_515}"
-TIME y "(4) 更新至内核 ${version_61}"
-TIME y "(5) 更新至内核 ${version_66}"
+TIME w "(1) 更新至内核 ${version_61}"
+TIME y "(2) 更新至内核 ${version_66}"
 TIME l "(0) 返回上级菜单"
 
-read -p "Please enter your choice[0-5]: " input
+read -p "Please enter your choice[0-2]: " input
 case $input in
-1) update_kernel $version_54 "true" ;;
-2) update_kernel $version_510 "false" ;;
-3) update_kernel $version_515 "false" ;;
-4) update_kernel $version_61 "false" ;;
-5) update_kernel $version_66 "false" ;;
+1) update_kernel $version_61 "false" ;;
+2) update_kernel $version_66 "false" ;;
 0) clear; break ;;
 *)  
     TIME r "----------------------------------"
