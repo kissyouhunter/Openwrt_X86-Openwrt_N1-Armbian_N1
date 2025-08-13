@@ -8,9 +8,8 @@ url_file="https://raw.githubusercontent.com/kissyouhunter/Openwrt_X86-Openwrt_N1
 update_file="update-N1-openwrt.sh"
 op_version="R25.06.22"
 
-## 版本定义（固件和内核使用相同版本）
-version_61="6.1.142"
-version_66="6.6.99"
+## 集中版本管理
+kernel_versions=(6.1.142 6.1.147 6.6.99 6.6.101)
 
 TIME() {
 [[ -z "$1" ]] && {
@@ -32,11 +31,107 @@ TIME() {
       }
 }
 
+# ============== 实用检测函数 ==============
+
+# 增强版的空间检查
+enhanced_volume_check() {
+    local target_location=$1
+    TIME w "正在检查 ${target_location} 存储空间..."
+    
+    if [ "$target_location" == "EMMC" ]; then
+        local mount_point="/mnt/mmcblk2p4"
+    else
+        local mount_point="/mnt/sda4"  
+    fi
+    
+    # 检查可用空间
+    local available=$(df -m "$mount_point" 2>/dev/null | tail -1 | awk '{print $4}')
+    if [[ -z "$available" ]]; then
+        TIME r "错误：无法获取 ${target_location} 可用空间"
+        return 1
+    fi
+    
+    TIME l "当前 ${target_location} 可用空间：${available}MB"
+    
+    if [[ $available -lt 1024 ]]; then
+        TIME r "错误：${target_location} 可用空间不足（需要至少1GB，当前${available}MB）"
+        return 1
+    fi
+    
+    TIME g "${target_location} 存储空间检查通过"
+    return 0
+}
+
+# 增强版文件下载检查
+enhanced_download_check() {
+    local file_path=$1
+    local file_url=$2
+    local file_name=$(basename "$file_path")
+    
+    TIME w "检查文件：$file_name"
+    
+    # 检查文件是否存在
+    if [ ! -f "$file_path" ]; then
+        TIME r "文件 $file_name 不存在"
+        return 1
+    fi
+    
+    # 检查文件大小
+    local local_size=$(wc -c < "$file_path" 2>/dev/null)
+    if [[ -z "$local_size" || "$local_size" -eq 0 ]]; then
+        TIME r "文件 $file_name 为空或无法读取"
+        return 1
+    fi
+    
+    # 获取在线文件大小并比较
+    local online_size=$(wget --spider -S "$file_url" 2>&1 | grep -i content-length | tail -1 | grep -o '[0-9]\+')
+    if [[ -n "$online_size" && "$local_size" -eq "$online_size" ]]; then
+        TIME g "文件 $file_name 完整（大小：${local_size} 字节）"
+    elif [[ -n "$online_size" ]]; then
+        TIME r "文件 $file_name 大小不匹配（本地：$local_size，在线：$online_size）"
+        return 1
+    else
+        TIME y "文件 $file_name 无法验证大小，但存在（大小：${local_size} 字节）"
+    fi
+    
+    # 检查文件权限
+    if [ ! -r "$file_path" ]; then
+        TIME r "文件 $file_name 不可读"
+        return 1
+    fi
+    
+    return 0
+}
+
+# 增强版下载函数
+enhanced_download() {
+    local url=$1
+    local output_path=$2
+    local file_name=$(basename "$output_path")
+    
+    TIME w "开始下载：$file_name"
+    
+    # 下载文件，增加重试和超时设置
+    if wget --timeout=30 --tries=3 --retry-connrefused -N -O "$output_path" "$url"; then
+        TIME g "下载成功：$file_name"
+        return 0
+    else
+        TIME r "下载失败：$file_name"
+        # 删除可能的不完整文件
+        [ -f "$output_path" ] && rm -f "$output_path"
+        return 1
+    fi
+}
+
+# ============== 原有函数 ==============
+
 volume_check() {
     volume=$(df -m | grep /dev/mmcblk2p4 | grep -v docker | awk '{print $4}')
-    if [[ $volume -lt 1024 ]]; then
-        TIME r "p4分区为${volume}m，小于1G。删除垃圾文件后再运行更新命令"
-        exit 0
+    if [[ $volume -ge 1024 ]]; then
+    echo
+    else
+    TIME r "p4分区为${volume}m，小于1G。删除垃圾文件后再运行更新命令"
+    exit 0
     fi
 }
 
@@ -49,7 +144,6 @@ elif [ -a "/etc/openwrt-release" ]; then
   sleep 2
 fi
 
-# Docker版本选择函数
 select_docker_version() {
     clear
     TIME g "=========================================="
@@ -81,11 +175,15 @@ select_docker_version() {
     return 0
 }
 
-# 固件更新函数
 update_firmware() {
     local target_location=$1
     local version=$2
     local version_name=$3
+    
+    # 增强版空间检查，空间不足时自动退出
+    if ! enhanced_volume_check "$target_location"; then
+        return 1
+    fi
     
     if ! select_docker_version; then
         return
@@ -105,16 +203,62 @@ update_firmware() {
     
     TIME g "==========下载固件中==========="
     TIME r "====需科学上网,否则无法更新===="
-    wget -N ${selected_url}/$Firmware
-    wget -N ${url_file}/${update_file}
+    
+    # 使用增强版下载
+    if ! enhanced_download "${selected_url}/$Firmware" "$Firmware"; then
+        TIME r "固件下载失败"
+        return 1
+    fi
+    
+    if ! enhanced_download "${url_file}/${update_file}" "$update_file"; then
+        TIME r "更新脚本下载失败"
+        return 1
+    fi
+    
     TIME g "=============下载完成,解压中=============="
-    gzip -d *.img.gz && rm -f *.img.gz
+    if ! gzip -d *.img.gz; then
+        TIME r "解压失败"
+        return 1
+    fi
+    rm -f *.img.gz
+    
+    # 检查解压后的文件
+    if [ ! -f "$img" ]; then
+        TIME r "解压后的镜像文件不存在"
+        return 1
+    fi
+    
     TIME g "===========解压完成,开始升级固件==========="
     chmod 755 ${update_file}
+    
+    # 自动执行更新（去掉确认提示）
     bash ${update_file} $img
     TIME g "=============删除残留升级文件============="
     rm -rf update-*.sh openwrt_*
     exit 0
+}
+
+choose_firmware_version() {
+    local target_location=$1
+    TIME g "----------------------------------------"
+    TIME g "|****Please Enter Your Choice****|"
+    TIME g "---------------------------------------"
+    
+    PS3="请选择要更新的内核版本（输入序号）："
+    select ver in "${kernel_versions[@]}" "返回上级菜单"; do
+        case $ver in
+            "返回上级菜单") 
+                break 
+                ;;
+            "") 
+                TIME r "无效选择，请重新输入。" 
+                ;;
+            *)
+                update_firmware "$target_location" "$ver" "内核${ver}"
+                break
+                ;;
+        esac
+    done
 }
 
 openwrt() {
@@ -140,57 +284,11 @@ read -p "Please enter your choice[0-2]: " input
 case $input in
 1)
     clear
-    while [ "$flag" -eq 0 ]
-    do
-        TIME g "----------------------------------------"
-        TIME g "|****Please Enter Your Choice:[0-2]****|"
-        TIME g "---------------------------------------"
-        TIME w "(1) 更新至内核 ${version_61}  版本 到EMMC"
-        TIME y "(2) 更新至内核 ${version_66}  版本 到EMMC"
-        TIME l "(0) 返回上级菜单"
-
-        read -p "Please enter your choice[0-2]: " input1
-        case $input1 in 
-        1) update_firmware "EMMC" $version_61 "6.1内核" ;;
-        2) update_firmware "EMMC" $version_66 "6.6内核" ;;
-        0) clear; break ;;
-        *) 
-            TIME r "----------------------------------"
-            TIME r "|          Warning!!!            |"
-            TIME r "|       请输入正确的选项!        |"
-            TIME r "----------------------------------"
-            sleep 1
-            clear
-            ;;
-        esac
-    done
+    choose_firmware_version "EMMC"
     ;;
 2)
     clear
-    while [ "$flag" -eq 0 ]
-    do
-        TIME g "----------------------------------------"
-        TIME g "|****Please Enter Your Choice:[0-2]****|"
-        TIME g "----------------------------------------"
-        TIME w "(1) 更新至内核 ${version_61}  版本 到U盘"
-        TIME y "(2) 更新至内核 ${version_66}  版本 到U盘"
-        TIME l "(0) 返回上级菜单"
-
-        read -p "Please enter your Choice[0-2]: " input2
-        case $input2 in 
-        1) update_firmware "U盘" $version_61 "6.1内核" ;;
-        2) update_firmware "U盘" $version_66 "6.6内核" ;;
-        0) clear; break ;;
-        *) 
-            TIME r "----------------------------------"
-            TIME r "|          Warning!!!            |"
-            TIME r "|       请输入正确的选项!        |"
-            TIME r "----------------------------------"
-            sleep 1
-            clear
-            ;;
-        esac
-    done
+    choose_firmware_version "U盘"
     ;;
 0)
     clear
@@ -220,9 +318,18 @@ u_boot_url="https://github.com/kissyouhunter/Openwrt_X86-Openwrt_N1-Armbian_N1/r
 download_n1_kernel() {
     TIME w "开始下载内核文件。"
     mkdir -p ${download_path}
-    wget -N -O ${download_path}/${boot_file} ${url_kernel}/${kernel_number}/${boot_file}
-    wget -N -O ${download_path}/${modules_file} ${url_kernel}/${kernel_number}/${modules_file}
-    wget -N -O ${download_path}/${dtb_file} ${url_kernel}/${kernel_number}/${dtb_file}
+    
+    # 使用增强版下载
+    if ! enhanced_download "${url_kernel}/${kernel_number}/${boot_file}" "${download_path}/${boot_file}"; then
+        exit 1
+    fi
+    if ! enhanced_download "${url_kernel}/${kernel_number}/${modules_file}" "${download_path}/${modules_file}"; then
+        exit 1
+    fi
+    if ! enhanced_download "${url_kernel}/${kernel_number}/${dtb_file}" "${download_path}/${dtb_file}"; then
+        exit 1
+    fi
+    
     sync
     TIME g "内核文件下载完毕。"
 }
@@ -231,36 +338,19 @@ check_kernel() {
     TIME w "开始检查文件。"
     cd ${download_path}
 
-    # check boot file
-    local_boot_file_size=$(wc -c < "${boot_file}")
-    online_boot_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${boot_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
-    if [ "${local_boot_file_size}" == "${online_boot_file_size}" ]; then
-        TIME g "文件${boot_file}完整"
-    else
-        TIME r "文件${boot_file}不完整"
+    # 使用增强版文件检查
+    if ! enhanced_download_check "${download_path}/${boot_file}" "${url_kernel}/${kernel_number}/${boot_file}"; then
         exit 1
     fi
-
-    # check modules file
-    local_modules_file_size=$(wc -c < "${modules_file}")
-    online_modules_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${modules_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
-    if [ "${local_modules_file_size}" == "${online_modules_file_size}" ]; then
-        TIME g "文件${modules_file}完整"
-    else
-        TIME r "文件${modules_file}不完整"
+    if ! enhanced_download_check "${download_path}/${modules_file}" "${url_kernel}/${kernel_number}/${modules_file}"; then
         exit 1
     fi
-
-    # check dtb file
-    local_dtb_file_size=$(wc -c < "${dtb_file}")
-    online_dtb_file_size=$(wget --spider -S "${url_kernel}/${kernel_number}/${dtb_file}" 2>&1 | grep -v "Content-Length: 0" | grep Content-Length | grep -o '[0-9]\+')
-    if [ "${local_dtb_file_size}" == "${online_dtb_file_size}" ]; then
-        TIME g "文件${dtb_file}完整"
-    else
-        TIME r "文件${dtb_file}不完整"
+    if ! enhanced_download_check "${download_path}/${dtb_file}" "${url_kernel}/${kernel_number}/${dtb_file}"; then
         exit 1
     fi
+    
     sync && echo ""
+    TIME g "所有文件检查完成"
 }
 
 update_boot() {
@@ -305,7 +395,6 @@ update_modules() {
     TIME g "modules OJBK。"
 }
 
-# 5.4内核
 update_uboot54() {
     TIME w "开始更新uboot。"
     rm -f /boot/u-boot.ext
@@ -317,11 +406,16 @@ update_uboot54() {
     fi
 }
 
-# 5.10以上内核
 update_uboot510() {
     TIME w "开始更新uboot"
     cd ${download_path}
-    wget -N ${u_boot_url}
+    
+    # 使用增强版下载
+    if ! enhanced_download "${u_boot_url}" "${download_path}/u-boot.ext"; then
+        TIME r "u-boot下载失败"
+        exit 1
+    fi
+    
     rm -f /boot/u-boot.ext
     cp -f ${download_path}/u-boot.ext /boot/u-boot.ext && sync
     if [ -f "/boot/u-boot.ext" ]; then
@@ -332,7 +426,6 @@ update_uboot510() {
     fi
 }
 
-# 5.4内核
 update_release_file54() {
     TIME w "开始更新内核显示内容。"
     sed -i '/KERNEL_VERSION/d' /etc/flippy-openwrt-release
@@ -344,7 +437,6 @@ update_release_file54() {
     TIME g "内核显示内容更新完毕。"
 }
 
-# 5.10以上内核
 update_release_file510() {
     TIME w "开始更新内核显示内容。"
     sed -i '/KERNEL_VERSION/d' /etc/flippy-openwrt-release
@@ -356,7 +448,6 @@ update_release_file510() {
     TIME g "内核显示内容更新完毕。"
 }
 
-# 内核更新函数
 update_kernel() {
     local version=$1
     local is_54_kernel=$2
@@ -384,6 +475,8 @@ update_kernel() {
     fi
     
     TIME g ">>>>>>>>>>>内核 ${version} 更新完毕，准备重启中。"
+    
+    # 自动重启（去掉确认提示）
     sleep 3
     reboot
     exit 0
@@ -394,26 +487,25 @@ TIME g "       欢迎使用N1——openwrt更新脚本"
 TIME g "============================================"
 
 TIME g "----------------------------------------"
-TIME g "|****Please Enter Your Choice:[0-2]****|"
+TIME g "|****Please Enter Your Choice****|"
 TIME g "---------------------------------------"
-TIME w "(1) 更新至内核 ${version_61}"
-TIME y "(2) 更新至内核 ${version_66}"
-TIME l "(0) 返回上级菜单"
 
-read -p "Please enter your choice[0-2]: " input
-case $input in
-1) update_kernel $version_61 "false" ;;
-2) update_kernel $version_66 "false" ;;
-0) clear; break ;;
-*)  
-    TIME r "----------------------------------"
-    TIME r "|          Warning!!!            |"
-    TIME r "|       请输入正确的选项!        |"
-    TIME r "----------------------------------"
-    sleep 1
-    clear
-    ;;
-esac
+PS3="请选择要更新的内核版本（输入序号）："
+select ver in "${kernel_versions[@]}" "返回上级菜单"; do
+    case $ver in
+        "返回上级菜单") 
+            break 
+            ;;
+        "") 
+            TIME r "无效选择，请重新输入。" 
+            ;;
+        *)
+            update_kernel "$ver" "false"
+            break
+            ;;
+    esac
+done
+
 done
 }
 
